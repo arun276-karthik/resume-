@@ -164,33 +164,6 @@ public class ProjectDAOImpl implements ProjectDAO {
 	}
 
 	/**
-	 * To get the project Id list to display for employee 
-	 * while entering details
-	 * 
-	 * @return               projectId list
-	 * @throws SQLException  to suppress sqlException
-	 */
-	/*@Override
-	/*public List<Project> showAvailableProjectId() throws SQLException {
-		List<Project> project = null;
-		Session session = DBConnection.getSessionFactory().openSession();
-		Transaction transaction = null;
-
-		try {
-			transaction = session.beginTransaction();
-			project = session.createQuery("SELECT Project.projecId FROM Project").list(); 
-			transaction.commit();
-		} catch (HibernateException e) {
-			if (null != transaction) 
-				transaction.rollback();
-			e.printStackTrace(); 
-		} finally {
-			session.close(); 
-			return project;
-		}	      
-	}*/
-	
-	/**
 	 * @param project  projectId 
 	 */
 	@Override

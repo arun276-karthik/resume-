@@ -6,8 +6,10 @@ package com.ideas2it.employeeProjectManagement.project.service;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.ideas2it.employeeProjectManagement.project.dao.ProjectDAO;
 import com.ideas2it.employeeProjectManagement.project.dao.ProjectDAOImpl;
@@ -52,17 +54,16 @@ public class ProjectServiceImpl implements ProjectService{
 	 * @return projectDetailsList  the list of projectIds
 	 */
 	@Override
-	public List<LinkedHashMap<Integer, Integer>> availableProjects() throws SQLException {
-		List<LinkedHashMap<Integer, Integer>> projectDetailsList = new ArrayList<LinkedHashMap<Integer, Integer>>();
-		int projectCount = 1;
+	public List<Set<Integer>> availableProjects() throws SQLException {
+		List<Set<Integer>> projectsList = new ArrayList<Set<Integer>>();
 		List<Project> projectList = projectDAO.viewProjectList();
 		for (Project project : projectList) {
-			LinkedHashMap<Integer, Integer> projectData= new LinkedHashMap<Integer, Integer>();
-			projectData.put(project.getProjectId(), projectCount);
-			projectDetailsList.add(projectData);
-			projectCount++;
+			Set<Integer> projectId = new LinkedHashSet<Integer>();
+			projectId.add(project.getProjectId());
+			projectsList.add(projectId);
 		}
-		return projectDetailsList;
+		
+		return projectsList;
 	}
 			
 	

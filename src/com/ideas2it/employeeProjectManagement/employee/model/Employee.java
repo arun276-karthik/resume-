@@ -117,8 +117,8 @@ public class Employee {
 
 	public void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
-	}
-	
+	}	
+
 	public List<Address> getAddress() {
 		return address;
 	}
@@ -126,7 +126,7 @@ public class Employee {
 	public void setAddress(List<Address> address) {
 		this.address = address;
 	}
-	
+
 	public List<Project> getProject() {
 		return project;
 	}
@@ -134,8 +134,7 @@ public class Employee {
 	public void setProject(List<Project> project) {
 		this.project = project;
 	}
-	
-	
+
 	public String toString() {
 		return(firstName + " " + secondName + " " + designation + " " + salary + 
 				" " + emailId + " " + dateOfBirth + " " + phoneNumber);

@@ -5,10 +5,10 @@ package com.ideas2it.employeeProjectManagement.employee.view;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 import com.ideas2it.employeeProjectManagement.employee.controller.EmployeeController;
 import com.ideas2it.employeeProjectManagement.util.Util;
@@ -52,8 +52,8 @@ public class EmployeeView {
 			int selectMenu = 0;
 			String employeeMenu = "Employee Management \n1.Register  Employee \n"
 					+ "2.Update Employee \n3.Delete Employee \n4.View Employee \n"
-					+ "5.View All Employee \n6.Exit"; 
-			while (6 != selectMenu) {
+					+ "5.View All Employee \n6.Project Assign \n7.Exit"; 
+			while (7 != selectMenu) {
 				System.out.println(employeeMenu);
 				System.out.println("Select your option");
 				selectMenu = scanner.nextInt();
@@ -74,6 +74,9 @@ public class EmployeeView {
 					viewEmployeeList();
 					break;
 				case 6:
+					projectAssign();
+					break;
+				case 7:					
 					System.out.println("Thank you");
 					break;
 				default:
@@ -103,23 +106,12 @@ public class EmployeeView {
 
 				// Method to enter the employee address
 				employeeAddressDetails();
-				
-				availableProjects();
 
 				int employeeId = employeeController.createEmployeeDetails(firstName, secondName, designation, salary,
 						emailId, dateOfBirth, phoneNumber, streetAddress, state, city, postalCode, currentStreetAddress,
 						currentState, currentCity, currentPostalCode);
-
-				// Method to enter the projects in which employee work
-				projectAssign();
-				System.out.println("Your employeeId is " + employeeId);
-				boolean projectAssign = employeeController.isProjectAssign(employeeId, employeeProjects);
-				if (projectAssign) {
-					System.out.println("Project has been successfully assigned for employeeId " + employeeId);
-				} else {
-					System.out.println("Error in Assigning project");
-				}
-				System.out.println("press 1 to add another Employee  or  anynumber to skip ");
+				System.out.println("Your employeeId is " + employeeId 
+						+ "\n press 1 to add another Employee  or  anynumber to skip ");
 				pressToAddDetails = scanner.nextInt();
 			} while (1 == pressToAddDetails);
 		} catch (SQLException exception) {
@@ -169,20 +161,32 @@ public class EmployeeView {
 	 * @throws SQLException
 	 */
 	private void projectAssign() throws SQLException {
-		Scanner scanner = new Scanner(System.in);
-		int pressToAddProject = 0;
-		employeeProjects = new ArrayList<Integer>();
-		/*List<Integer> projectIdList = employeeController.showAvailableProjectId();
-		for (Integer projectIds : projectIdList) {
-			System.out.println(projectIds);
-		}*/
-		do {
-			System.out.println("Enter your  Project Id");
-			int employeeProjectId = scanner.nextInt();
-			employeeProjects.add(employeeProjectId);
-			System.out.println("press 1 to add another projectId");
-			pressToAddProject = scanner.nextInt();
-		} while (1 == pressToAddProject);
+		try {
+			Scanner scanner = new Scanner(System.in);
+			System.out.println("Enter employee Id to assign project");
+			int employeeIdInProject = scanner.nextInt();
+			int pressToAddProject = 0;
+			employeeProjects = new ArrayList<Integer>();
+
+			//List the available projects 
+			availableProjects();
+
+			do {
+				System.out.println("Enter your  Project Id");
+				int employeeProjectId = scanner.nextInt();
+				employeeProjects.add(employeeProjectId);
+				System.out.println("press 1 to add another projectId");
+				pressToAddProject = scanner.nextInt();
+			} while (1 == pressToAddProject);
+			if (employeeController.isProjectAssign(employeeIdInProject, employeeProjects)) {
+				System.out.println("Project has been successfully assigned for employeeId " + employeeIdInProject);
+			} else {
+				System.out.println("Error in Assigning project");
+			}
+		} catch (SQLException e) {
+			System.out.println("Try later");
+			employeeMenu();
+		}
 	}
 
 	/**
@@ -191,11 +195,14 @@ public class EmployeeView {
 	 * @throws SQLException 
 	 */
 	private void availableProjects() throws SQLException {
-		List<LinkedHashMap<Integer, Integer>> employeeDetailsList = employeeController.availableProjects();
-		for (LinkedHashMap<Integer, Integer> employee : employeeDetailsList) {
-			for (Map.Entry<Integer, Integer> entry : employee.entrySet())  
-	        System.out.println(entry.getKey());
-			//System.out.println(employee);
+		try {
+			List<Set<Integer>> availableProjectList = employeeController.availableProjects();
+			for (Set<Integer> employee : availableProjectList) {
+				System.out.println(employee);
+			}
+		} catch (SQLException e) {
+			System.out.println("Try later");
+			employeeMenu();
 		}
 	}
 
@@ -274,8 +281,8 @@ public class EmployeeView {
 	 */
 	private void viewEmployeeList() throws SQLException {
 		try {
-			ArrayList<LinkedHashMap<String, Object>> employeeDetailsList = employeeController.viewEmployeeList();
-			for (LinkedHashMap<String, Object> employee : employeeDetailsList) {
+			List<Map<String, Object>> employeeDetailsList = employeeController.viewEmployeeList();
+			for (Map<String, Object> employee : employeeDetailsList) {
 				if (0 != employeeDetailsList.size()) {
 					System.out.println(employee);
 				} else {
@@ -298,11 +305,11 @@ public class EmployeeView {
 			Scanner scanner = new Scanner(System.in);
 			System.out.println("Enter the Employee id to view details");
 			int employeeId = scanner.nextInt();
-			ArrayList<LinkedHashMap<String, Object>> employeeDetails = employeeController
+			List<Map<String, Object>> employeeDetails = employeeController
 					.viewEmployeeDetails(employeeId);
 			if (null != employeeDetails) {
 				System.out.println("Employee Details for  id:" + employeeId);
-				for (LinkedHashMap<String, Object> employee : employeeDetails) {
+				for (Map<String, Object> employee : employeeDetails) {
 					System.out.println(employee);
 				}
 			} else {
@@ -329,33 +336,10 @@ public class EmployeeView {
 			} else {
 				System.out.println("Invalid Employee id");
 			}
-			/*System.out.println("Press 1 to remove project or any to skip "
-					+ "\n Enter the Project Id to remove");
-			while (1 == scanner.nextInt()) {
-				do {
-					int removeProject = scanner.nextInt();
-					System.out.println("Press 1 to remove anothe project Id or any to skip");
-					employeeProjects.add(removeProject);
-				} while (1 == scanner.nextInt());
-				employeeController.isProjectRemove(employeeId, employeeProjects);
-			}*/
 		} catch (SQLException exception) {
 			employeeMenu();
 		}
 	}
-
-	/**
-	 * To check Id is an integer pass Id as argument
-	 * 
-	 * @param employeeid check id is valid
-	 * @return id if it is valid
-	 */
-	/*
-	 * public String checkValidEmployeeId(String employeeId) { if
-	 * (!Util.isValidId(employeeId)) {
-	 * System.out.println("please enter the valid id number"); return null; } return
-	 * employeeId; }
-	 */
 
 	/**
 	 * To check the input firstName is character
@@ -412,86 +396,4 @@ public class EmployeeView {
 		}
 		return emailId;
 	}
-
-	/**
-	 * To update the details of an employee by id.
-	 */
-	/*
-	 * public void updateEmployeeDetails() { Scanner scanner = new
-	 * Scanner(System.in); System.out.println("Enter the employeeid to update");
-	 * String id = scanner.next(); boolean isAgain = false; do { isAgain = false;
-	 * System.out.println("Enter which one to update");
-	 * System.out.println("1.role \n2.Address \n3.Salary" + "\n4.Exit"); int
-	 * selectMenu = scanner.nextInt(); switch (selectMenu) { case 1:
-	 * updateEmployeeDesignation(id); break; case 2: updateEmployeeAddress(id);
-	 * break; case 3: updateEmployeeSalary(id); break; case 4:
-	 * System.out.println("Thank YOU"); isAgain = false; break; default :
-	 * System.out.println("Invalid key \n\t Please choose again"); isAgain = true;
-	 * break; } } while (isAgain); }
-	 */
-
-	/**
-	 * updating Designation of an employee. If not updated check your employee id
-	 * 
-	 * @param id employee id to update the Designation for this id
-	 */
-	/*
-	 * public void updateEmployeeDesignation(String id) { Scanner scanner = new
-	 * Scanner(System.in); System.out.println("Enter the employee Role to update");
-	 * String newDesignation = scanner.next(); if
-	 * (!Util.isValidChar(newDesignation)) {
-	 * System.out.println("Enter a valid Designation"); } else { if
-	 * (employeeController.isDesignationUpdate(id, newDesignation)) {
-	 * System.out.println("Designation has been updated"); } else {
-	 * System.out.println("Designation has not been updated " +
-	 * "\t Entered Id not exists"); } } }
-	 */
-
-	/**
-	 * To update Salary for an valid id If not updated check your employee id
-	 *
-	 * @param id employee id to update the salary for this id
-	 */
-	/*
-	 * public void updateEmployeeSalary(String id) { Scanner scanner = new
-	 * Scanner(System.in);
-	 * System.out.println("Enter the employee Salary to update"); String newSalary =
-	 * scanner.next(); if (employeeController.isSalaryUpdate(id, newSalary)) {
-	 * System.out.println("Salary has been updated"); } else {
-	 * System.out.println("Salary has not been updated \t Entered Id not exists"); }
-	 * }
-	 */
-
-	/**
-	 * To update Address for an valid id If not updated check your employee id
-	 * 
-	 * @param id employee id to update the address for this id
-	 */
-	/*
-	 * public void updateEmployeeAddress(String id) { Scanner scanner = new
-	 * Scanner(System.in); //Enter permanent Address of an employee
-	 * System.out.println("Enter permanent Address ");
-	 * System.out.println("Enter the streetAddress"); String streetAddress =
-	 * scanner.nextLine(); System.out.println("Enter the State"); String state =
-	 * scanner.nextLine(); System.out.println("Enter the City"); String city =
-	 * scanner.nextLine(); System.out.println("Enter the PostalAddress"); Long
-	 * postalCode = scanner.nextLong();
-	 * 
-	 * //Enter current Address of an employee
-	 * System.out.println("Enter Current Address ");
-	 * System.out.println("Enter the current streetAddress"); String
-	 * currentStreetAddress = scanner.nextLine();
-	 * System.out.println("Enter the current State"); String currentState =
-	 * scanner.nextLine(); System.out.println("Enter the current City"); String
-	 * currentCity = scanner.nextLine();
-	 * System.out.println("Enter the currrent PostalAddress"); Long
-	 * currentPostalCode = scanner.nextLong();
-	 * 
-	 * if (employeeController.isAddressUpdate(id, streetAddress, state, city,
-	 * postalCode, currentStreetAddress, currentState, currentCity,
-	 * currentPostalCode)) { System.out.println("Address has been updated"); } else
-	 * {
-	 * System.out.println("Address has not been updated \t Entered Id not exists");
-	 * } }
-	 */
 }

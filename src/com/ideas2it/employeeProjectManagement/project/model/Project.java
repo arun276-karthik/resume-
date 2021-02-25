@@ -13,7 +13,7 @@ import java.util.List;
  * @version 1.0
  */
 public class Project {
-	
+
 	private int projectId;
 	private String projectName;
 	private String projectDueDate;
@@ -24,14 +24,14 @@ public class Project {
 	public Project() {
 	}
 
-    /**
-     * parametrised constructor
-     * 
-     * @param   projectId              project id
+	/**
+	 * parametrised constructor
+	 * 
+	 * @param   projectId              project id
 	 * @param   projectName            Project name
 	 * @param   projectDueDate  	   How long to complete project
 	 * @param   projectManager 		   manager of a project
-     */
+	 */
 	public Project(String projectName, String projectDueDate, String projectManager) {
 		this.projectName = projectName;
 		this.projectDueDate = projectDueDate;
@@ -69,7 +69,7 @@ public class Project {
 	public void setProjectManager(String projectManager) {
 		this.projectManager = projectManager;
 	}
-	
+
 	public List<Employee> getEmployee() {
 		return employee;
 	}

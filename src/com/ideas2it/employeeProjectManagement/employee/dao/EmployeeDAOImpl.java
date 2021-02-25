@@ -12,7 +12,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.ideas2it.employeeProjectManagement.DataBaseConnection.DBConnection;
-import com.ideas2it.employeeProjectManagement.employee.model.Address;
 import com.ideas2it.employeeProjectManagement.employee.model.Employee;
 
 /**
@@ -76,7 +75,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			e.printStackTrace(); 
 		} finally {
 			session.close(); 
-}
+		}
 		return false;
 	}
 
@@ -126,7 +125,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		Employee employee = null;
 		Session session = DBConnection.getSessionFactory().openSession();
 		Transaction transaction = null;
-		
+
 		try {
 			transaction = session.beginTransaction();
 			employee = (Employee)session.get(Employee.class, employeeId);
@@ -137,7 +136,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			e.printStackTrace(); 
 		} finally {
 			session.close(); 
-return employee;
+			return employee;
 		}  
 	}	
 
@@ -157,10 +156,6 @@ return employee;
 			transaction = session.beginTransaction();
 			employees = session.createQuery("FROM Employee").list(); 
 			transaction.commit();
-			/*for (Employee employee : employees) {
-				System.out.println(employee.getAddress());
-				System.out.println("Arun");
-			}*/
 		} catch (HibernateException e) {
 			if (null != transaction) 
 				transaction.rollback();
@@ -170,7 +165,7 @@ return employee;
 			return employees;
 		}	      
 	}
-	
+
 	/**
 	 * This method assigns the projects to employeeId an send the boolean 
 	 * 
@@ -198,7 +193,7 @@ return employee;
 		}		
 		return false;
 	}
-	
+
 	/**
 	 * This method removes the project for employeeId
 	 * 
@@ -226,29 +221,4 @@ return employee;
 		}
 		return false;
 	}
-	
-	/**
-	 * 
-	 * @param projectId      employees in this project
-	 * @return               employeeId working in project
-	 * @throws SQLException  to suppressSQLException
-	 */
-	/*public Employee viewEmployeesInProject(int projectId) throws SQLException {
-		Session session = DBConnection.getSessionFactory().openSession();
-		Transaction transaction = null;
-		Employee employee = null; 
-
-		try {
-			transaction = session.beginTransaction();
-			employee = (Employee)session.get(Employee.class, projectId);  
-			transaction.commit();
-		} catch (HibernateException e) {
-			if (null != transaction) 
-				transaction.rollback();
-			e.printStackTrace(); 
-		} finally {
-			session.close(); 
-			return employee; 
-		}
-	}*/
 }

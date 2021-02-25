@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.ideas2it.employeeProjectManagement.project.model.Project;
 
@@ -79,7 +80,7 @@ public interface ProjectService {
 	 * @return              projectId lists
 	 * @throws SQLException to suppress SQLException
 	 */
-	public List<LinkedHashMap<Integer, Integer>> availableProjects() 
+	public List<Set<Integer>> availableProjects() 
 			throws SQLException;
 	
 	/**

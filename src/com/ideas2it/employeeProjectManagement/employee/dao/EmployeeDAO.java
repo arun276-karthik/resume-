@@ -89,14 +89,4 @@ public interface EmployeeDAO {
 	 */
 	public boolean isProjectRemove(Employee employee)
 			throws SQLException;
-	
-	/**
-	 * Interface to get employees in  project 
-	 *  
-	 * @param projectId      to get employee in project
-	 * @return               employees 
-	 * @throws SQLException  to suppress SQLException
-	 */
-	/*public LinkedHashMap<String, Integer> viewEmployeesInProject(int projectId)
-			throws SQLException;*/
 } 

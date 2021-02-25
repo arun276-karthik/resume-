@@ -14,11 +14,11 @@
 			column="project_name"></property>
 		<property name="projectDueDate" column="project_due_date"></property>
 		<property name="projectManager" column="project_manager"></property>
-		<list name="employee" cascade="all" table="project_assigns">
+		<bag name="employee" cascade="all" table="project_assigns">
 			<key column="project_id" />
-			<list-index column="indX"/>
 			<many-to-many
-				class="com.ideas2it.employeeProjectManagement.employee.model.Employee" column="employee_id"/>
-		</list>
+				class="com.ideas2it.employeeProjectManagement.employee.model.Employee"
+				column="employee_id" />
+		</bag>
 	</class>
 </hibernate-mapping>

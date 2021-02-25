@@ -38,16 +38,6 @@ public class ProjectController {
 	}
 
 	/**
-	 * To check the given Project ID is already exist.
-	 * 
-	 * @param id to check the project id already exists
-	 * @return   returns the boolean value.
-	 */
-	/*public boolean isProjectIdExist(String id) {
-		return projectService.isProjectIdExist(id);
-	}*/
-
-	/**
 	 * To update project details 
 	 *  
 	 * @param projectId       project Id 
@@ -93,57 +83,4 @@ public class ProjectController {
 	public Map<String, Object> viewProjectDetails(int projectId) throws SQLException {
 		return projectService.viewProjectDetails(projectId);
 	}
-	
-	/**
-	 * To get the projectIds List
-	 * @return              projectId lists
-	 * @throws SQLException to suppress SQLException
-	 */
-	/*public List<Map<Integer, Integer>> showAvailableProjectId() throws SQLException {
-		return projectService.showAvailableProjectId();
-	}*/
-	
-	/**
-	 * To get employees in  project 
-	 *  
-	 * @param projectId      to get employee in project
-	 * @return               employees 
-	 * @throws SQLException  to suppress SQLException
-	 */
-	/*public LinkedHashMap<String, Integer> viewEmployeesInProject(int projectId) throws SQLException {
-		return projectService.viewEmployeesInProject(projectId);
-	}*/
-	
-	/**
-	 * Update Project name
-	 * 
-	 * @param id              enter project id to update project name
-	 * @param newProjectName  enter the new project name  
-	 * @return                boolean whether updated or not
-	 */
-	/*public boolean isProjectNameUpdate(String id, String newProjectName) {
-		return projectService.isProjectNameUpdate(id, newProjectName);
-	}*/
-
-	/**
-	 * Update Work DueDate for an Project.
-	 * 
-	 * @param id          enter the id to update due date 
-	 * @param newDueDate  enter the duedate to update
-	 * @return            boolean whether updated or not.
-	 */
-	/*public boolean isProjectDueUpdate(String id, String newDueDate) {
-		return projectService.isProjectDueUpdate(id, newDueDate);
-	}*/
-
-	/**
-	 * Update Manager of an Project.
-	 * 
-	 * @param id          update manager of an project for this id
-	 * @param newManager  enter the manager name to update
-	 * @return            boolean whether updated or not.
-	 */
-	/*public boolean isManagerUpdate(String id, String newManager) {
-		return projectService.isManagerUpdate(id, newManager);
-	}*/ 
 }

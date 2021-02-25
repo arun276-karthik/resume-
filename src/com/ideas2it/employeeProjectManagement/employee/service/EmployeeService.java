@@ -1,12 +1,12 @@
 /**
- * 
+ * Employee Service Interface to hide the definition of the method
  */
 package com.ideas2it.employeeProjectManagement.employee.service;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Admin
@@ -20,7 +20,7 @@ public interface EmployeeService {
 	 * @return employeeList  the Employee details list
 	 * @throws SQLException 
 	 */
-	public ArrayList<LinkedHashMap<String, Object>> viewEmployeeList() 
+	public List<Map<String, Object>> viewEmployeeList() 
 			throws SQLException;
 
 	/**
@@ -95,7 +95,7 @@ public interface EmployeeService {
 	 * @return EmployeeDetails        returns the employee details for an id 
 	 * @throws SQLException 
 	 */
-	public ArrayList<LinkedHashMap<String,Object>> viewEmployeeDetails(int employeeId)
+	public List<Map<String, Object>> viewEmployeeDetails(int employeeId)
 			throws SQLException;
 
 	/**
@@ -110,31 +110,10 @@ public interface EmployeeService {
 			throws SQLException;
 
 	/**
-	 * This method removes the project for employeeId
-	 * 
-	 * @param employeeId        employeeId 
-	 * @param removeProject     project to remove
-	 * @return                  boolean
-	 * @throws SQLException     to suppress SQLException
-	 */
-	/*public boolean isProjectRemove(int employeeId, List<Integer> employeeProjects) 
-			throws SQLException;*/
-	
-	/**
-	 * Interface to get employees in  project 
-	 *  
-	 * @param projectId      to get employee in project
-	 * @return               employees 
-	 * @throws SQLException  to suppress SQLException
-	 */
-	/*public LinkedHashMap<String, Integer> viewEmployeesInProject(int projectId)
-			throws SQLException;*/
-	
-	/**
 	 * To get the projectIds List
 	 * @return              projectId lists
 	 * @throws SQLException to suppress SQLException
 	 */
-	public List<LinkedHashMap<Integer, Integer>> availableProjects() 
+	public List<Set<Integer>> availableProjects() 
 			throws SQLException;
 }

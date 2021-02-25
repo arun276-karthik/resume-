@@ -95,7 +95,7 @@ public class Address {
 	public void setAddressType(String addressType) {
 		this.addressType = addressType;
 	}
-	
+
 	public Employee getEmployee() {
 		return employee;
 	}

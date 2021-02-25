@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.ideas2it.employeeProjectManagement.employee.dao.EmployeeDAO;
 import com.ideas2it.employeeProjectManagement.employee.dao.EmployeeDAOImpl;
@@ -27,10 +29,9 @@ import com.ideas2it.employeeProjectManagement.project.service.ProjectService;
 public class EmployeeServiceImpl implements EmployeeService {
 
 	ArrayList<Employee> employeeList = new ArrayList<Employee>();
-	AddressService addressService = new AddressServiceImpl();
 	EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 	ProjectService projectService = new ProjectServiceImpl();
-	
+
 
 	/**
 	 * To view all Employee details list
@@ -39,13 +40,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 * @throws SQLException 
 	 */
 	@Override
-	public ArrayList<LinkedHashMap<String, Object>> viewEmployeeList() throws SQLException {
-		ArrayList<LinkedHashMap<String,Object>> employeeDetailsList =
-				new ArrayList<LinkedHashMap<String,Object>>();		
+	public List<Map<String, Object>> viewEmployeeList() throws SQLException {
+		List<Map<String,Object>> employeeDetailsList =
+				new ArrayList<Map<String,Object>>();		
 		List<Employee> employeeList = employeeDAO.viewEmployeeList();	
-		List<Address> addressDetailsList = addressService.viewAddressList();
 		for (Employee employee : employeeList) {	
-			LinkedHashMap<String, Object> employeeDetails= new LinkedHashMap<String, Object>();
+			Map<String, Object> employeeDetails= new LinkedHashMap<String, Object>();
 			employeeDetails.put("id", employee.getEmployeeId());
 			employeeDetails.put("firstName", employee.getFirstName());
 			employeeDetails.put("secondName", employee.getSecondName());
@@ -54,17 +54,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employeeDetails.put("emailId", employee.getEmailId());
 			employeeDetails.put("age", employee.getDateOfBirth());
 			employeeDetails.put("phoneNumber", employee.getPhoneNumber());
-			employeeDetailsList.add(employeeDetails);		
+			employeeDetailsList.add(employeeDetails);
+			List<Address> addressDetailsList = employee.getAddress();
 			for (Address address : addressDetailsList) {
-				if (employee.getEmployeeId() == address.getEmployeeId()) {
-					LinkedHashMap<String, Object> employeeAddress = new LinkedHashMap<String, Object>();
-					employeeAddress.put("employeeId", address.getEmployeeId());
-					employeeAddress.put("streetAddress", address.getStreetAddress());
-					employeeAddress.put("state", address.getState());
-					employeeAddress.put("city", address.getCity());
-					employeeAddress.put("postalCode", address.getPostalCode());
-					employeeDetailsList.add(employeeAddress);
-				}
+				Map<String, Object> employeeAddress = new LinkedHashMap<String, Object>();
+				employeeAddress.put("employeeId", address.getEmployeeId());
+				employeeAddress.put("streetAddress", address.getStreetAddress());
+				employeeAddress.put("state", address.getState());
+				employeeAddress.put("city", address.getCity());
+				employeeAddress.put("postalCode", address.getPostalCode());
+				employeeDetailsList.add(employeeAddress);
 			}
 		} 
 		return employeeDetailsList;		
@@ -73,7 +72,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	/**
 	 * Add the employee details and address details
-	 * checking the employee id is already present or not
+	 * and getting the employee Id for the employee
 	 * 
 	 * @param firstName 	         employee first name
 	 * @param secondName	         employee second name
@@ -100,37 +99,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 			String currentState, String currentCity, String currentPostalCode) throws SQLException {		
 		Employee employee= new Employee(firstName, secondName,
 				designation, salary, emailId, dateOfBirth, phoneNumber);
-		int employeeId = 0;
-		Address address = new Address(streetAddress, state,
+		Address permanentAddress = new Address(streetAddress, state,
 				city, postalCode);
+		Address currentAddress = new Address(currentStreetAddress, currentState,
+				currentCity, currentPostalCode);
 		List<Address> addressList = new ArrayList<Address>();
-		addressList.add(address);
+		addressList.add(permanentAddress);
+		addressList.add(currentAddress);
 		employee.setAddress(addressList);
-		employeeId = employeeDAO.createEmployeeDetails(employee);
+		int employeeId = employeeDAO.createEmployeeDetails(employee);
 		/*addressService.createAddressDetails(employeeId, streetAddress, state,
 				city, postalCode, currentStreetAddress, 
 				currentState, currentCity, currentPostalCode);*/
 		return employeeId;
 	}
-
-	/**
-	 * boolean operation to check id exist or not
-	 * 
-	 * @param employeeId  to check that id already exist 
-	 * @return    boolean 
-	 */
-	/*public boolean isEmployeeIdExist(String employeeId) {
-		if (null != employeeList && !employeeList.isEmpty()) {
-			for (Employee employee : employeeList) {
-				if (employeeId.equals(employee.getEmployeeId())) {
-					return true;
-				} else {
-					return false;
-				}
-			}
-		} 
-		return false;
-	}*/
 
 	/**
 	 * To delete employee details by id.
@@ -181,36 +163,31 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employee.setEmailId(emailId);
 		employee.setDateOfBirth(dateOfBirth);
 		employee.setPhoneNumber(phoneNumber);
-		boolean isAddressUpdate = addressService.isUpdateAddressDetails(employeeId, streetAddress, state,
-				city, postalCode, currentStreetAddress, 
-				currentState, currentCity, currentPostalCode);
+
+		Address permanentAddress = new Address();
+		Address currentAddress = new Address();
+		permanentAddress.setStreetAddress(streetAddress);
+		permanentAddress.setState(state);
+		permanentAddress.setCity(city);
+		permanentAddress.setPostalCode(postalCode);
+		currentAddress.setStreetAddress(currentStreetAddress);
+		currentAddress.setState(currentState);
+		currentAddress.setCity(currentCity);
+		currentAddress.setPostalCode(currentPostalCode);
+		List<Address> addressList = new ArrayList<Address>();
+		addressList.add(permanentAddress);
+		addressList.add(currentAddress);
+
+		employee.setAddress(addressList);
 		boolean isEmployeeUpdate = employeeDAO.isUpdateEmployeeDetails(employee);	
-		if (true == isAddressUpdate  && true == isEmployeeUpdate) {
-			return true;
-		}
-		return false;
+		return (true == isEmployeeUpdate) ? true : false;
 	}
 
-	/**
-	 * To get the employee details by providing id
-	 * 
-	 * @param employeeId  get employee details for an id
-	 * @return    boolean
-	 */
-	/*public Employee getEmployeeById(String employeeId) {
-		for (Employee employee : employeeList) {
-	 * To view the employee details by providing id
-	 * 
-	 * @param employeeId              view a employee details list by providing id              
-	 * @return EmployeeDetails        returns the employee details for an id 
-	 * @throws SQLException 
-	 */
-
 	@Override
-	public ArrayList<LinkedHashMap<String,Object>> viewEmployeeDetails(int employeeId) throws SQLException {		
-		ArrayList<LinkedHashMap<String,Object>> employeeDetails =
-				new ArrayList<LinkedHashMap<String,Object>>();
-		LinkedHashMap<String,Object> employeeData = new LinkedHashMap<String,Object>();
+	public List<Map<String,Object>> viewEmployeeDetails(int employeeId) throws SQLException {		
+		ArrayList<Map<String,Object>> employeeDetails =
+				new ArrayList<Map<String,Object>>();
+		Map<String,Object> employeeData = new LinkedHashMap<String,Object>();
 		Employee employee = employeeDAO.viewEmployeeDetails(employeeId);
 		employeeData.put("id", employee.getEmployeeId());
 		employeeData.put("firstName", employee.getFirstName());
@@ -221,9 +198,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employeeData.put("age", employee.getDateOfBirth());
 		employeeData.put("phoneNumber", employee.getPhoneNumber());
 		employeeDetails.add(employeeData);
-		List<Address> addressDetails = addressService.viewAddressDetails(employeeId);
+		List<Address> addressDetails = employee.getAddress();
 		for ( Address address : addressDetails) {
-			LinkedHashMap<String,Object> employeeaddress = new LinkedHashMap<String,Object>();
+			Map<String,Object> employeeaddress = new LinkedHashMap<String,Object>();
 			employeeaddress.put("streetAddress", address.getStreetAddress());
 			employeeaddress.put("state", address.getState());
 			employeeaddress.put("city", address.getCity());
@@ -243,121 +220,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 */
 	public boolean isProjectAssign(int employeeId, List<Integer> employeeProjects) throws SQLException {
 		Employee employee = employeeDAO.viewEmployeeDetails(employeeId);
-		//List<Project> employeeProjectList = new ArrayList<Project>();
-		List<Project> employeeProjectDetailsList  = projectService.employeeProjectDetails(employeeProjects);
-		List<Address> addressDetails = addressService.viewAddressDetails(employeeId);
-		/*for (Project projectId : employeeProjectDetailsList) {
-			employeeProjectList.add(projectId.getProjectId());
-			
-		}*/
-		employee.setAddress(addressDetails);
-		employee.setProject(employeeProjectDetailsList);		
+		List<Project> employeeProjectList  = projectService.employeeProjectDetails(employeeProjects);
+		employee.setProject(employeeProjectList);		
 		return employeeDAO.isProjectAssign(employee);
 	}
-
-	/**
-	 * This method removes the project for employeeId
-	 * 
-	 * @param employeeId        employeeId 
-	 * @param removeProject     project to remove
-	 * @return                  boolean
-	 * @throws SQLException     to suppress SQLException
-	 */
-	/*public boolean isProjectRemove(int employeeId, List<Integer> employeeProjects) throws SQLException {
-		Employee employee = new Employee();
-		List<Project> employeeProjectList  = new ArrayList<Project>();
-		for (Integer project : employeeProjects) {
-			Project projects = new Project();
-			employeeProjectList.add(projects);			
-		}
-		employee.setProject(employeeProjectList);		
-		employee.setEmployeeId(employeeId);
-		return employeeDAO.isProjectRemove(employee);
-	}*/
-
-	/**
-	 * To get employees in  project 
-	 *  
-	 * @param projectId      to get employee in project
-	 * @return               employees 
-	 * @throws SQLException  to suppress SQLException
-	 */
-	/*public LinkedHashMap<String, Integer> viewEmployeesInProject(int projectId) throws SQLException {
-		return projectAssignDAO.viewEmployeesInProject(projectId);
-	}*/
 
 	/**
 	 * To get the projectIds List
 	 * @return              projectId lists
 	 * @throws SQLException to suppress SQLException
 	 */
-	public List<LinkedHashMap<Integer, Integer>> availableProjects() throws SQLException {
+	public List<Set<Integer>> availableProjects() throws SQLException {
 		return projectService.availableProjects();
 	}
-
-	/**
-	 * To update Designation of an employee
-	 * 
-	 * @param employeeId      to update designation for this id
-	 * @param newDesignation  enter the new designation
-	 * @return                boolean
-	 */
-	/*public boolean isDesignationUpdate(String employeeId, String newDesignation) {		
-		Employee employee = getEmployeeById(employeeId);
-		if (null != employee) {
-			employee.setDesignation(newDesignation);
-			return true;
-		} else {
-			return false;
-		}
-	}*/
-
-	/**
-	 * To update Salary of an employee.
-	 * 
-	 * @param employeeId enter the id to update amount
-	 * @param newSalary  enter the new salary amount for this id
-	 * @return           boolean
-	 */
-	/*public boolean isSalaryUpdate(String employeeId, String newSalary) {
-		Employee employee = getEmployeeById(employeeId);
-		if (null != employee) {
-			employee.setSalary(newSalary);
-			return true;
-		} else {
-			return false;
-		}
-	}*/
-
-	/**
-	 * To update Address of an employee.
-	 * 
-	 * @param  streetAddress         permanent street address of an employee
-	 * @param  state                 Permanent state
-	 * @param  city                  permanent city
-	 * @param  postalCode            permanent postalCode
-	 * @param  currentStreetAddress	 current street address
-	 * @param  currentState          current state
-	 * @param  currentCity           current city
-	 * @param  currentPostalCode     current postal code
-	 * @return 						 boolean
-	 */
-	/*public boolean isAddressUpdate(String employeeId, String streetAddress, String state,
-			String city, Long postalCode, String currentStreetAddress, String currentState,
-			String currentCity, Long currentPostalCode) {
-		Address permanentAddress = new Address(streetAddress, state, city, 
-				postalCode);
-		Address currentAddress = new Address(currentStreetAddress, 
-				currentState, currentCity, currentPostalCode);
-		ArrayList<Address> addressList = new ArrayList<Address>();
-		addressList.add(permanentAddress);
-		addressList.add(currentAddress);
-		Employee employee = getEmployeeById(employeeId);
-		if (null != employee) {
-			employee.setAddressList(addressList);
-			return true;
-		} else {
-			return false;
-		}
-	}*/
 }

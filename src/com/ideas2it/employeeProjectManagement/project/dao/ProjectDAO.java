@@ -27,7 +27,7 @@ public interface ProjectDAO {
 	 */
 	public int createProjectDetails(Project project) 
 			throws SQLException; 
-	
+
 	/**
 	 * Interface to Delete project Details for projectId
 	 * 
@@ -37,7 +37,7 @@ public interface ProjectDAO {
 	 */
 	public boolean projectDelete(int projectId) 
 			throws SQLException; 
-	
+
 	/**
 	 * Interface to view Project details by projectId
 	 * 
@@ -47,7 +47,7 @@ public interface ProjectDAO {
 	 */
 	public Project viewProjectDetails(int projectId) 
 			throws SQLException; 
-	
+
 	/**
 	 * Interface to view List of all projects
 	 * 
@@ -56,7 +56,7 @@ public interface ProjectDAO {
 	 */
 	public List<Project> viewProjectList() 
 			throws SQLException; 
-	
+
 	/**
 	 * To check the project is updated or not
 	 * 
@@ -66,16 +66,7 @@ public interface ProjectDAO {
 	 */
 	public boolean isUpdateProjectDetails(Project project) 
 			throws SQLException; 
-	
-	/**
-	 * To show the available project to user
-	 * 
-	 * @return			     List of projects available
-	 * @throws SQLException  to suppress SQLException
-	 */
-	/*public List<Project> showAvailableProjectId() 
-			throws SQLException;*/
-	
+
 	/**
 	 * To assign project to user
 	 * 
@@ -84,14 +75,4 @@ public interface ProjectDAO {
 	 */
 	public Project employeeProjectDetails(int employeeProjects) 
 			throws SQLException;
-
-	/**
-	 * view project Detail which get the data from resource and sets to Project
-	 * model for an project Id
-	 * 
-	 * @param projectId     the details of this project id is displayed
-	 * @return               project details for an id
-	 * @throws SQLException  to suppress the sql exception
-	 */
-
 }

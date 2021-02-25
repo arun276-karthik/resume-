@@ -99,11 +99,6 @@ public class ProjectView {
 				int projectId = projectController.createProjectDetails(projectName, projectDueDate, projectManager);			
 				System.out.println("Project Id for this Project is: " + projectId);
 				System.out.println("Available Projects");
-				//List<Map<Integer, Integer>> projectIdList = projectController.showAvailableProjectId();
-				//for (Map<Integer, Integer> projectIds : projectIdList) {
-				//	System.out.println(projectIds);
-				//}
-				//employeesInProject();
 				System.out.println("press 1 to add another project /t any number to skip");
 				pressToAddDetails = scanner.nextInt();
 			} while (1 == pressToAddDetails);
@@ -112,25 +107,6 @@ public class ProjectView {
 		}
 	}		
 
-	/**
-	 * to list employees for this projectId
-	 * 
-	 * @throws SQLException 
-	 * 
-	 */
-	/*public void employeesInProject() throws SQLException { 		
-		try {
-			Scanner scanner = new Scanner(System.in);
-			System.out.println("Please Enter projectId to see Employees working in this project");
-			int projectId = scanner.nextInt();
-			LinkedHashMap<String, Integer> employees = projectController.viewEmployeesInProject(projectId);		
-			for (Map.Entry<String, Integer> employeesProject : employees.entrySet())  			
-				System.out.println(" " + employeesProject.getKey() + 
-						" = " + employeesProject.getValue()); 
-		} catch (SQLException exception) {
-			projectMenu();
-		}
-	}*/
 
 	/**
 	 * View project List
@@ -142,7 +118,8 @@ public class ProjectView {
 			for(LinkedHashMap<String, Object> projectList : projectDetailsList){
 				System.out.println(projectList);
 			}
-		} catch (SQLException exception) {
+		} catch (Exception exception) {
+			System.out.println("Invalid project Id");
 			projectMenu();
 		}
 	}
@@ -151,7 +128,7 @@ public class ProjectView {
 	 * View Project Details 
 	 * @throws SQLException 
 	 */
-	public void viewProjectDetails() throws SQLException {
+	public void viewProjectDetails() throws SQLException  {
 		try {
 			Scanner scanner = new Scanner(System.in);
 			System.out.println("Enter the Project id to view details");
@@ -166,7 +143,8 @@ public class ProjectView {
 			} else {
 				System.out.println("Invalid project id");
 			}
-		} catch (SQLException exception) {
+		} catch (Exception exception) {
+			System.out.println("Invalid project Id");
 			projectMenu();
 		}
 	}
@@ -185,41 +163,11 @@ public class ProjectView {
 			} else {
 				System.out.println("Invalid Project id");
 			}
-		} catch (SQLException exception) {
+		} catch (Exception exception) {
+			System.out.println("Invalid project Id");
 			projectMenu();
 		}
 	}
-
-	/**
-	 * To check the input Manager Name is character
-	 * 
-	 * @param  manager  to check the entered character valid 
-	 * @return manager  Manager name will be returned if valid
-	 * @return null     if null value then invalid format.
-	 */
-	/*public String checkValidProjectManagerName(String manager) {
-		if (!Util.isValidChar(manager)) {
-			System.out.println("please enter the valid Manager Name");
-			return null;
-		} 
-		return manager;
-	}*/
-
-	/**
-	 * To check the entered value is integer
-	 * 
-	 * @param  dueDate enter duedate to check valid format
-	 * @return period  If the entered value is integer due date is returned
-	 * @return null    if null the entered value is invalid format.
-	 */
-	/*public String checkValidProjectDueDate(String dueDate) {
-		if (Util.isValidDate(dueDate)) {
-			return dueDate;
-		} else {
-			System.out.println("please enter the valid Working period");
-			return null;
-		}
-	}*/
 
 	/**
 	 * To update the details of an project by id
@@ -247,109 +195,11 @@ public class ProjectView {
 			if (projectUpdate == true) {
 				System.out.println("Project details have been updated");
 			} else {
-				System.out.println("Project details not updated please check");
+				System.out.println("Project details not updated please check your Id");
 			}
-		} catch (SQLException exception) {
+		} catch (Exception exception) {
+			System.out.println("Invalid project Id");
 			projectMenu();
 		}
 	}
-
-	/**
-	 * To update the details of an project by id
-	 */
-	/*public void updateProjectDetails() {
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Enter the Project Id to update");
-		String projectId = scanner.next();
-		boolean isRepeatMenu = false;
-		do {
-			isRepeatMenu = false;
-			System.out.println("Enter which one to update");
-			System.out.println("1.Projectname \n2.ProjectPeriod" +
-					" \n3.ProjectManager \n4.Exit");
-			int selectMenu = scanner.nextInt();
-			switch (selectMenu) {
-			case 1:
-				updateProjectName(projectId);
-				break;
-			case 2:
-				updateProjectDueDate(projectId);
-				break;
-			case 3:
-				updateProjectManager(projectId);
-				break;
-			case 4:
-				System.out.println("Thank YOU");
-				isRepeatMenu = false;
-				break;
-			default :
-				System.out.println("Invalid key \n\t Please choose again");
-				isRepeatMenu = true;
-				break;          
-			}
-		} while (isRepeatMenu);
-	}*/
-
-	/**
-	 * Updating Name of an Project.
-	 * If not updated check your Project id
-	 * 
-	 * @param projectId  update project name for this project id
-	 */
-	/*public void updateProjectName(String projectId) {
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Enter the Project Name to update");
-		String newProjectName = scanner.next();
-		if (!Util.isValidChar(newProjectName)) {
-			System.out.println("Enter a valid Project Name");
-		} else {	
-			if (projectController.isProjectNameUpdate(projectId, newProjectName)) {
-				System.out.println("New Project Name has been updated");
-			} else {
-				System.out.println("Project Name has not been updated check Project id");
-			}
-		}
-	}*/
-
-	/**
-	 * Updating DueDate of an project.
-	 * If not updated check your Project id
-	 * 
-	 * @param projectId  update due date for this project id
-	 */
-	/*public void updateProjectDueDate(String projectId) {
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Enter the New Project due date to update");
-		String newDueDate = scanner.next();
-		if (!Util.isValidDate(newDueDate)) {
-			System.out.println("Enter a valid Working Period of an Project");
-		} else {	
-			if (projectController.isProjectDueUpdate(projectId, newDueDate)) {
-				System.out.println("Project due date has been updated");
-			} else {
-				System.out.println("Project due date has not been updated check Project id");
-			}
-		}
-	}*/
-
-	/**
-	 * Updating Manager for an Project.
-	 * If not updated check your Project id
-	 * 
-	 * @param projectId  update manager for this project  id 
-	 */
-	/*public void updateProjectManager(String projectId) {
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Enter the New Project Manager to update");
-		String newManager = scanner.next();
-		if (!Util.isValidChar(newManager)) {
-			System.out.println("Enter a valid Manager Name");
-		} else {	
-			if (projectController.isManagerUpdate(projectId, newManager)) {
-				System.out.println("Manager Name has been updated");
-			} else {
-				System.out.println("Manager Name has not been updated check Project id");
-			}
-		}
-	}*/
 }
