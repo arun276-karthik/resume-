@@ -3,7 +3,6 @@
  */
 package com.ideas2it.employeeProjectManagement.employee.service;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,10 +17,8 @@ public interface EmployeeService {
 	 * To view all Employee details list
 	 * 
 	 * @return employeeList  the Employee details list
-	 * @throws SQLException 
 	 */
-	public List<Map<String, Object>> viewEmployeeList() 
-			throws SQLException;
+	public List<Map<String, Object>> viewEmployeeList();
 
 	/**
 	 * Add the employee details and address details
@@ -42,23 +39,20 @@ public interface EmployeeService {
 	 * @param  currentState          current state
 	 * @param  currentCity           current city
 	 * @param  currentPostalCode     current postal code
-	 * @throws SQLException          suppress the SQLException
 	 */
 	public int createEmployeeDetails(String firstName, String secondName,
 			String designation, String 	salary, String emailId, 
 			String dateOfBirth, String phoneNumber, String streetAddress,
 			String state, String city, String postalCode, String currentStreetAddress,
-			String currentState, String currentCity, String currentPostalCode) 
-					throws SQLException;
+			String currentState, String currentCity, String currentPostalCode);
 
 	/**
 	 * To delete employee details by id.
 	 * 
 	 * @param  employeeId    to delete the details by employeeId  
 	 * @return               boolean
-	 * @throws SQLException  to suppress SQL exception
 	 */
-	public boolean employeeDelete(int employeeId) throws SQLException;
+	public boolean employeeDelete(int employeeId);
 
 	/**
 	 * To update employee Details and the boolean is returned
@@ -79,24 +73,21 @@ public interface EmployeeService {
 	 * @param  currentState          current state
 	 * @param  currentCity           current city
 	 * @param  currentPostalCode     current postal code
-	 * @throws SQLException          suppress the SQLException
 	 */
 	public boolean isUpdateEmployeeDetails(int employeeId, String firstName, 
 			String secondName, String designation, String salary, 
 			String emailId, String dateOfBirth, String phoneNumber, String streetAddress,
 			String state, String city, String postalCode,	
 			String currentStreetAddress, String currentState, String currentCity,
-			String currentPostalCode) throws SQLException;
+			String currentPostalCode);
 
 	/**
 	 * To view the employee details by providing id
 	 * 
 	 * @param employeeId              view a employee details list by providing id              
 	 * @return EmployeeDetails        returns the employee details for an id 
-	 * @throws SQLException 
 	 */
-	public List<Map<String, Object>> viewEmployeeDetails(int employeeId)
-			throws SQLException;
+	public List<Map<String, Object>> viewEmployeeDetails(int employeeId);
 
 	/**
 	 * To assign project to employee
@@ -104,16 +95,12 @@ public interface EmployeeService {
 	 * @param employeeId        employeeId 
 	 * @param employeeProjects  projects for employeeId
 	 * @return                  boolean
-	 * @throws SQLException     to suppress SQLException
 	 */
-	public boolean isProjectAssign(int employeeId, List<Integer> employeeProjects)
-			throws SQLException;
+	public boolean projectAssign(int employeeId, List<Integer> employeeProjects);
 
 	/**
 	 * To get the projectIds List
 	 * @return              projectId lists
-	 * @throws SQLException to suppress SQLException
 	 */
-	public List<Set<Integer>> availableProjects() 
-			throws SQLException;
+	public List<Set<Integer>> availableProjects();
 }

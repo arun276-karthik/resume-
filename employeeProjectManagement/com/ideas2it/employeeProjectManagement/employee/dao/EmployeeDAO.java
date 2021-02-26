@@ -3,7 +3,6 @@
  */
 package com.ideas2it.employeeProjectManagement.employee.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import com.ideas2it.employeeProjectManagement.employee.model.Employee; 
@@ -24,49 +23,39 @@ public interface EmployeeDAO {
 	 *  
 	 * @param employee       to create employee details
 	 * @return               employeeId
-	 * @throws SQLException  to suppress SQLException
 	 */
-	public int createEmployeeDetails(Employee employee) 
-			throws SQLException;
+	public int createEmployeeDetails(Employee employee);
 
     /**
      *  Interface to check Employee Deleted 
      *  
      * @param employeeId     to delete employee id details
      * @return               boolean
-     * @throws SQLException  to suppres SQLException
      */
-	public boolean employeeDelete(int employeeId) 
-			throws SQLException;
+	public boolean deleteEmployee(int employeeId);
 
 	/**
 	 * Interface to View Employee Details 
 	 *  
 	 * @param employeeId     employeeId to view details
 	 * @return				 boolean 
-	 * @throws SQLException  to suppress SQLException
 	 */
-	public Employee viewEmployeeDetails(int employeeId) 
-			throws SQLException;
+	public Employee viewEmployeeDetails(int employeeId);
 
 	/**
 	 * Interface to View all employee Details 
 	 * 
 	 * @return               employee List
-	 * @throws SQLException  to suppress SQLException
 	 */
-	public List<Employee> viewEmployeeList() 
-			throws SQLException; 
+	public List<Employee> viewEmployeeList(); 
 
 	/**
 	 * Interface to check is employee Details updated
 	 * 
 	 * @param employee	     employee details to update
 	 * @return				 boolean 
-	 * @throws SQLException  to suppress SQLException
 	 */
-	public boolean isUpdateEmployeeDetails(Employee employee) 
-			throws SQLException; 
+	public boolean isUpdateEmployeeDetails(Employee employee); 
 	
 	/**
 	 * Interface to assign projects to employee
@@ -74,10 +63,8 @@ public interface EmployeeDAO {
 	 * @param employeeId        to assign project for employee ID
 	 * @param employeeProjects  to assign project 
 	 * @return					boolean 
-	 * @throws SQLException     to suppress SQLException
 	 */
-	public boolean isProjectAssign(Employee employee) 
-			throws SQLException;	
+	public boolean projectAssign(Employee employee);	
 	
 	/**
 	 * Interface to Delete project for an employee
@@ -85,8 +72,6 @@ public interface EmployeeDAO {
 	 * @param employeeId     to remove project for employeeId
 	 * @param removeProject  to remove the project
 	 * @return               boolean
-	 * @throws SQLException  to suppress SQLException
 	 */
-	public boolean isProjectRemove(Employee employee)
-			throws SQLException;
+	public boolean isProjectRemove(Employee employee);
 } 

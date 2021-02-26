@@ -5,6 +5,7 @@ package com.ideas2it.employeeProjectManagement.employee.model;
 
 import java.util.List;
 
+import com.ideas2it.employeeProjectManagement.address.model.Address;
 import com.ideas2it.employeeProjectManagement.project.model.Project;
 
 /**
@@ -24,8 +25,8 @@ public class Employee {
 	private String emailId;
 	private String dateOfBirth;
 	private String phoneNumber;
-	private List<Address> address;
-	private List<Project> project;
+	private List<Address> addresses;
+	private List<Project> projects;
 
 	// Empty constructor
 	public Employee() {
@@ -119,20 +120,20 @@ public class Employee {
 		this.employeeId = employeeId;
 	}	
 
-	public List<Address> getAddress() {
-		return address;
+	public List<Address> getAddresses() {
+		return addresses;
 	}
 
-	public void setAddress(List<Address> address) {
-		this.address = address;
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
 	}
 
-	public List<Project> getProject() {
-		return project;
+	public List<Project> getProjects() {
+		return projects;
 	}
 
-	public void setProject(List<Project> project) {
-		this.project = project;
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
 	}
 
 	public String toString() {

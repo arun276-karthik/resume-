@@ -3,7 +3,6 @@
  */
 package com.ideas2it.employeeProjectManagement.project.service;
 
-import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,10 +23,8 @@ public interface ProjectService {
 	 * To view Project List
 	 * 
 	 * @return projectDetailsList  the list of projects
-	 * @throws SQLException 
 	 */
-	public List<LinkedHashMap<String, Object>> viewProjectList() 
-			throws SQLException;
+	public List<LinkedHashMap<String, Object>> viewProjectList();
 
 	/**
 	 * Add the Project details checking the Project id is already present or not
@@ -35,10 +32,8 @@ public interface ProjectService {
 	 * @param projectName     Project name
 	 * @param projectDueDate  How long to complete project
 	 * @param projectManager  manager of a project
-	 * @throws SQLException 
 	 */
-	public int createProjectDetails(String projectName, String dueDate, String manager) 
-			throws SQLException;
+	public int createProjectDetails(String projectName, String dueDate, String manager);
 	
 	/**
 	 * To delete project details by id.
@@ -46,9 +41,8 @@ public interface ProjectService {
 	 * @param  projectId    to remove the details by id 
 	 * @return true         project id deleted.
 	 * @return false        project id not exists.
-	 * @throws SQLException 
 	 */
-	public boolean projectDelete(int projectId) throws SQLException;
+	public boolean deleteProject(int projectId);
 	
 	/**
 	 * Project Details Update metod to change the project details
@@ -58,37 +52,31 @@ public interface ProjectService {
 	 * @param projectDueDate  How long to complete project
 	 * @param projectManager  manager of a project
 	 * @return                boolean 
-	 * @throws SQLException   to suppress SQLException
 	 * 
 	 */
 	public boolean isUpdateProjectDetails(int projectId, String projectName,
-			String projectDueDate, String projectManager) throws SQLException;
+			String projectDueDate, String projectManager);
 	
 	/**
 	 * To get the project details providing id
 	 * 
 	 * @param projectId      enter id to view project details 
 	 * @return               projectDetailsList
-	 * @throws SQLException  to suppress SQLExceptions
 	 */
-	public Map<String, Object> viewProjectDetails(int projectId) 
-			throws SQLException;
+	public Map<String, Object> viewProjectDetails(int projectId);
 	
 	/**
 	 * To get the projectIds List
 	 * 
 	 * @return              projectId lists
-	 * @throws SQLException to suppress SQLException
 	 */
-	public List<Set<Integer>> availableProjects() 
-			throws SQLException;
+	public List<Set<Integer>> availableProjects();
 	
 	/**
 	 * Interface to get employees working in  project 
 	 *  
 	 * @param projectId      to get employee in project
 	 * @return               employees 
-	 * @throws SQLException  to suppress SQLException
 	 */
 	/*public LinkedHashMap<String, Integer> viewEmployeesInProject(int projectId) 
 			throws SQLException;*/
@@ -98,8 +86,6 @@ public interface ProjectService {
 	 *  
 	 * @param employeeProjects  list of project ids
 	 * @return                  employees 
-	 * @throws SQLException     to suppress SQLException
 	 */
-	public List<Project> employeeProjectDetails(List<Integer> employeeProjects) 
-			throws SQLException;
+	public List<Project> employeeProjectDetails(List<Integer> employeeProjects);
 }

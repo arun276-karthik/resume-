@@ -1,7 +1,9 @@
 /**
  * Package to have address class which maintains all address details variables 
  */
-package com.ideas2it.employeeProjectManagement.employee.model;
+package com.ideas2it.employeeProjectManagement.address.model;
+
+import com.ideas2it.employeeProjectManagement.employee.model.Employee;
 
 /**
  * The Address class is used for encapsulation of data

@@ -4,9 +4,7 @@
  */
 package com.ideas2it.employeeProjectManagement.employee.dao;
 
-import java.sql.SQLException;
 import java.util.List;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -32,8 +30,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	 * @param  employee      to get the values from the Employee 
 	 * @throws SQLException  to suppress the sql exception
 	 */
-	@Override
-	public int createEmployeeDetails(Employee employee) throws SQLException {
+	public int createEmployeeDetails(Employee employee) {
 		Session session = DBConnection.getSessionFactory().openSession(); 
 		Transaction transaction = null;
 		int employeeId = 0;
@@ -58,8 +55,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	 * @return               boolean 
 	 * @throws SQLException  to suppress the sql exception  
 	 */
-	@Override
-	public boolean employeeDelete(int employeeId) throws SQLException {
+	public boolean deleteEmployee(int employeeId) {
 		Session session = DBConnection.getSessionFactory().openSession();
 		Transaction transaction = null;	   
 
@@ -85,14 +81,13 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	 * @return               boolean
 	 * @throws SQLException  to suppress the sql exception
 	 */
-	@Override
-	public boolean isUpdateEmployeeDetails(Employee employee) throws SQLException {
+	public boolean isUpdateEmployeeDetails(Employee employee) {
 		Session session = DBConnection.getSessionFactory().openSession();
 		Transaction transaction = null;
 
 		try {
 			transaction = session.beginTransaction();
-			Employee updateEmployeeDetail = (Employee)session.get(Employee.class, employee.getEmployeeId()); 
+			/*Employee updateEmployeeDetail = (Employee)session.get(Employee.class, employee.getEmployeeId()); 
 			updateEmployeeDetail.setFirstName(employee.getFirstName());
 			updateEmployeeDetail.setSecondName(employee.getSecondName());
 			updateEmployeeDetail.setDesignation(employee.getDesignation());
@@ -100,7 +95,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			updateEmployeeDetail.setEmailId(employee.getEmailId());
 			updateEmployeeDetail.setDateOfBirth(employee.getDateOfBirth());
 			updateEmployeeDetail.setPhoneNumber(employee.getPhoneNumber());
-			session.update(updateEmployeeDetail); 
+			*/
+			session.update(employee); 
 			transaction.commit();
 			return true;
 		} catch (Exception e) {
@@ -120,8 +116,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	 * @return               employee details for an id
 	 * @throws SQLException  to suppress the sql exception
 	 */
-	@Override
-	public Employee viewEmployeeDetails(int employeeId) throws SQLException {
+	public Employee viewEmployeeDetails(int employeeId) {
 		Employee employee = null;
 		Session session = DBConnection.getSessionFactory().openSession();
 		Transaction transaction = null;
@@ -146,8 +141,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	 * @return               employee details List for an id
 	 * @throws SQLException  to suppress the sql exception
 	 */
-	@Override
-	public List<Employee> viewEmployeeList() throws SQLException {
+	public List<Employee> viewEmployeeList() {
 		List<Employee> employees = null;
 		Session session = DBConnection.getSessionFactory().openSession();
 		Transaction transaction = null;
@@ -174,9 +168,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	 * @return                  boolean
 	 * @throws SQLException     to suppress SQLException
 	 */
-	@Override
-	public boolean isProjectAssign(Employee employee) 
-			throws SQLException {
+	public boolean projectAssign(Employee employee) {
 		Session session = DBConnection.getSessionFactory().openSession(); 
 		Transaction transaction = null;
 
@@ -202,8 +194,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	 * @return                  boolean
 	 * @throws SQLException     to suppress SQLException
 	 */
-	@Override
-	public boolean isProjectRemove(Employee employee) throws SQLException {
+	public boolean isProjectRemove(Employee employee) {
 		Session session = DBConnection.getSessionFactory().openSession();
 		Transaction transaction = null;	   
 

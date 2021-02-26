@@ -18,7 +18,7 @@ public class Project {
 	private String projectName;
 	private String projectDueDate;
 	private String projectManager;
-	private List<Employee> employee;
+	private List<Employee> employees;
 
 	//Empty constructor
 	public Project() {
@@ -69,13 +69,13 @@ public class Project {
 	public void setProjectManager(String projectManager) {
 		this.projectManager = projectManager;
 	}
-
-	public List<Employee> getEmployee() {
-		return employee;
+	
+	public List<Employee> getEmployees() {
+		return employees;
 	}
 
-	public void setEmployee(List<Employee> employee) {
-		this.employee = employee;
+	public void setEmployees(List<Employee> employees) {
+		this.employees = employees;
 	}
 
 	@Override

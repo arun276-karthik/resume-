@@ -3,7 +3,6 @@
  */
 package com.ideas2it.employeeProjectManagement.project.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import com.ideas2it.employeeProjectManagement.project.model.Project;
@@ -23,56 +22,44 @@ public interface ProjectDAO {
 	 * 
 	 * @param project        the details to create projectDetails
 	 * @return               project Id
-	 * @throws SQLException  to suppress SQlException.
 	 */
-	public int createProjectDetails(Project project) 
-			throws SQLException; 
+	public int createProjectDetails(Project project); 
 
 	/**
 	 * Interface to Delete project Details for projectId
 	 * 
 	 * @param projectId      ProjectId to delete the details
 	 * @return               boolean
-	 * @throws SQLException  to suppress SQLException
 	 */
-	public boolean projectDelete(int projectId) 
-			throws SQLException; 
+	public boolean deleteProject(int projectId); 
 
 	/**
 	 * Interface to view Project details by projectId
 	 * 
 	 * @param projectId      projectId to get the details
 	 * @return				 project details
-	 * @throws SQLException  to suppress SQLException
 	 */
-	public Project viewProjectDetails(int projectId) 
-			throws SQLException; 
+	public Project viewProjectDetails(int projectId); 
 
 	/**
 	 * Interface to view List of all projects
 	 * 
 	 * @return               Projects List
-	 * @throws SQLException  to suppress SQLException 
 	 */
-	public List<Project> viewProjectList() 
-			throws SQLException; 
+	public List<Project> viewProjectList(); 
 
 	/**
 	 * To check the project is updated or not
 	 * 
 	 * @param project        contains the project details to update 
 	 * @return			     boolean
-	 * @throws SQLException  to suppress SQLException
 	 */
-	public boolean isUpdateProjectDetails(Project project) 
-			throws SQLException; 
+	public boolean isUpdateProjectDetails(Project project); 
 
 	/**
 	 * To assign project to user
 	 * 
 	 * @return			     List of projects available
-	 * @throws SQLException  to suppress SQLException
 	 */
-	public Project employeeProjectDetails(int employeeProjects) 
-			throws SQLException;
+	public Project employeeProjectDetails(int employeeProjects);
 }

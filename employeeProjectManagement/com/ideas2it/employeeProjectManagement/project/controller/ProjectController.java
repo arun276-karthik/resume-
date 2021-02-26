@@ -3,13 +3,12 @@
  */
 package com.ideas2it.employeeProjectManagement.project.controller;
 
-import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.ideas2it.employeeProjectManagement.project.service.ProjectServiceImpl;
 import com.ideas2it.employeeProjectManagement.project.service.ProjectService;
+import com.ideas2it.employeeProjectManagement.project.service.ProjectServiceImpl;
 
 /**
  * ProjectController is an interface between ProjectView and Project Service
@@ -30,10 +29,11 @@ public class ProjectController {
 	 * @param   name    Project name
 	 * @param   period  How long to complete project
 	 * @param   manager manager of a project
-	 * @throws SQLException 
 	 */
-	public int createProjectDetails(String projectName, String projectDueDate, String projectManager) throws SQLException {		
-		int projectId = projectService.createProjectDetails(projectName, projectDueDate, projectManager);
+	public int createProjectDetails(String projectName,
+			String projectDueDate, String projectManager) {		
+		int projectId = projectService.createProjectDetails(projectName,
+				projectDueDate, projectManager);
 		return projectId;
 	}
 
@@ -45,20 +45,19 @@ public class ProjectController {
 	 * @param projectDueDate  How long to complete project
 	 * @param projectManager  manager of a project
 	 * @return                boolean 
-	 * @throws SQLException   to suppress SQLException
 	 */
 	public boolean isUpdateProjectDetails(int projectId, String projectName,
-			String projectDueDate, String projectManager) throws SQLException {
-		return projectService.isUpdateProjectDetails(projectId, projectName, projectDueDate, projectManager);
+			String projectDueDate, String projectManager) {
+		return projectService.isUpdateProjectDetails(projectId,
+				projectName, projectDueDate, projectManager);
 	}
 
 	/**
 	 * To view List of all Project Details.
 	 * 
 	 * @return 	 projectList project details List
-	 * @throws SQLException 
 	 */
-	public List<LinkedHashMap<String, Object>> viewProjectList() throws SQLException {
+	public List<LinkedHashMap<String, Object>> viewProjectList() {
 		return projectService.viewProjectList();
 	}
 
@@ -67,10 +66,9 @@ public class ProjectController {
 	 * 
 	 * @param id  enter the project id o delete details
 	 * @return    boolean
-	 * @throws SQLException 
 	 */
-	public boolean projectDelete(int projectId) throws SQLException {
-		return projectService.projectDelete(projectId);
+	public boolean deleteProject(int projectId) {
+		return projectService.deleteProject(projectId);
 	}
 
 	/**
@@ -78,9 +76,8 @@ public class ProjectController {
 	 * 
 	 * @param id id to view the project details
 	 * @return   project project details for id
-	 * @throws SQLException 
 	 */
-	public Map<String, Object> viewProjectDetails(int projectId) throws SQLException {
+	public Map<String, Object> viewProjectDetails(int projectId) {
 		return projectService.viewProjectDetails(projectId);
 	}
 }

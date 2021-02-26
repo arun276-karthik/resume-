@@ -3,7 +3,6 @@
  */
 package com.ideas2it.employeeProjectManagement.project.view;
 
-import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -32,9 +31,8 @@ public class ProjectView {
 	 * 
 	 * @param repeatOptions  to repeat options is while is true.
 	 * @param selectMenu     to select the menu to perform action.
-	 * @throws SQLException  to suppress SQLExceptino
 	 */
-	public void projectMenu() throws SQLException {
+	public void projectMenu() {
 		try {
 			Scanner scanner = new Scanner(System.in);
 			int selectMenu = 0;
@@ -68,7 +66,7 @@ public class ProjectView {
 					System.out.println("Invalid Key Please Enter valid key");
 				}
 			} 
-		} catch (SQLException exception) {
+		} catch (Exception exception) {
 			System.out.println("SOrrY Please Try again Later");
 		}
 	}
@@ -76,9 +74,8 @@ public class ProjectView {
 	/**
 	 * To register the Project details
 	 * Enter the details like Project name, id etc.,
-	 * @throws SQLException 
 	 */	
-	public void createProjectDetails() throws SQLException {		
+	public void createProjectDetails() {		
 		try {
 			Scanner scanner = new Scanner(System.in);
 			int pressToAddDetails ;
@@ -90,7 +87,7 @@ public class ProjectView {
 				do {
 					System.out.println("Enter the Working Period (YYYY-MM-DD)");
 					projectDueDate = scanner.next();
-				} while (!Util.isValidDate(projectDueDate));			
+				} while (null == checkValidProjectDueDate(projectDueDate));			
 				String projectManager;
 				do {			
 					System.out.println("Enter the Manager Name");
@@ -98,11 +95,10 @@ public class ProjectView {
 				} while (!Util.isValidChar(projectManager));
 				int projectId = projectController.createProjectDetails(projectName, projectDueDate, projectManager);			
 				System.out.println("Project Id for this Project is: " + projectId);
-				System.out.println("Available Projects");
 				System.out.println("press 1 to add another project /t any number to skip");
 				pressToAddDetails = scanner.nextInt();
 			} while (1 == pressToAddDetails);
-		} catch (SQLException exception) {
+		} catch (Exception exception) {
 			projectMenu();
 		}
 	}		
@@ -110,9 +106,8 @@ public class ProjectView {
 
 	/**
 	 * View project List
-	 * @throws SQLException 
 	 */
-	public void viewProjectList() throws SQLException {
+	public void viewProjectList() {
 		try {
 			List<LinkedHashMap<String, Object>> projectDetailsList = projectController.viewProjectList();
 			for(LinkedHashMap<String, Object> projectList : projectDetailsList){
@@ -126,9 +121,8 @@ public class ProjectView {
 
 	/**
 	 * View Project Details 
-	 * @throws SQLException 
 	 */
-	public void viewProjectDetails() throws SQLException  {
+	public void viewProjectDetails() {
 		try {
 			Scanner scanner = new Scanner(System.in);
 			System.out.println("Enter the Project id to view details");
@@ -151,14 +145,13 @@ public class ProjectView {
 
 	/**
 	 * Delete project details 
-	 * @throws SQLException   to suppress SQLException
 	 */
-	public void deleteProjectDetails() throws SQLException {
+	public void deleteProjectDetails() {
 		try {
 			Scanner scanner = new Scanner(System.in);
 			System.out.println("Enter the project id to Delete details");
 			int projectId = scanner.nextInt();
-			if (projectController.projectDelete(projectId)) {
+			if (projectController.deleteProject(projectId)) {
 				System.out.println("Project Details for  id " + projectId + " is deleted");
 			} else {
 				System.out.println("Invalid Project id");
@@ -171,10 +164,8 @@ public class ProjectView {
 
 	/**
 	 * To update the details of an project by id
-	 * 
-	 * @throws SQLException 
 	 */
-	public void updateProjectDetails() throws SQLException {
+	public void updateProjectDetails() {
 		try {
 			Scanner scanner = new Scanner(System.in);
 			System.out.println("Enter the Project Id to update");
@@ -201,5 +192,19 @@ public class ProjectView {
 			System.out.println("Invalid project Id");
 			projectMenu();
 		}
+	}
+	
+	/**
+	 * To check the entered date is valid
+	 * 
+	 * @param projectDueDate  date to check it is valid
+	 * @return			      date if it is valid
+	 */
+	private Object checkValidProjectDueDate(String projectDueDate) {
+		if(!Util.isValidDate(projectDueDate)) {
+			System.out.println("Please enter the valid date");
+			return null;
+		}
+		return projectDueDate;
 	}
 }

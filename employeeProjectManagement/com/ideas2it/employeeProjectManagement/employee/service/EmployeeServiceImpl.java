@@ -3,16 +3,15 @@
  */
 package com.ideas2it.employeeProjectManagement.employee.service;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.ideas2it.employeeProjectManagement.address.model.Address;
 import com.ideas2it.employeeProjectManagement.employee.dao.EmployeeDAO;
 import com.ideas2it.employeeProjectManagement.employee.dao.EmployeeDAOImpl;
-import com.ideas2it.employeeProjectManagement.employee.model.Address;
 import com.ideas2it.employeeProjectManagement.employee.model.Employee;
 import com.ideas2it.employeeProjectManagement.project.model.Project;
 import com.ideas2it.employeeProjectManagement.project.service.ProjectServiceImpl;
@@ -37,10 +36,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 * To view all Employee details list
 	 * 
 	 * @return employeeList  the Employee details list
-	 * @throws SQLException 
 	 */
-	@Override
-	public List<Map<String, Object>> viewEmployeeList() throws SQLException {
+	public List<Map<String, Object>> viewEmployeeList() {
 		List<Map<String,Object>> employeeDetailsList =
 				new ArrayList<Map<String,Object>>();		
 		List<Employee> employeeList = employeeDAO.viewEmployeeList();	
@@ -55,7 +52,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employeeDetails.put("age", employee.getDateOfBirth());
 			employeeDetails.put("phoneNumber", employee.getPhoneNumber());
 			employeeDetailsList.add(employeeDetails);
-			List<Address> addressDetailsList = employee.getAddress();
+			List<Address> addressDetailsList = employee.getAddresses();
 			for (Address address : addressDetailsList) {
 				Map<String, Object> employeeAddress = new LinkedHashMap<String, Object>();
 				employeeAddress.put("employeeId", address.getEmployeeId());
@@ -68,7 +65,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 		} 
 		return employeeDetailsList;		
 	}
-
 
 	/**
 	 * Add the employee details and address details
@@ -91,12 +87,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 * @param  currentPostalCode     current postal code
 	 * @throws SQLException          suppress the SQLException
 	 */
-	@Override
 	public int createEmployeeDetails(String firstName, String secondName,
 			String designation, String 	salary, String emailId, 
 			String dateOfBirth, String phoneNumber, String streetAddress,
 			String state, String city, String postalCode, String currentStreetAddress,
-			String currentState, String currentCity, String currentPostalCode) throws SQLException {		
+			String currentState, String currentCity, String currentPostalCode) {		
 		Employee employee= new Employee(firstName, secondName,
 				designation, salary, emailId, dateOfBirth, phoneNumber);
 		Address permanentAddress = new Address(streetAddress, state,
@@ -106,7 +101,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		List<Address> addressList = new ArrayList<Address>();
 		addressList.add(permanentAddress);
 		addressList.add(currentAddress);
-		employee.setAddress(addressList);
+		employee.setAddresses(addressList);
 		int employeeId = employeeDAO.createEmployeeDetails(employee);
 		/*addressService.createAddressDetails(employeeId, streetAddress, state,
 				city, postalCode, currentStreetAddress, 
@@ -119,11 +114,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 * 
 	 * @param  employeeId    to delete the details by employeeId  
 	 * @return               boolean
-	 * @throws SQLException  to suppress SQL exception
 	 */
-	@Override
-	public boolean employeeDelete(int employeeId) throws SQLException {
-		return employeeDAO.employeeDelete(employeeId);
+	public boolean employeeDelete(int employeeId) {
+		return employeeDAO.deleteEmployee(employeeId);
 	}
 
 
@@ -146,14 +139,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 * @param  currentState          current state
 	 * @param  currentCity           current city
 	 * @param  currentPostalCode     current postal code
-	 * @throws SQLException          suppress the SQLException
 	 */
-	@Override
 	public boolean isUpdateEmployeeDetails(int employeeId, String firstName, String secondName,
 			String designation, String salary,	String emailId, String dateOfBirth, String phoneNumber, 
 			String streetAddress, String state, String city,
 			String postalCode,	String currentStreetAddress, String currentState,
-			String currentCity, String currentPostalCode) throws SQLException {
+			String currentCity, String currentPostalCode) {
 		Employee employee = new Employee();
 		employee.setEmployeeId(employeeId);
 		employee.setFirstName(firstName);
@@ -178,13 +169,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 		addressList.add(permanentAddress);
 		addressList.add(currentAddress);
 
-		employee.setAddress(addressList);
+		employee.setAddresses(addressList);
 		boolean isEmployeeUpdate = employeeDAO.isUpdateEmployeeDetails(employee);	
 		return (true == isEmployeeUpdate) ? true : false;
 	}
 
-	@Override
-	public List<Map<String,Object>> viewEmployeeDetails(int employeeId) throws SQLException {		
+	/**
+	 * To view employee Details
+	 * 
+	 * @param employeeId  to get the employee details of this id  
+	 */
+	public List<Map<String,Object>> viewEmployeeDetails(int employeeId) {		
 		ArrayList<Map<String,Object>> employeeDetails =
 				new ArrayList<Map<String,Object>>();
 		Map<String,Object> employeeData = new LinkedHashMap<String,Object>();
@@ -198,7 +193,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employeeData.put("age", employee.getDateOfBirth());
 		employeeData.put("phoneNumber", employee.getPhoneNumber());
 		employeeDetails.add(employeeData);
-		List<Address> addressDetails = employee.getAddress();
+		List<Address> addressDetails = employee.getAddresses();
 		for ( Address address : addressDetails) {
 			Map<String,Object> employeeaddress = new LinkedHashMap<String,Object>();
 			employeeaddress.put("streetAddress", address.getStreetAddress());
@@ -216,21 +211,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 * @param employeeId        employeeId 
 	 * @param employeeProjects  projects for employeeId
 	 * @return                  boolean
-	 * @throws SQLException     to suppress SQLException
 	 */
-	public boolean isProjectAssign(int employeeId, List<Integer> employeeProjects) throws SQLException {
+	public boolean projectAssign(int employeeId, List<Integer> employeeProjects) {
 		Employee employee = employeeDAO.viewEmployeeDetails(employeeId);
 		List<Project> employeeProjectList  = projectService.employeeProjectDetails(employeeProjects);
-		employee.setProject(employeeProjectList);		
-		return employeeDAO.isProjectAssign(employee);
+		employee.setProjects(employeeProjectList);		
+		return employeeDAO.projectAssign(employee);
 	}
 
 	/**
 	 * To get the projectIds List
 	 * @return              projectId lists
-	 * @throws SQLException to suppress SQLException
 	 */
-	public List<Set<Integer>> availableProjects() throws SQLException {
+	public List<Set<Integer>> availableProjects() {
 		return projectService.availableProjects();
 	}
 }

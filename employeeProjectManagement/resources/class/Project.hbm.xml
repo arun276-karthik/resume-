@@ -14,7 +14,7 @@
 			column="project_name"></property>
 		<property name="projectDueDate" column="project_due_date"></property>
 		<property name="projectManager" column="project_manager"></property>
-		<bag name="employee" cascade="all" table="project_assigns">
+		<bag name="employees" cascade="all" table="employee_project_assignments">
 			<key column="project_id" />
 			<many-to-many
 				class="com.ideas2it.employeeProjectManagement.employee.model.Employee"

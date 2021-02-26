@@ -32,8 +32,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 	 * @param  project       to get the values from the Project
 	 * @throws SQLException  to suppress the sql exception
 	 */
-	@Override
-	public int createProjectDetails(Project project) throws SQLException {
+	public int createProjectDetails(Project project) {
 		Session session = DBConnection.getSessionFactory().openSession(); 
 		Transaction transaction = null;
 		int projectId = 0;
@@ -58,8 +57,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 	 * @return               boolean 
 	 * @throws SQLException  to suppress the sql exception  
 	 */
-	@Override
-	public boolean projectDelete(int projectId) throws SQLException {
+	public boolean deleteProject(int projectId) {
 		Session session = DBConnection.getSessionFactory().openSession();
 		Transaction transaction = null;	   
 
@@ -85,19 +83,19 @@ public class ProjectDAOImpl implements ProjectDAO {
 	 * @return               boolean
 	 * @throws SQLException  to suppress the sql exception
 	 */
-	@Override
-	public boolean isUpdateProjectDetails(Project project) throws SQLException {
-		Project  updateProjectDetail = null;
+	public boolean isUpdateProjectDetails(Project project) {
+		//Project  updateProjectDetail = null;
 		Session session = DBConnection.getSessionFactory().openSession();
 		Transaction transaction = null;
 
 		try {
 			transaction = session.beginTransaction();
-			updateProjectDetail = (Project)session.get(Project.class, project.getProjectId()); 
+			/*updateProjectDetail = (Project)session.get(Project.class, project.getProjectId()); 
 			updateProjectDetail.setProjectName(project.getProjectName());
 			updateProjectDetail.setProjectDueDate(project.getProjectDueDate());
 			updateProjectDetail.setProjectManager(project.getProjectManager());
-			session.update(updateProjectDetail); 
+			*/
+			session.update(project); 
 			transaction.commit();
 			return true;
 		} catch (Exception e) {
@@ -117,8 +115,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 	 * @return               project details for an id
 	 * @throws SQLException  to suppress the sql exception
 	 */
-	@Override
-	public Project viewProjectDetails(int projectId) throws SQLException {
+	public Project viewProjectDetails(int projectId) {
 		Project project = null;
 		Session session = DBConnection.getSessionFactory().openSession();
 		Transaction transaction = null;
@@ -143,8 +140,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 	 * @return               project details List for an id
 	 * @throws SQLException  to suppress the sql exception
 	 */
-	@Override
-	public List<Project> viewProjectList() throws SQLException {
+	public List<Project> viewProjectList() {
 		List<Project> project = null;
 		Session session = DBConnection.getSessionFactory().openSession();
 		Transaction transaction = null;
@@ -166,8 +162,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 	/**
 	 * @param project  projectId 
 	 */
-	@Override
-	public Project employeeProjectDetails(int projectId) throws SQLException {
+	public Project employeeProjectDetails(int projectId) {
 		Project  project= null;
 		Session session = DBConnection.getSessionFactory().openSession(); 
 		Transaction transaction = null;

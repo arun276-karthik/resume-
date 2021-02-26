@@ -3,8 +3,8 @@
  */
 package com.ideas2it.employeeProjectManagement.employee.view;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -43,10 +43,8 @@ public class EmployeeView {
 
 	/**
 	 * Main view class displays the options To manage the employee Details
-	 * 
-	 * @throws SQLException
 	 */
-	public void employeeMenu() throws SQLException {
+	public void employeeMenu() {
 		try {
 			Scanner scanner = new Scanner(System.in);
 			int selectMenu = 0;
@@ -83,7 +81,7 @@ public class EmployeeView {
 					System.out.println("Invalid Key Please Enter valid key");
 				}
 			}
-		} catch (SQLException exception) {
+		} catch (Exception exception) {
 			System.out.println("Sorry Try again Later ");
 			//throw exception;
 		}
@@ -91,10 +89,8 @@ public class EmployeeView {
 
 	/**
 	 * To register the employee details Enter the details like name, address etc.,
-	 * 
-	 * @throws SQLException
 	 */
-	private void createEmployeeDetails() throws SQLException {
+	private void createEmployeeDetails() {
 		try {
 			Scanner scanner = new Scanner(System.in);
 			int pressToAddDetails;
@@ -114,15 +110,13 @@ public class EmployeeView {
 						+ "\n press 1 to add another Employee  or  anynumber to skip ");
 				pressToAddDetails = scanner.nextInt();
 			} while (1 == pressToAddDetails);
-		} catch (SQLException exception) {
+		} catch (Exception exception) {
 			employeeMenu();
 		}
 	}
 
 	/**
 	 * To create employee details
-	 * 
-	 * @throws SQLException to suppress SQLException
 	 */
 	private void employeeDetails() {
 
@@ -148,29 +142,27 @@ public class EmployeeView {
 		do {
 			System.out.println("Enter the Phone Number");
 			phoneNumber = scanner.next();
-		} while (!Util.isValidPhoneNumber(phoneNumber));
+		} while (null == checkValidPhoneNumber(phoneNumber));
 		do {
 			System.out.println("Enter the Date Of Birth (YYYY-MM-DD)");
 			dateOfBirth = scanner.next();
-		} while (!Util.isValidDate(dateOfBirth));
+		} while (null == checkValidDateOfBirth(dateOfBirth));
 	}
 
 	/**
 	 * To assign projects to employee
-	 * 
-	 * @throws SQLException
 	 */
-	private void projectAssign() throws SQLException {
+	private void projectAssign() {
 		try {
 			Scanner scanner = new Scanner(System.in);
+
+			//List the available projects 
+			availableProjects(); 
+
 			System.out.println("Enter employee Id to assign project");
 			int employeeIdInProject = scanner.nextInt();
 			int pressToAddProject = 0;
 			employeeProjects = new ArrayList<Integer>();
-
-			//List the available projects 
-			availableProjects();
-
 			do {
 				System.out.println("Enter your  Project Id");
 				int employeeProjectId = scanner.nextInt();
@@ -178,12 +170,12 @@ public class EmployeeView {
 				System.out.println("press 1 to add another projectId");
 				pressToAddProject = scanner.nextInt();
 			} while (1 == pressToAddProject);
-			if (employeeController.isProjectAssign(employeeIdInProject, employeeProjects)) {
+			if (employeeController.projectAssign(employeeIdInProject, employeeProjects)) {
 				System.out.println("Project has been successfully assigned for employeeId " + employeeIdInProject);
 			} else {
 				System.out.println("Error in Assigning project");
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			System.out.println("Try later");
 			employeeMenu();
 		}
@@ -191,16 +183,18 @@ public class EmployeeView {
 
 	/**
 	 * To List the available project ids to assign for an employee
-	 * 
-	 * @throws SQLException 
 	 */
-	private void availableProjects() throws SQLException {
+	private void availableProjects() {
 		try {
 			List<Set<Integer>> availableProjectList = employeeController.availableProjects();
-			for (Set<Integer> employee : availableProjectList) {
-				System.out.println(employee);
+			System.out.println("List of available projects");
+			for (Set<Integer> project : availableProjectList) {
+				Iterator projectList = project.iterator();
+				while(projectList.hasNext()){
+					System.out.print(projectList.next()+"\n");
+				}
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			System.out.println("Try later");
 			employeeMenu();
 		}
@@ -245,10 +239,8 @@ public class EmployeeView {
 
 	/**
 	 * To update employee Details enter the details
-	 * 
-	 * @throws SQLException to suppress SQLException
 	 */
-	private void updateEmployeeDetails() throws SQLException {
+	private void updateEmployeeDetails() {
 		try {
 			Scanner scanner = new Scanner(System.in);
 			boolean isUpdate;
@@ -269,17 +261,15 @@ public class EmployeeView {
 			} else {
 				System.out.println("Please check your employee Id");
 			}
-		} catch (SQLException exception) {
+		} catch (Exception exception) {
 			employeeMenu();
 		}
 	}
 
 	/**
 	 * View All the Employee Details
-	 * 
-	 * @throws SQLException to suppress SQLException
 	 */
-	private void viewEmployeeList() throws SQLException {
+	private void viewEmployeeList() {
 		try {
 			List<Map<String, Object>> employeeDetailsList = employeeController.viewEmployeeList();
 			for (Map<String, Object> employee : employeeDetailsList) {
@@ -289,7 +279,7 @@ public class EmployeeView {
 					System.out.println("Employee Table is Empty");
 				}
 			}
-		} catch (SQLException exception) {
+		} catch (Exception exception) {
 			employeeMenu();
 			//throw exception;
 		}
@@ -297,10 +287,8 @@ public class EmployeeView {
 
 	/**
 	 * View Employee Details by id
-	 * 
-	 * @throws SQLException
 	 */
-	private void viewEmployeeDetails() throws SQLException {
+	private void viewEmployeeDetails() {
 		try {
 			Scanner scanner = new Scanner(System.in);
 			System.out.println("Enter the Employee id to view details");
@@ -315,17 +303,15 @@ public class EmployeeView {
 			} else {
 				System.out.println("Please Check Your Employee id");
 			}
-		} catch (SQLException exception) {
+		} catch (Exception exception) {
 			employeeMenu();
 		}
 	}
 
 	/**
 	 * Delete Employee details by id
-	 * 
-	 * @throws SQLException
 	 */
-	private void deleteEmployeeDetails() throws SQLException {
+	private void deleteEmployeeDetails() {
 		employeeProjects = new ArrayList<Integer>();
 		try {
 			Scanner scanner = new Scanner(System.in);
@@ -336,7 +322,7 @@ public class EmployeeView {
 			} else {
 				System.out.println("Invalid Employee id");
 			}
-		} catch (SQLException exception) {
+		} catch (Exception exception) {
 			employeeMenu();
 		}
 	}
@@ -387,7 +373,7 @@ public class EmployeeView {
 	 * To check the entered email id is valid
 	 * 
 	 * @param emailId email id to check it is valid
-	 * @return email id if it is valid
+	 * @return        email id if it is valid
 	 */
 	private String checkValidEmail(String emailId) {
 		if (!Util.isValidEmail(emailId)) {
@@ -395,5 +381,33 @@ public class EmployeeView {
 			return null;
 		}
 		return emailId;
+	}
+
+	/**
+	 * To check the entered phone number is valid
+	 * 
+	 * @param phoneNumber  phone number to check validity
+	 * @return             phone number if valid
+	 */
+	private String checkValidPhoneNumber(String phoneNumber) {
+		if (!Util.isValidPhoneNumber(phoneNumber)) {
+			System.out.println("please enter the valid Phone Number");
+			return null;
+		}
+		return phoneNumber;
+	}
+
+	/**
+	 * To check the entered date is valid
+	 * 
+	 * @param dateOfBirth  date to check it is valid
+	 * @return			   date if it is valid
+	 */
+	private Object checkValidDateOfBirth(String dateOfBirth) {
+		if(!Util.isValidDate(dateOfBirth)) {
+			System.out.println("Please enter the valid date of birth");
+			return null;
+		}
+		return dateOfBirth;
 	}
 }

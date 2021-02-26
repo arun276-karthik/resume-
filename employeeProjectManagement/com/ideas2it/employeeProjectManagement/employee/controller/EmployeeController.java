@@ -3,7 +3,6 @@
  */
 package com.ideas2it.employeeProjectManagement.employee.controller;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -43,13 +42,12 @@ public class EmployeeController {
 	 * @param currentState         current state
 	 * @param currentCity          current city
 	 * @param currentPostalCode    current postal code
-	 * @throws SQLException        to suppress SQLException
 	 */
 	public int createEmployeeDetails(String firstName, String secondName,
 			String designation, String salary,	String emailId, String dateOfBirth, String phoneNumber, 
 			String streetAddress, String state, String city,
 			String postalCode,	String currentStreetAddress, String currentState,
-			String currentCity, String currentPostalCode) throws SQLException {
+			String currentCity, String currentPostalCode) {
 		int employeeId = employeeService.createEmployeeDetails(firstName, secondName, designation, salary,
 				emailId, dateOfBirth, phoneNumber, streetAddress,  state, city,
 				postalCode, currentStreetAddress, currentState, currentCity, currentPostalCode);
@@ -60,9 +58,8 @@ public class EmployeeController {
 	 * To view List of all employee Details.
 	 * 
 	 * @return  returns employee details List
-	 * @throws SQLException 
 	 */
-	public List<Map<String, Object>> viewEmployeeList() throws SQLException {
+	public List<Map<String, Object>> viewEmployeeList() {
 		return employeeService.viewEmployeeList();
 	}
 
@@ -71,9 +68,8 @@ public class EmployeeController {
 	 * 
 	 * @param employeeId  Delete details for this id 
 	 * @return            boolean 
-	 * @throws SQLException 
 	 */
-	public boolean employeeDelete(int employeeId) throws SQLException {
+	public boolean employeeDelete(int employeeId) {
 		return employeeService.employeeDelete(employeeId);
 	}
 
@@ -82,9 +78,8 @@ public class EmployeeController {
 	 * 
 	 * @param employeeId   View details of employee by id
 	 * @return             returns employee details for id.
-	 * @throws SQLException 
 	 */
-	public List<Map<String, Object>> viewEmployeeDetails(int employeeId) throws SQLException {
+	public List<Map<String, Object>> viewEmployeeDetails(int employeeId) {
 		return employeeService.viewEmployeeDetails(employeeId);
 	}  
 
@@ -107,7 +102,6 @@ public class EmployeeController {
 	 * @param currentState         current state
 	 * @param currentCity          current city
 	 * @param currentPostalCode    current postal code
-	 * @throws SQLException        to suppress SQLException
 	 * @return                     boolean
 	 */
 	public boolean isUpdateEmployeeDetails(int employeeId, String firstName,
@@ -115,7 +109,7 @@ public class EmployeeController {
 			String emailId, String dateOfBirth, String phoneNumber, 
 			String streetAddress, String state, String city,
 			String postalCode,	String currentStreetAddress, String currentState,
-			String currentCity, String currentPostalCode) throws SQLException {
+			String currentCity, String currentPostalCode) {
 		return employeeService.isUpdateEmployeeDetails(employeeId, firstName,
 				secondName, designation, salary, emailId, dateOfBirth, phoneNumber,
 				streetAddress, state, city, postalCode, currentStreetAddress, 
@@ -125,10 +119,8 @@ public class EmployeeController {
 	/**
 	 * To get the projectIds List
 	 * @return              projectId lists
-	 * @throws SQLException to suppress SQLException
 	 */
-	public List<Set<Integer>> availableProjects() 
-			throws SQLException {
+	public List<Set<Integer>> availableProjects() {
 		return employeeService.availableProjects();
 	}
 
@@ -138,11 +130,9 @@ public class EmployeeController {
 	 * @param employeeId        employeeId 
 	 * @param employeeProjects  projects for employeeId
 	 * @return                  boolean
-	 * @throws SQLException     to suppress SQLException
 	 */
-	public boolean isProjectAssign(int employeeId, List<Integer> employeeProjects)
-			throws SQLException {
-		return employeeService.isProjectAssign(employeeId, employeeProjects);
+	public boolean projectAssign(int employeeId, List<Integer> employeeProjects) {
+		return employeeService.projectAssign(employeeId, employeeProjects);
 	}
 }
 
