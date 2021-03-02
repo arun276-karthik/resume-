@@ -4,19 +4,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Employee Project Management</title>
+<title>Insert title here</title>
 </head>
 <body>
-	<h1>Employee Project Management</h1>
-	<div>
-		<center>
-				<form action="employee.jsp" method="post">
-					<button type="submit">Employee</button>
-				</form> <br>
-				<form action="project.jsp" method="post">
-					<button type="submit">Project</button>
-				</form>
-		</center>
+	<center>
+		<h1>Employee Project Management</h1>
+		<div>
+			<form action="addEmployee.jsp" method="post">
+				<button type="submit">Employee</button>
+			</form>
+			<br>
+			<button type="submit">Project</button>
+	</center>
 	</div>
+
 </body>
 </html>
