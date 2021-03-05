@@ -1,12 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Add Employee</title>
 </head>
 <body>
+    <div align="center">
+        <c:if test="${employee != null}">
+            <form action="update" method="post">
+        </c:if>
+        <c:if test="${employee == null}">
+            <form action="insert" method="post">
+        </c:if>
+        <table border="1" cellpadding="5">
+            <caption>
+                <h2>
+                    <c:if test="${employee != null}">
+                        Edit Employee Details
+                    </c:if>
+                    <c:if test="${employee == null}">
+                        Add Employee Details
+                    </c:if>
+                </h2>
+            </caption>
 	<form name="insertEmployeeDetails" action="employeeController"
 		method="post">
 		<table name="inserttable"
@@ -18,10 +36,10 @@
 			<tr>
 				<td>First Name</td>
 				<td><input type="text" placeholder="Enter First Name"
-					name="firstname"></td>
+					name="firstName" required></td>
 				<td>Last Name</td>
 				<td><input type="text" placeholder="Enter Second Name"
-					name="lastname"></td>
+					name="lastName"></td>
 			</tr>
 			<tr>
 				<td>Designation</td>
@@ -35,16 +53,16 @@
 			<tr>
 				<td>Email-Id</td>
 				<td><input type="email" placeholder="Enter Email"
-					name="email-id"></td>
+					name="emailId"></td>
 			</tr>
 			<tr>
 				<td>Date Of Birth</td>
-				<td><input type="date" placeholder="Enter BirthDate" name="dob"></td>
+				<td><input type="date" placeholder="Enter BirthDate" name="dateOfBirth"></td>
 			</tr>
 			<tr>
 				<td>Phone Number</td>
 				<td><input type="text" placeholder="Enter Phone Number"
-					name="phonenumber"></td>
+					name="phoneNumber"></td>
 			</tr>
 		</table>
 		<table name="inserttable"
@@ -55,7 +73,7 @@
 			<tr>
 				<td>Street Address</td>
 				<td><input type="text" placeholder="Enter Address"
-					name="streetaddress"></td>
+					name="streetAddress"></td>
 			</tr>
 			<tr>
 				<td>City</td>
@@ -68,7 +86,7 @@
 			<tr>
 				<td>Postal Code</td>
 				<td><input type="text" placeholder="Enter PostalCode"
-					name="postalcode"></td>
+					name="postalCode"></td>
 			</tr>
 		</table>
 		<table name="inserttable"
@@ -79,7 +97,7 @@
 			<tr>
 				<td>Street Address</td>
 				<td><input type="text" placeholder="Enter Address"
-					name="streetaddress"></td>
+					name="streetAddress"></td>
 			</tr>
 			<tr>
 				<td>City</td>
@@ -92,7 +110,7 @@
 			<tr>
 				<td>Postal Code</td>
 				<td><input type="text" placeholder="Enter PostalCode"
-					name="postalcode"></td>
+					name="postalCode"></td>
 			</tr>
 		</table>
 		<center>

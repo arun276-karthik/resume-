@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,23 +23,20 @@ import com.ideas2it.employeeProjectManagement.employee.service.impl.EmployeeServ
  * @since   22-01-2021
  * @version 1.0
  */
-public class EmployeeController {
+public class EmployeeController extends HttpServlet{
 
 	EmployeeService employeeService = new EmployeeServiceImpl();
-	
-	
-	
-	
-	 protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			    throws ServletException, IOException {
-			        doGet(request, response);
-			    }
 
-			    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			    throws ServletException, IOException {
-			        String action = request.getServletPath();
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
 
-			        /*try {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {}
+	/*String action = request.getServletPath();
+
+			        try {
 			            switch (action) {
 			                case "/new":
 			                    showNewForm(request, response);
