@@ -10,134 +10,134 @@ import com.ideas2it.employeeProjectManagement.project.model.Project;
 
 /**
  * The Employee class is used for encapsulation of data
- * 
+ *
  * @author  Ak
  * @since   22-01-2021
  * @version 1.0
  */
 public class Employee {
-	
-	private int employeeId;
-	private String firstName;
-	private String secondName;
-	private String designation;
-	private String salary;
-	private String emailId;
-	private String dateOfBirth;
-	private String phoneNumber;
-	private List<Address> addresses;
-	private List<Project> projects;
 
-	// Empty constructor
-	public Employee() {
-	}
- 
-	/**
-	 * Employee Parametrised constructor
-	 * 
-	 * @param 	employeeId	            employee id
-	 * @param 	firstName 	    employee first name
-	 * @param 	secondName	    employee second name
-	 * @param 	designation 	designation of employee
-	 * @param 	salary	        salary of employee
-	 * @param 	emailId	        emailId of an employee 
-	 * @param 	dateOfBirth	    dateOfBirth of an employee
-	 * @param 	phoneNumber 	phone number of an employee
-	 */
-	public Employee(String firstName, String secondName, String designation, 
-			String salary, String emailId, String dateOfBirth, String phoneNumber) {
-		this.firstName = firstName;
-		this.secondName = secondName;
-		this.designation = designation;
-		this.salary = salary;
-		this.emailId = emailId;
-		this.dateOfBirth = dateOfBirth;
-		this.phoneNumber = phoneNumber;
-		
-	}
+    private int employeeId;
+    private String firstName;
+    private String secondName;
+    private String designation;
+    private String salary;
+    private String emailId;
+    private String dateOfBirth;
+    private String phoneNumber;
+    private List<Address> addresses;
+    private List<Project> projects;
 
-	public String getDateOfBirth() {
-		return dateOfBirth;
-	}
+    // Empty constructor
+    public Employee() {
+    }
 
-	public void setDateOfBirth(String dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
+    /**
+     * Employee Parametrised constructor
+     *
+     * @param 	employeeId	            employee id
+     * @param 	firstName 	    employee first name
+     * @param 	secondName	    employee second name
+     * @param 	designation 	designation of employee
+     * @param 	salary	        salary of employee
+     * @param 	emailId	        emailId of an employee
+     * @param 	dateOfBirth	    dateOfBirth of an employee
+     * @param 	phoneNumber 	phone number of an employee
+     */
+    public Employee(String firstName, String secondName, String designation,
+                    String salary, String emailId, String dateOfBirth, String phoneNumber) {
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.designation = designation;
+        this.salary = salary;
+        this.emailId = emailId;
+        this.dateOfBirth = dateOfBirth;
+        this.phoneNumber = phoneNumber;
 
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
+    }
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
 
-	public String getDesignation() {
-		return designation;
-	}
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
 
-	public void setDesignation(String designation) {
-		this.designation = designation;
-	}
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-	public String getSalary() {
-		return salary;
-	}
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-	public void setSalary(String salary) {
-		this.salary = salary;
-	}
+    public String getDesignation() {
+        return designation;
+    }
 
-	public String getEmailId() {
-		return emailId;
-	}
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
 
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
-	}
+    public String getSalary() {
+        return salary;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public void setSalary(String salary) {
+        this.salary = salary;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public String getEmailId() {
+        return emailId;
+    }
 
-	public String getSecondName() {
-		return secondName;
-	}
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
 
-	public void setSecondName(String secondName) {
-		this.secondName = secondName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public int getEmployeeId() {
-		return employeeId;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
-	}	
+    public String getSecondName() {
+        return secondName;
+    }
 
-	public List<Address> getAddresses() {
-		return addresses;
-	}
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
+    }
 
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
-	}
+    public int getEmployeeId() {
+        return employeeId;
+    }
 
-	public List<Project> getProjects() {
-		return projects;
-	}
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
 
-	public void setProjects(List<Project> projects) {
-		this.projects = projects;
-	}
+    public List<Address> getAddresses() {
+        return addresses;
+    }
 
-	public String toString() {
-		return(firstName + " " + secondName + " " + designation + " " + salary + 
-				" " + emailId + " " + dateOfBirth + " " + phoneNumber);
-	}
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
+    }
+
+    public String toString() {
+        return(firstName + " " + secondName + " " + designation + " " + salary +
+                " " + emailId + " " + dateOfBirth + " " + phoneNumber);
+    }
 }
