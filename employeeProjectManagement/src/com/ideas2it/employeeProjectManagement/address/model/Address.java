@@ -29,7 +29,6 @@ public class Address {
     /**
      * Address parametrized constructor
      *
-     * @param   employeeId      address for this employee Id
      * @param   streetAddress	permanent street address of an employee
      * @param   state           Permanent state
      * @param   city            permanent city

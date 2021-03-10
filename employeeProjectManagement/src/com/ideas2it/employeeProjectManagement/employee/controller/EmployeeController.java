@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ideas2it.employeeProjectManagement.employee.model.Employee;
 import com.ideas2it.employeeProjectManagement.employee.service.EmployeeService;
 import com.ideas2it.employeeProjectManagement.employee.service.impl.EmployeeServiceImpl;
 
@@ -24,7 +25,7 @@ import com.ideas2it.employeeProjectManagement.employee.service.impl.EmployeeServ
  * @since   22-01-2021
  * @version 1.0
  */
-public class EmployeeController extends HttpServlet{
+public class EmployeeController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     EmployeeService employeeService = new EmployeeServiceImpl();
@@ -52,16 +53,18 @@ public class EmployeeController extends HttpServlet{
             case "list":
                 employeeList(request, response);
                 break;
-            //case "edit":
-            //editEmployee(request, response);
-            //break;
-            default:
-                insertEmployee(request, response);
+          case "edit":
+              System.out.println("check1");
+                employeeEdit(request, response);
                 break;
-        }}
+              default:
+                //insertEmployee(request, response);
+                // break;
+        }
+    }
 
     private void insertEmployee(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+            throws IOException, ServletException {
         System.out.println("asas");
         String firstName = request.getParameter("firstName");
         String secondName = request.getParameter("secondName");
@@ -79,18 +82,21 @@ public class EmployeeController extends HttpServlet{
         String city = request.getParameter("city");
         String state = request.getParameter("state");
         String postalCode = request.getParameter("postalCode");
-        employeeService.createEmployeeDetails(firstName, secondName, designation, salary,
-                emailId, dateOfBirth, phoneNumber, streetAddress,  state, city,
+        int employeeId = employeeService.createEmployeeDetails(firstName, secondName, designation, salary,
+                emailId, dateOfBirth, phoneNumber, streetAddress, state, city,
                 postalCode, currentStreetAddress, currentState, currentCity, currentPostalCode);
-        response.sendRedirect("addEmployee.jsp");
+        request.setAttribute("employeeId", employeeId);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("addEmployee.jsp");
+        dispatcher.forward(request, response);
+        response.sendRedirect("list");
     }
 
     private void employeeDelete(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         int employeeId = Integer.parseInt(request.getParameter("employeeId"));
 
-       // employeeService.employeeDelete(employeeId);
-        response.sendRedirect("addEmployee.jsp");
+        employeeService.employeeDelete(employeeId);
+        response.sendRedirect("list");
     }
 
     private void employeeUpdate(HttpServletRequest request, HttpServletResponse response)
@@ -113,22 +119,36 @@ public class EmployeeController extends HttpServlet{
         String state = request.getParameter("state");
         String postalCode = request.getParameter("postalCode");
 
-        //employeeService.createEmployeeDetails(firstName, secondName, designation, salary,
-                //emailId, dateOfBirth, phoneNumber, streetAddress,  state, city,
-                //postalCode, currentStreetAddress, currentState, currentCity, currentPostalCode);
-        response.sendRedirect("addEmployee.jsp");
+        employeeService.updateEmployeeDetails(employeeId, firstName, secondName, designation, salary,
+        emailId, dateOfBirth, phoneNumber, streetAddress,  state, city,
+        postalCode, currentStreetAddress, currentState, currentCity, currentPostalCode);
+        response.sendRedirect("list");
     }
 
     private void employeeList(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-    //    List<Map<String, Object>> employeeList = employeeService.viewEmployeeList();
-      //request.setAttribute("employeeList", employeeList);
+        List<Employee> employeeList = employeeService.viewEmployeeList();
+        System.out.println(employeeList);
+        request.setAttribute("employeeList", employeeList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("employeeList.jsp");
         dispatcher.forward(request, response);
-    }}
+    }
 
+
+    private void employeeEdit(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int employeeId = Integer.parseInt(request.getParameter("employeeId"));
+        Employee employee = employeeService.viewEmployeeDetails(employeeId);
+        System.out.println("check2");
+        System.out.println(employeeId);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("updateEmployee.jsp");
+        request.setAttribute("employee", employee);
+        dispatcher.forward(request, response);
+        System.out.println("check3");
+    }
+}
 	/*private void editEmployee(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+throws ServletException, IOException {
         int employeeId = Integer.parseInt(request.getParameter("employeeId"));
         List<Map<String, Object>> existingEmployee  = employeeService.viewEmployeeDetails(employeeId);
         RequestDispatcher dispatcher = request.getRequestDispatcher("addEmployee.jsp");

@@ -9,9 +9,9 @@
 	<center>
 		<h1>Employee Project Management</h1>
 		<h4>
-            <a href="addEmployee.jsp">Add Employee</a>
+            <a href="addEmployee.jsp">Employee</a>
             &nbsp;&nbsp;&nbsp;
-            <a href="/project">Add Project</a>             
+            <a href="/project">Project</a>             
         </h4>
 	</center>
 </body>

@@ -38,34 +38,50 @@ public class EmployeeServiceImpl implements EmployeeService {
      *
      * @return employeeList  the Employee details list
      */
-    public List<Map<String, Object>> viewEmployeeList() {
+    public List<Employee> viewEmployeeList() {
         List<Map<String,Object>> employeeDetailsList =
-                new ArrayList<Map<String,Object>>();
+        new ArrayList<Map<String,Object>>();
         List<Employee> employeeList = employeeDAO.viewEmployeeList();
-        for (Employee employee : employeeList) {
-            Map<String, Object> employeeDetails= new LinkedHashMap<String, Object>();
-            employeeDetails.put("id", employee.getEmployeeId());
-            employeeDetails.put("firstName", employee.getFirstName());
-            employeeDetails.put("secondName", employee.getSecondName());
-            employeeDetails.put("designation", employee.getDesignation());
-            employeeDetails.put("salary", employee.getSalary());
-            employeeDetails.put("emailId", employee.getEmailId());
-            employeeDetails.put("age", employee.getDateOfBirth());
-            employeeDetails.put("phoneNumber", employee.getPhoneNumber());
-            employeeDetailsList.add(employeeDetails);
-            List<Address> addressDetailsList = employee.getAddresses();
-            for (Address address : addressDetailsList) {
-                Map<String, Object> employeeAddress = new LinkedHashMap<String, Object>();
-                employeeAddress.put("employeeId", address.getEmployeeId());
-                employeeAddress.put("streetAddress", address.getStreetAddress());
-                employeeAddress.put("state", address.getState());
-                employeeAddress.put("city", address.getCity());
-                employeeAddress.put("postalCode", address.getPostalCode());
-                employeeDetailsList.add(employeeAddress);
-            }
+        return employeeList;
         }
-        return employeeDetailsList;
-    }
+//      for(
+//    Employee employee :employeeList) {
+//          Map<String, Object> employeeDetails = new LinkedHashMap<String, Object>();
+//          employeeDetails.put("id", employee.getEmployeeId());
+//          employeeDetails.put("firstName", employee.getFirstName());
+//          employeeDetails.put("secondName", employee.getSecondName());
+//          employeeDetails.put("designation", employee.getDesignation());
+//          employeeDetails.put("salary", employee.getSalary());
+//          employeeDetails.put("emailId", employee.getEmailId());
+//          employeeDetails.put("age", employee.getDateOfBirth());
+//          employeeDetails.put("phoneNumber", employee.getPhoneNumber());
+//          employeeDetailsList.add(employeeDetails);
+//          List<Address> addressDetailsList = employee.getAddresses();
+//          for (Address address : addressDetailsList) {
+//              Map<String, Object> employeeAddress = new LinkedHashMap<String, Object>();
+//              employeeAddress.put("streetAddress", address.getStreetAddress());
+//              employeeAddress.put("state", address.getState());
+//              employeeAddress.put("city", address.getCity());
+//              employeeAddress.put("postalCode", address.getPostalCode());
+//              employeeDetailsList.add(employeeAddress);
+//          }
+//      }
+//    List<Map<String, Object>> employeesDetailsList =
+//            new ArrayList<Map<String, Object>>();
+//    int j = 0;
+//    int i=0;
+//          for(i = 0; i<employeeDetailsList.size();)
+//
+//          {
+//        employeesDetailsList.add(j, employeeDetailsList.get(i));
+//        i++;
+//        employeesDetailsList.add(j, employeeDetailsList.get(i));
+//        i++;
+//        employeesDetailsList.add(j, employeeDetailsList.get(i));
+//        i++;
+//        j++;
+//    }
+//return employeesDetailsList;
 
     /**
      * Add the employee details and address details
@@ -76,7 +92,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param designation 	         designation of employee
      * @param salary	             of employee
      * @param emailId	             email of an employee
-     * @param age	                 age of an employee
+     * @param dateOfBirth	                 age of an employee
      * @param phoneNumber 	         phone number of an employee
      * @param  streetAddress         permanent street address of an employee
      * @param  state                 Permanent state
@@ -86,7 +102,6 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param  currentState          current state
      * @param  currentCity           current city
      * @param  currentPostalCode     current postal code
-     * @throws SQLException          suppress the SQLException
      */
     public int createEmployeeDetails(String firstName, String secondName,
                                      String designation, String 	salary, String emailId,
@@ -130,7 +145,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param designation 	         designation of employee
      * @param salary	             of employee
      * @param emailId	             email of an employee
-     * @param age	                 age of an employee
+     * @param dateOfBirth	                 age of an employee
      * @param phoneNumber 	         phone number of an employee
      * @param  streetAddress         permanent street address of an employee
      * @param  state                 Permanent state
@@ -142,7 +157,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param  currentPostalCode     current postal code
      */
 
-    public boolean isUpdateEmployeeDetails(int employeeId, String firstName, String secondName,
+    public boolean updateEmployeeDetails(int employeeId, String firstName, String secondName,
                                            String designation, String salary,	String emailId, String dateOfBirth, String phoneNumber,
                                            String streetAddress, String state, String city,
                                            String postalCode,	String currentStreetAddress, String currentState,
@@ -181,31 +196,33 @@ public class EmployeeServiceImpl implements EmployeeService {
      *
      * @param employeeId  to get the employee details of this id
      */
-    public List<Map<String,Object>> viewEmployeeDetails(int employeeId) {
-        ArrayList<Map<String,Object>> employeeDetails =
-                new ArrayList<Map<String,Object>>();
-        Map<String,Object> employeeData = new LinkedHashMap<String,Object>();
+    public Employee viewEmployeeDetails(int employeeId) {
+        //ArrayList<Map<String,Object>> employeeDetails =
+        //      new ArrayList<Map<String,Object>>();
+        //Map<String,Object> employeeData = new LinkedHashMap<String,Object>();
         Employee employee = employeeDAO.viewEmployeeDetails(employeeId);
-        employeeData.put("id", employee.getEmployeeId());
-        employeeData.put("firstName", employee.getFirstName());
-        employeeData.put("secondName", employee.getSecondName());
-        employeeData.put("designation", employee.getDesignation());
-        employeeData.put("salary", employee.getSalary());
-        employeeData.put("emailId", employee.getEmailId());
-        employeeData.put("age", employee.getDateOfBirth());
-        employeeData.put("phoneNumber", employee.getPhoneNumber());
-        employeeDetails.add(employeeData);
-        List<Address> addressDetails = employee.getAddresses();
-        for ( Address address : addressDetails) {
-            Map<String,Object> employeeaddress = new LinkedHashMap<String,Object>();
-            employeeaddress.put("streetAddress", address.getStreetAddress());
-            employeeaddress.put("state", address.getState());
-            employeeaddress.put("city", address.getCity());
-            employeeaddress.put("postalCode", address.getPostalCode());
-            employeeDetails.add(employeeaddress);
-        }
-        return employeeDetails;
+        return employee;
     }
+//        employeeData.put("id", employee.getEmployeeId());
+//        employeeData.put("firstName", employee.getFirstName());
+//        employeeData.put("secondName", employee.getSecondName());
+//        employeeData.put("designation", employee.getDesignation());
+//        employeeData.put("salary", employee.getSalary());
+//        employeeData.put("emailId", employee.getEmailId());
+//        employeeData.put("age", employee.getDateOfBirth());
+//        employeeData.put("phoneNumber", employee.getPhoneNumber());
+//        employeeDetails.add(employeeData);
+//        List<Address> addressDetails = employee.getAddresses();
+//        for ( Address address : addressDetails) {
+//            Map<String,Object> employeeaddress = new LinkedHashMap<String,Object>();
+//            employeeaddress.put("streetAddress", address.getStreetAddress());
+//            employeeaddress.put("state", address.getState());
+//            employeeaddress.put("city", address.getCity());
+//            employeeaddress.put("postalCode", address.getPostalCode());
+//            employeeDetails.add(employeeaddress);
+//        }
+//        return employeeDetails;
+//    }
 
     /**
      * To assign project to employee

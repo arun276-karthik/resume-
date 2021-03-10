@@ -3,6 +3,8 @@
  */
 package com.ideas2it.employeeProjectManagement.employee.service;
 
+import com.ideas2it.employeeProjectManagement.employee.model.Employee;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,7 +20,7 @@ public interface EmployeeService {
      *
      * @return employeeList  the Employee details list
      */
-    public List<Map<String, Object>> viewEmployeeList();
+    public List<Employee> viewEmployeeList();
 
     /**
      * Add the employee details and address details
@@ -29,7 +31,7 @@ public interface EmployeeService {
      * @param designation 	         designation of employee
      * @param salary	             of employee
      * @param emailId	             email of an employee
-     * @param age	                 age of an employee
+     * @param dateOfBirth	                 age of an employee
      * @param phoneNumber 	         phone number of an employee
      * @param  streetAddress         permanent street address of an employee
      * @param  state                 Permanent state
@@ -63,7 +65,7 @@ public interface EmployeeService {
      * @param designation 	         designation of employee
      * @param salary	             of employee
      * @param emailId	             email of an employee
-     * @param age	                 age of an employee
+     * @param dateOfBirth	                 age of an employee
      * @param phoneNumber 	         phone number of an employee
      * @param  streetAddress         permanent street address of an employee
      * @param  state                 Permanent state
@@ -74,7 +76,7 @@ public interface EmployeeService {
      * @param  currentCity           current city
      * @param  currentPostalCode     current postal code
      */
-    public boolean isUpdateEmployeeDetails(int employeeId, String firstName,
+    public boolean updateEmployeeDetails(int employeeId, String firstName,
                                            String secondName, String designation, String salary,
                                            String emailId, String dateOfBirth, String phoneNumber, String streetAddress,
                                            String state, String city, String postalCode,
@@ -87,7 +89,7 @@ public interface EmployeeService {
      * @param employeeId              view a employee details list by providing id
      * @return EmployeeDetails        returns the employee details for an id
      */
-    public List<Map<String, Object>> viewEmployeeDetails(int employeeId);
+    public Employee viewEmployeeDetails(int employeeId);
 
     /**
      * To assign project to employee
