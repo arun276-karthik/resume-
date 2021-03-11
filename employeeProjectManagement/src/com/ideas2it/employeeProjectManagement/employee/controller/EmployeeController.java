@@ -27,14 +27,29 @@ import com.ideas2it.employeeProjectManagement.employee.service.impl.EmployeeServ
  */
 public class EmployeeController extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
     EmployeeService employeeService = new EmployeeServiceImpl();
 
+    /**
+     * This method called by the server to allow a servlet to handle a POST request
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);
     }
 
+    /**
+     * This method called by the server to allow a servlet to handle a GET request
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -62,39 +77,61 @@ public class EmployeeController extends HttpServlet {
         }
     }
 
+    /**
+     * To send employee details to service this method is used to insert in database
+     *
+     * @param request
+     * @param response
+     * @throws IOException
+     * @throws ServletException
+     */
     private void insertEmployee(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        System.out.println("asas");
-        String firstName = request.getParameter("firstName");
-        String secondName = request.getParameter("secondName");
-        String designation = request.getParameter("designation");
-        String salary = request.getParameter("salary");
-        String emailId = request.getParameter("emailId");
-        String dateOfBirth = request.getParameter("dateOfBirth");
-        String phoneNumber = request.getParameter("phoneNumber");
+            String firstName = request.getParameter("firstName");
+            String secondName = request.getParameter("secondName");
+            String designation = request.getParameter("designation");
+            String salary = request.getParameter("salary");
+            String emailId = request.getParameter("emailId");
+            String dateOfBirth = request.getParameter("dateOfBirth");
+            String phoneNumber = request.getParameter("phoneNumber");
 
-        String currentStreetAddress = request.getParameter("currentStreetAddress");
-        String currentCity = request.getParameter("currentCity");
-        String currentState = request.getParameter("currentState");
-        String currentPostalCode = request.getParameter("currentPostalCode");
-        String streetAddress = request.getParameter("streetAddress");
-        String city = request.getParameter("city");
-        String state = request.getParameter("state");
-        String postalCode = request.getParameter("postalCode");
-        int employeeId = employeeService.createEmployeeDetails(firstName, secondName, designation, salary,
-                emailId, dateOfBirth, phoneNumber, streetAddress, state, city,
-                postalCode, currentStreetAddress, currentState, currentCity, currentPostalCode);
-        response.sendRedirect("EmployeeController?action=list");
+            String currentStreetAddress = request.getParameter("currentStreetAddress");
+            String currentCity = request.getParameter("currentCity");
+            String currentState = request.getParameter("currentState");
+            String currentPostalCode = request.getParameter("currentPostalCode");
+            String streetAddress = request.getParameter("streetAddress");
+            String city = request.getParameter("city");
+            String state = request.getParameter("state");
+            String postalCode = request.getParameter("postalCode");
+            int employeeId = employeeService.createEmployeeDetails(firstName, secondName, designation, salary,
+                    emailId, dateOfBirth, phoneNumber, streetAddress, state, city,
+                    postalCode, currentStreetAddress, currentState, currentCity, currentPostalCode);
+            response.sendRedirect("EmployeeController?action=list");
     }
 
+
+    /**
+     * To delete the employee details from the database this is used
+     *
+     * @param request
+     * @param response
+     * @throws IOException
+     */
     private void employeeDelete(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         int employeeId = Integer.parseInt(request.getParameter("employeeId"));
-
         employeeService.employeeDelete(employeeId);
         response.sendRedirect("EmployeeController?action=list");
     }
 
+    /**
+     * The employee details obtained are updated in the database table
+     * by thhis method
+     *
+     * @param request
+     * @param response
+     * @throws IOException
+     */
     private void employeeUpdate(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         int employeeId = Integer.parseInt(request.getParameter("employeeId"));
@@ -121,26 +158,38 @@ public class EmployeeController extends HttpServlet {
         response.sendRedirect("EmployeeController?action=list");
     }
 
+    /**
+     * The employee details are fetched from the database table
+     *
+     * @param request
+     * @param response
+     * @throws IOException
+     * @throws ServletException
+     */
     private void employeeList(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         List<Employee> employeeList = employeeService.viewEmployeeList();
-        System.out.println(employeeList);
         request.setAttribute("employeeList", employeeList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("employeeList.jsp");
         dispatcher.forward(request, response);
     }
 
-
+    /**
+     * Employee Edit which forwards  the request to the update method
+     * and details are updated
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     private void employeeEdit(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int employeeId = Integer.parseInt(request.getParameter("employeeId"));
         Employee employee = employeeService.viewEmployeeDetails(employeeId);
-        System.out.println("check2");
-        System.out.println(employeeId);
         RequestDispatcher dispatcher = request.getRequestDispatcher("updateEmployee.jsp");
         request.setAttribute("employee", employee);
         dispatcher.forward(request, response);
-        System.out.println("check3");
     }
 }
 	/*private void editEmployee(HttpServletRequest request, HttpServletResponse response)

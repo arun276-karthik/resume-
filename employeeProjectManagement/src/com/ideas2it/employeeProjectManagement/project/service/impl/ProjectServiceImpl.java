@@ -70,8 +70,8 @@ public class ProjectServiceImpl implements ProjectService{
      * Add the Project details checking the Project id is already present or not
      *
      * @param projectName     Project name
-     * @param projectDueDate  How long to complete project
-     * @param projectManager  manager of a project
+     * @param dueDate  How long to complete project
+     * @param manager  manager of a project
      * @return projectId      preoject id for this project
      */
     public int createProjectDetails(String projectName,
