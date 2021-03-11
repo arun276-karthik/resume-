@@ -57,11 +57,11 @@
 				<td>${address.postalCode}</td>
 				</c:forEach>
 				<td>
-				<form action = "EmployeeController/action=edit" method = "get">
-				<input type = "hidden" name = "employeeId"  value = "${employee.employeeId}"/>
+				<form action = "EmployeeController?action=edit" method = "post">
+                <input type = "hidden" name = "employeeId"  value = "${employee.employeeId}"/>
 				<button type = "submit">EDIT</button>
 				</form>
-				<form action = "EmployeeController/action=delete" method = "get">
+				<form action = "EmployeeController?action=delete" method = "post">
 				<input type = "hidden" name = "employeeId" value = "${employee.employeeId}" />
 				<button type = "submit">DELETE</button>
 				</form>

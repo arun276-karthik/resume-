@@ -21,9 +21,9 @@ import com.ideas2it.employeeProjectManagement.employee.service.impl.EmployeeServ
 /**
  * EmployeeController is an interface between EmployeeView and Employee Service
  *
- * @author  A.K
- * @since   22-01-2021
+ * @author A.K
  * @version 1.0
+ * @since 22-01-2021
  */
 public class EmployeeController extends HttpServlet {
 
@@ -41,7 +41,6 @@ public class EmployeeController extends HttpServlet {
 
         switch (action) {
             case "insert":
-                System.out.println("aaaaaaaa");
                 insertEmployee(request, response);
                 break;
             case "delete":
@@ -53,13 +52,13 @@ public class EmployeeController extends HttpServlet {
             case "list":
                 employeeList(request, response);
                 break;
-          case "edit":
-              System.out.println("check1");
+            case "edit":
+                System.out.println("check1");
                 employeeEdit(request, response);
                 break;
-              default:
-                //insertEmployee(request, response);
-                // break;
+            default:
+                employeeList(request, response);
+                break;
         }
     }
 
@@ -85,10 +84,7 @@ public class EmployeeController extends HttpServlet {
         int employeeId = employeeService.createEmployeeDetails(firstName, secondName, designation, salary,
                 emailId, dateOfBirth, phoneNumber, streetAddress, state, city,
                 postalCode, currentStreetAddress, currentState, currentCity, currentPostalCode);
-        request.setAttribute("employeeId", employeeId);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("addEmployee.jsp");
-        dispatcher.forward(request, response);
-        response.sendRedirect("list");
+        response.sendRedirect("EmployeeController?action=list");
     }
 
     private void employeeDelete(HttpServletRequest request, HttpServletResponse response)
@@ -96,7 +92,7 @@ public class EmployeeController extends HttpServlet {
         int employeeId = Integer.parseInt(request.getParameter("employeeId"));
 
         employeeService.employeeDelete(employeeId);
-        response.sendRedirect("list");
+        response.sendRedirect("EmployeeController?action=list");
     }
 
     private void employeeUpdate(HttpServletRequest request, HttpServletResponse response)
@@ -120,9 +116,9 @@ public class EmployeeController extends HttpServlet {
         String postalCode = request.getParameter("postalCode");
 
         employeeService.updateEmployeeDetails(employeeId, firstName, secondName, designation, salary,
-        emailId, dateOfBirth, phoneNumber, streetAddress,  state, city,
-        postalCode, currentStreetAddress, currentState, currentCity, currentPostalCode);
-        response.sendRedirect("list");
+                emailId, dateOfBirth, phoneNumber, streetAddress, state, city,
+                postalCode, currentStreetAddress, currentState, currentCity, currentPostalCode);
+        response.sendRedirect("EmployeeController?action=list");
     }
 
     private void employeeList(HttpServletRequest request, HttpServletResponse response)
@@ -161,15 +157,15 @@ throws ServletException, IOException {
  * To add Employee details to an array List All parameters are passed in the
  * method.
  *
- * @param employeeId	       employee id
- * @param firstName 	       employee first name
- * @param secondName	       employee second name
- * @param designation 	       designation of employee
- * @param salary	           of employee
- * @param emailId	           email of an employee
- * @param age	               age of an employee
- * @param phoneNumber 	       phone number of an employee
- * @param projectName	       name of project allocated to employee
+ * @param employeeId           employee id
+ * @param firstName           employee first name
+ * @param secondName           employee second name
+ * @param designation           designation of employee
+ * @param salary               of employee
+ * @param emailId               email of an employee
+ * @param age                   age of an employee
+ * @param phoneNumber           phone number of an employee
+ * @param projectName           name of project allocated to employee
  * @param streetAddress        permanent street address of an employee
  * @param state                Permanent state
  * @param city                 permanent city

@@ -7,9 +7,6 @@
 <title>Add Employee</title>
 </head>
 <body>
-
-
-
 <hr>
 			<a href="index.jsp"><button type="button">Home</button></a>
 			&nbsp;&nbsp;&nbsp;&nbsp;
@@ -46,11 +43,11 @@
 			</tr>
 			<tr>
 				<td>Email-Id</td>
-				<td><input type="email" placeholder="Enter Email"
+				<td><input type="email" placeholder="arun@gmail.com"
 					name="emailId" required></td>
 			</tr>
 			<tr>
-				<td>Date Of Birth(YYYY-MM-DD)</td>
+				<td>Date Of Birth</td>
 				<td><input type="date" placeholder="Enter BirthDate"
 					name="dateOfBirth"
 					pattern="^((19|2[0-9])[0-9]{2})-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$" required>
@@ -64,20 +61,20 @@
 		</table>
 		<table style="background-color: yellow; margin-left: 20px; margin-right: 20px;">
 
-			<h3>Current Address</h3>
+			<h3>Permanent Address</h3>
 			<br>
 			<tr>
 				<td>Street Address</td>
-				<td><input type="text" placeholder="Enter Address"
+				<td><input type="text" placeholder="DoorNumber,street,area"
 					name="currentStreetAddress" required></td>
 			</tr>
 			<tr>
 				<td>City</td>
-				<td><input type="text" placeholder="Enter City" name="currentCity" required></td>
+				<td><input type="text" placeholder="Chennai" name="currentCity" required></td>
 			</tr>
 			<tr>
 				<td>State</td>
-				<td><input type="text" placeholder="Enter State" name="currentState" required></td>
+				<td><input type="text" placeholder="TamilNadu" name="currentState" required></td>
 			</tr>
 			<tr>
 				<td>Postal Code</td>
@@ -87,20 +84,20 @@
 		</table>
 		<table style="background-color: yellow; margin-left: 20px; margin-right: 20px;">
 
-			<h3>Permanent Address</h3>
+			<h3>Current Address</h3>
 			<br>
 			<tr>
 				<td>Street Address</td>
-				<td><input type="text" placeholder="Enter Address"
+				<td><input type="text" placeholder="DoorNumber,street,area"
 					name="streetAddress"  required></td>
 			</tr>
 			<tr>
 				<td>City</td>
-				<td><input type="text" placeholder="Enter City" name="city" required></td>
+				<td><input type="text" placeholder="Chennai" name="city" required></td>
 			</tr>
 			<tr>
 				<td>State</td>
-				<td><input type="text" placeholder="Enter State" name="state" required></td>
+				<td><input type="text" placeholder="TamilNadu" name="state" required></td>
 			</tr>
 			<tr>
 				<td>Postal Code</td>
