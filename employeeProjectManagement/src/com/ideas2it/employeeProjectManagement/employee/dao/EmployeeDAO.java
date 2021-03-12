@@ -60,18 +60,8 @@ public interface EmployeeDAO {
     /**
      * Interface to assign projects to employee
      *
-     * @param employeeId        to assign project for employee ID
-     * @param employeeProjects  to assign project
+     * @param employee        to assign project for employee Id
      * @return					boolean
      */
     public boolean projectAssign(Employee employee);
-
-    /**
-     * Interface to Delete project for an employee
-     *
-     * @param employeeId     to remove project for employeeId
-     * @param removeProject  to remove the project
-     * @return               boolean
-     */
-    public boolean isProjectRemove(Employee employee);
 }

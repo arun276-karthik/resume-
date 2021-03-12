@@ -33,19 +33,20 @@ public class ProjectServiceImpl implements ProjectService{
      *
      * @return projectDetailsList  the list of projects
      */
-    public List<LinkedHashMap<String, Object>> viewProjectList() {
-        List<LinkedHashMap<String, Object>> projectDetailsList =
-                new ArrayList<LinkedHashMap<String, Object>>();
+    public List<Project> viewProjectList() {
+        //List<LinkedHashMap<String, Object>> projectDetailsList =
+          //      new ArrayList<LinkedHashMap<String, Object>>();
         List<Project> projectList = projectDAO.viewProjectList();
-        for (Project project : projectList) {
-            LinkedHashMap<String, Object> projectData= new LinkedHashMap<String, Object>();
-            projectData.put("projectId", project.getProjectId());
-            projectData.put("projectName", project.getProjectName());
-            projectData.put("projectDueDate", project.getProjectDueDate());
-            projectData.put("projectManager", project.getProjectManager());
-            projectDetailsList.add(projectData);
-        }
-        return projectDetailsList;
+//        for (Project project : projectList) {
+//            LinkedHashMap<String, Object> projectData= new LinkedHashMap<String, Object>();
+//            projectData.put("projectId", project.getProjectId());
+//            projectData.put("projectName", project.getProjectName());
+//            projectData.put("projectDueDate", project.getProjectDueDate());
+//            projectData.put("projectManager", project.getProjectManager());
+//            projectDetailsList.add(projectData);
+//        }
+//        return projectDetailsList;
+        return projectList;
     }
 
     /**
@@ -117,14 +118,15 @@ public class ProjectServiceImpl implements ProjectService{
      * @param projectId      enter id to view project details
      * @return               projectDetailsList
      */
-    public Map<String, Object> viewProjectDetails(int projectId) {
+    public Project viewProjectDetails(int projectId) {
         Project project= projectDAO.viewProjectDetails(projectId);
-        Map<String, Object> projectDetails = new LinkedHashMap<String, Object>();
-        projectDetails.put("ProjectId", project.getProjectId());
-        projectDetails.put("ProjectName", project.getProjectName());
-        projectDetails.put("ProjectDueDate", project.getProjectDueDate());
-        projectDetails.put("ProjectManager", project.getProjectManager());
-        return projectDetails;
+//        Map<String, Object> projectDetails = new LinkedHashMap<String, Object>();
+//        projectDetails.put("ProjectId", project.getProjectId());
+//        projectDetails.put("ProjectName", project.getProjectName());
+//        projectDetails.put("ProjectDueDate", project.getProjectDueDate());
+//        projectDetails.put("ProjectManager", project.getProjectManager());
+//        return projectDetails;
+        return project;
     }
 
     /**

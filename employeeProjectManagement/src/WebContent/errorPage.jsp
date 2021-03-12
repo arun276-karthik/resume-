@@ -9,7 +9,7 @@
 <center>
 <h1>Error</h1>
 <hr>
-<h4><%=exception.getMessage() %></h4>
+<h4>Sorry for the Inconvenience Try Later</h4>
 <hr>
 </center>
 </body>

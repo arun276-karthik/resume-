@@ -3,11 +3,7 @@
  */
 package com.ideas2it.employeeProjectManagement.employee.service.impl;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import com.ideas2it.employeeProjectManagement.address.model.Address;
 import com.ideas2it.employeeProjectManagement.employee.dao.EmployeeDAO;
@@ -231,9 +227,13 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param employeeProjects  projects for employeeId
      * @return                  boolean
      */
-    public boolean projectAssign(int employeeId, List<Integer> employeeProjects) {
+    public boolean projectAssign(int employeeId, List<String> employeeProjects) {
         Employee employee = employeeDAO.viewEmployeeDetails(employeeId);
-        List<Project> employeeProjectList  = projectService.employeeProjectDetails(employeeProjects);
+        List<Integer> projectsOfEmployee = new ArrayList<Integer>(employeeProjects.size());
+        for(String projects : employeeProjects) {
+            projectsOfEmployee.add(Integer.parseInt(projects));
+        }
+        List<Project> employeeProjectList  = projectService.employeeProjectDetails(projectsOfEmployee);
         employee.setProjects(employeeProjectList);
         return employeeDAO.projectAssign(employee);
     }
@@ -242,7 +242,25 @@ public class EmployeeServiceImpl implements EmployeeService {
      * To get the projectIds List
      * @return              projectId lists
      */
-    public List<Set<Integer>> availableProjects() {
-        return projectService.availableProjects();
+    public List<Project> availableProjects() {
+        return projectService.viewProjectList();
+    }
+
+    /**
+     * To unassign the project for an employee
+     *
+     * @param employeeId
+     * @param projectId
+     * @return
+     */
+    public boolean unAssignProject(int employeeId, int projectId) {
+        Employee employee = employeeDAO.viewEmployeeDetails(employeeId);
+        for (int index = 0; index < employee.getProjects().size(); index++) {
+            Project project = employee.getProjects().get(index);
+            if (project.getProjectId() == projectId) {
+                employee.getProjects().remove(project);
+            }
+        }
+        return (true == employeeDAO.isUpdateEmployeeDetails(employee)) ? true : false;
     }
 }

@@ -4,6 +4,7 @@
 package com.ideas2it.employeeProjectManagement.employee.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ideas2it.employeeProjectManagement.employee.model.Employee;
 import com.ideas2it.employeeProjectManagement.employee.service.EmployeeService;
 import com.ideas2it.employeeProjectManagement.employee.service.impl.EmployeeServiceImpl;
+import com.ideas2it.employeeProjectManagement.project.model.Project;
 
 /**
  * EmployeeController is an interface between EmployeeView and Employee Service
@@ -68,8 +70,19 @@ public class EmployeeController extends HttpServlet {
                 employeeList(request, response);
                 break;
             case "edit":
-                System.out.println("check1");
                 employeeEdit(request, response);
+                break;
+            case "projectList":
+                availableProjects(request, response);
+                break;
+            case "projectAssign":
+                projectAssign(request, response);
+                break;
+            case "projectUnAssign":
+                projectUnAssign(request, response);
+                break;
+            case "availableProjectList":
+                availableProjectList(request, response);
                 break;
             default:
                 employeeList(request, response);
@@ -87,26 +100,26 @@ public class EmployeeController extends HttpServlet {
      */
     private void insertEmployee(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-            String firstName = request.getParameter("firstName");
-            String secondName = request.getParameter("secondName");
-            String designation = request.getParameter("designation");
-            String salary = request.getParameter("salary");
-            String emailId = request.getParameter("emailId");
-            String dateOfBirth = request.getParameter("dateOfBirth");
-            String phoneNumber = request.getParameter("phoneNumber");
+        String firstName = request.getParameter("firstName");
+        String secondName = request.getParameter("secondName");
+        String designation = request.getParameter("designation");
+        String salary = request.getParameter("salary");
+        String emailId = request.getParameter("emailId");
+        String dateOfBirth = request.getParameter("dateOfBirth");
+        String phoneNumber = request.getParameter("phoneNumber");
 
-            String currentStreetAddress = request.getParameter("currentStreetAddress");
-            String currentCity = request.getParameter("currentCity");
-            String currentState = request.getParameter("currentState");
-            String currentPostalCode = request.getParameter("currentPostalCode");
-            String streetAddress = request.getParameter("streetAddress");
-            String city = request.getParameter("city");
-            String state = request.getParameter("state");
-            String postalCode = request.getParameter("postalCode");
-            int employeeId = employeeService.createEmployeeDetails(firstName, secondName, designation, salary,
-                    emailId, dateOfBirth, phoneNumber, streetAddress, state, city,
-                    postalCode, currentStreetAddress, currentState, currentCity, currentPostalCode);
-            response.sendRedirect("EmployeeController?action=list");
+        String currentStreetAddress = request.getParameter("currentStreetAddress");
+        String currentCity = request.getParameter("currentCity");
+        String currentState = request.getParameter("currentState");
+        String currentPostalCode = request.getParameter("currentPostalCode");
+        String streetAddress = request.getParameter("streetAddress");
+        String city = request.getParameter("city");
+        String state = request.getParameter("state");
+        String postalCode = request.getParameter("postalCode");
+        int employeeId = employeeService.createEmployeeDetails(firstName, secondName, designation, salary,
+                emailId, dateOfBirth, phoneNumber, streetAddress, state, city,
+                postalCode, currentStreetAddress, currentState, currentCity, currentPostalCode);
+        response.sendRedirect("EmployeeController?action=list");
     }
 
 
@@ -191,9 +204,62 @@ public class EmployeeController extends HttpServlet {
         request.setAttribute("employee", employee);
         dispatcher.forward(request, response);
     }
+
+//    private void availableProjects(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException {
+//        List<Project> projectList = employeeService.availableProjects();
+//        request.setAttribute("projectList", projectList);
+//        RequestDispatcher dispatcher = request.getRequestDispatcher("projectList.jsp");
+//        dispatcher.forward(request, response);
+//    }
+
+    private void availableProjects(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int employeeId = Integer.parseInt(request.getParameter("employeeId"));
+        List<Project> projectList = employeeService.availableProjects();
+        System.out.println(employeeId);
+        System.out.println(projectList);
+        request.setAttribute("projectList", projectList);
+        request.setAttribute("employeeId", employeeId);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("assignEmployeeInProject.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void projectAssign(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String[] projects = request.getParameterValues("projects");
+        List employeeProjects = Arrays.asList(projects);
+        int employeeId = Integer.parseInt(request.getParameter("employeeId"));
+        employeeService.projectAssign(employeeId, employeeProjects);
+        response.sendRedirect("EmployeeController?action=list");
+        }
+
+    private void availableProjectList(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int employeeId = Integer.parseInt(request.getParameter("employeeId"));
+        List<Project> projectList = employeeService.availableProjects();
+        System.out.println(employeeId);
+        System.out.println(projectList);
+        request.setAttribute("projectList", projectList);
+        request.setAttribute("employeeId", employeeId);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("unAssignEmployeeInProject.jsp");
+        dispatcher.forward(request, response);
+    }
+
+
+    private void projectUnAssign(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException{
+        int employeeId = Integer.parseInt(request.getParameter("employeeId"));
+        int projectId = Integer.parseInt(request.getParameter("projectId"));
+        System.out.println(employeeId);
+        System.out.println(projectId);
+        employeeService.unAssignProject(employeeId, projectId);
+        response.sendRedirect("EmployeeController?action=list");
+    }
 }
+
 	/*private void editEmployee(HttpServletRequest request, HttpServletResponse response)
-throws ServletException, IOException {
+//throws ServletException, IOException {
         int employeeId = Integer.parseInt(request.getParameter("employeeId"));
         List<Map<String, Object>> existingEmployee  = employeeService.viewEmployeeDetails(employeeId);
         RequestDispatcher dispatcher = request.getRequestDispatcher("addEmployee.jsp");

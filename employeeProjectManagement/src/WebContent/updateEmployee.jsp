@@ -6,6 +6,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+body {
+  background-color: #a0daa9;
+}
+</style>
 <meta charset="ISO-8859-1">
 <title>Update Employee</title>
 </head>
@@ -97,7 +102,6 @@
 		</table>
 
 		<tr>
-	<tr>
                     <td align="center">
                         <input type="submit" value="save" />
                     </td>
@@ -106,5 +110,3 @@
     </center>
 </body>
 </html>
-</body>
-</html>̥

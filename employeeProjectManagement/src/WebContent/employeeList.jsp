@@ -4,6 +4,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+body {
+  background-color: #a0daa9;
+}
+tr:hover {background-color:#f5f5f5;}
+</style>
 <meta charset="ISO-8859-1">
 <title>Employee List</title>
 </head>
@@ -38,6 +44,7 @@
 				<th>Current City</th>
 				<th>Postal Code</th>
 				<th>Actions</th>
+				<th>Project Assigning</th>
 			</tr>
 			<tr>
 			<c:forEach var="employee" items="${employeeList}">
@@ -63,9 +70,21 @@
 				</form>
 				<form action = "EmployeeController?action=delete" method = "post">
 				<input type = "hidden" name = "employeeId" value = "${employee.employeeId}" />
-				<button type = "submit">DELETE</button>
+				<button type = "submit"  onclick="alert('Employee detail would be deleted')">DELETE</button>
 				</form>
 				</td>
+				<td>
+				<form action = "EmployeeController?action=projectList" method = "post">
+                <input type = "hidden" name = "employeeId" value = "${employee.employeeId}" />
+                <button type = "submit" >Assign Project</button>
+                </form>
+                <td>
+				<form action = "EmployeeController?action=availableProjectList" method="post"">
+                <input type = "hidden" name = "employeeId" value = "${employee.employeeId}" />
+                <button type = "submit" >UnAssign Project</button>
+                </form>
+                </td>
+                </td>
 			</tr>
 			</c:forEach>
 		</table>

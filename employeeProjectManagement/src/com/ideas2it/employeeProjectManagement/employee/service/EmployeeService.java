@@ -4,6 +4,7 @@
 package com.ideas2it.employeeProjectManagement.employee.service;
 
 import com.ideas2it.employeeProjectManagement.employee.model.Employee;
+import com.ideas2it.employeeProjectManagement.project.model.Project;
 
 import java.util.List;
 import java.util.Map;
@@ -98,11 +99,20 @@ public interface EmployeeService {
      * @param employeeProjects  projects for employeeId
      * @return                  boolean
      */
-    public boolean projectAssign(int employeeId, List<Integer> employeeProjects);
+    public boolean projectAssign(int employeeId, List<String> employeeProjects);
 
     /**
      * To get the projectIds List
      * @return              projectId lists
      */
-    public List<Set<Integer>> availableProjects();
+    public List<Project> availableProjects();
+
+    /**
+     * Interface to Delete project for an employee
+     *
+     * @param employeeId     to remove project for employeeId
+     * @param projectId  to remove the project
+     * @return               boolean
+     */
+    public boolean unAssignProject(int employeeId, int projectId);
 }

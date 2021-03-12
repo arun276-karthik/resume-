@@ -3,16 +3,29 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<style>
+body {
+  background-color: #a0daa9;
+}
+div {
+  border: 2px solid black;
+  padding: 5px;
+  width: 50%
+}
+</style>
 <title>Employee Project Management</title>
 </head>
 <body>
 	<center>
+	<div>
 		<h1>Employee Project Management</h1>
-		<h4>
-<a href="addEmployee.jsp">Employee</a>
+		<h2><button type="button">
+<a href="addEmployee.jsp">Employee</a></button>
 &nbsp;&nbsp;&nbsp;
-<a href="/project">Project</a>
-</h4>
+<button type="button">
+<a href="addProject.jsp">Project</a></button>
+</h2>
+</div>
 	</center>
 </body>
 </html>

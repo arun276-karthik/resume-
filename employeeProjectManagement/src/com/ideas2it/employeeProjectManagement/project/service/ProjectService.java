@@ -24,14 +24,14 @@ public interface ProjectService {
      *
      * @return projectDetailsList  the list of projects
      */
-    public List<LinkedHashMap<String, Object>> viewProjectList();
+    public List<Project> viewProjectList();
 
     /**
      * Add the Project details checking the Project id is already present or not
      *
      * @param projectName     Project name
-     * @param projectDueDate  How long to complete project
-     * @param projectManager  manager of a project
+     * @param dueDate  How long to complete project
+     * @param manager  manager of a project
      */
     public int createProjectDetails(String projectName, String dueDate, String manager);
 
@@ -63,7 +63,7 @@ public interface ProjectService {
      * @param projectId      enter id to view project details
      * @return               projectDetailsList
      */
-    public Map<String, Object> viewProjectDetails(int projectId);
+    public Project viewProjectDetails(int projectId);
 
     /**
      * To get the projectIds List

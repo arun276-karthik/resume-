@@ -9,11 +9,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.ideas2it.employeeProjectManagement.employee.model.Employee;
+import com.ideas2it.employeeProjectManagement.project.model.Project;
 import com.ideas2it.employeeProjectManagement.project.service.ProjectService;
 import com.ideas2it.employeeProjectManagement.project.service.impl.ProjectServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  * @since   22-01-2021
  * @version 1.0
  */
-public class ProjectController {
+public class ProjectController extends HttpServlet{
 
     ProjectService projectService = new ProjectServiceImpl();
 
@@ -100,7 +102,7 @@ public class ProjectController {
      * @param response
      * @throws IOException
      */
-    private void employeeDelete(HttpServletRequest request, HttpServletResponse response)
+    private void projectDelete(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         int projectId = Integer.parseInt(request.getParameter("projectId"));
         projectService.deleteProject(projectId);
@@ -137,9 +139,9 @@ public class ProjectController {
      */
     private void projectList(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        List<Employee> employeeList = employeeService.viewEmployeeList();
-        request.setAttribute("employeeList", employeeList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("employeeList.jsp");
+        List<Project> projectList = projectService.viewProjectList();
+        request.setAttribute("projectList", projectList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("projectList.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -152,12 +154,12 @@ public class ProjectController {
      * @throws ServletException
      * @throws IOException
      */
-    private void employeeEdit(HttpServletRequest request, HttpServletResponse response)
+    private void projectEdit(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int projectId = Integer.parseInt(request.getParameter("projectId"));
-        Employee  = projectService.viewProjectDetails(projectId);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("updateEmployee.jsp");
-        request.setAttribute("employee", employee);
+        Project project  = projectService.viewProjectDetails(projectId);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("updateProject.jsp");
+        request.setAttribute("project", project);
         dispatcher.forward(request, response);
     }
 }
