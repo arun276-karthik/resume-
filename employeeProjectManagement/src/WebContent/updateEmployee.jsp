@@ -8,7 +8,13 @@
 <head>
 <style>
 body {
-  background-color: #a0daa9;
+  background-color: #e48257;
+    color: #393232;
+}
+.right {
+  position: absolute;
+  right: 0px;
+  width: 150px;
 }
 </style>
 <meta charset="ISO-8859-1">
@@ -16,7 +22,9 @@ body {
 </head>
 <body>
 <center>
-
+    <div class="right">
+        <a href="index.jsp"><button type="button">Home</button></a>
+        </div>
 	<form method="post" action="EmployeeController?action=update">
 			<table style="background-color: yellow; margin-left: 20px; margin-right: 20px;">
 			<tr>

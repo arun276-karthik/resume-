@@ -119,7 +119,9 @@ public class EmployeeController extends HttpServlet {
         int employeeId = employeeService.createEmployeeDetails(firstName, secondName, designation, salary,
                 emailId, dateOfBirth, phoneNumber, streetAddress, state, city,
                 postalCode, currentStreetAddress, currentState, currentCity, currentPostalCode);
-        response.sendRedirect("EmployeeController?action=list");
+        request.setAttribute("employeeId", employeeId);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("success.jsp");
+        dispatcher.forward(request, response);
     }
 
 

@@ -6,7 +6,8 @@
 <head>
 <style>
 body {
-  background-color: #a0daa9;
+  background-color: #e48257;
+    color: #393232;
 }
 </style>
 <title>Add Project</title>

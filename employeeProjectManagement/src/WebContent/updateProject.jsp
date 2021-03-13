@@ -7,7 +7,8 @@
 <head>
 <style>
 body {
-  background-color: #a0daa9;
+  background-color: #e48257;
+    color: #393232;
 }
 </style>
 <meta charset="ISO-8859-1">

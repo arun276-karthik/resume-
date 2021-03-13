@@ -8,15 +8,26 @@
 <html>
 <style>
 body {
-  background-color: #a0daa9;
+  background-color: #e48257;
+    color: #393232;
 }
-tr:hover {background-color:#f5f5f5;}
+tr:hover {
+background-color:#f5f5f5;
+}
+.right {
+  position: absolute;
+  right: 0px;
+  width: 150px;
+}
 </style>
 <head>
 <meta charset="ISO-8859-1">
 <title>Project List</title>
 </head>
 <body>
+    <div class="right">
+    <a href="index.jsp"><button type="button">Home</button></a>
+    </div>
     <form action="EmployeeController?action=projectAssign" method="post">
     <input type="hidden" name="employeeId" value="${employeeId}"/>
 	<center>

@@ -17,26 +17,22 @@ div {
   background-color: #f2edd7;
   border-radius: 4px;
   color: black;
-  padding: 15px 25px;
+  padding: 10px 20px;
   text-align: center;
   display: inline-block;
-  font-size: 16px;
+  font-size: 12px;
   border: 1px #3a6351;
 }
 </style>
-<title>Employee Project Management</title>
+<title>Employee Id Management</title>
 </head>
 <body>
 	<center>
 	<div>
-		<h1>Employee Project Management</h1>
-		<h2><button type="button" class="button">
-<a href="addEmployee.jsp">Employee</a></button>
-&nbsp;&nbsp;&nbsp;
-<button type="button" class="button">
-<a href="addProject.jsp">Project</a></button>
-</h2>
-</div>
+		<h1>Successfully added Employee Details </h1>
+		<h2>Your Employee Id is ${employeeId}</h2>
+		<a href="index.jsp"><button type="button" class="button">OK</button></a>
+    </div>
 	</center>
 </body>
 </html>

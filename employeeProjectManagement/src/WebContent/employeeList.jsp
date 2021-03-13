@@ -6,14 +6,25 @@
 <head>
 <style>
 body {
-  background-color: #a0daa9;
+  background-color: #e48257;
+    color: #393232;
 }
-tr:hover {background-color:#f5f5f5;}
+tr:hover {
+background-color:#f5f5f5;
+}
+.right {
+  position: absolute;
+  right: 0px;
+  width: 150px;
+}
 </style>
 <meta charset="ISO-8859-1">
 <title>Employee List</title>
 </head>
 <body>
+    <div class="right">
+        <a href="index.jsp"><button type="button">Home</button></a>
+        </div>
 	<input type="hidden" name="action" value="list" />
 	<center>
 		<h1>Employee Management</h1>
@@ -76,14 +87,12 @@ tr:hover {background-color:#f5f5f5;}
 				<td>
 				<form action = "EmployeeController?action=projectList" method = "post">
                 <input type = "hidden" name = "employeeId" value = "${employee.employeeId}" />
-                <button type = "submit" >Assign Project</button>
+                <button type = "submit" >Assign</button>
                 </form>
-                <td>
 				<form action = "EmployeeController?action=availableProjectList" method="post"">
                 <input type = "hidden" name = "employeeId" value = "${employee.employeeId}" />
-                <button type = "submit" >UnAssign Project</button>
+                <button type = "submit" >UnAssign</button>
                 </form>
-                </td>
                 </td>
 			</tr>
 			</c:forEach>
