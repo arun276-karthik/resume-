@@ -66,8 +66,9 @@ pattern="[0-9]+" required></td>
 </tr>
 <tr>
 <td>Email-Id</td>
-<td><input type="email" placeholder="arun@gmail.com"
-name="emailId" required></td>
+<td><input type="email" placeholder="xyz@example.com"
+name="emailId" pattern="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+           	+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$" required></td>
 </tr>
 <tr>
 <td>Date Of Birth</td>
@@ -85,7 +86,6 @@ name="phoneNumber" pattern="[0-9]{10}" required></td>
 <table style="background-color: #edffec; margin-left: 20px; margin-right: 20px;">
 
 <h3>Permanent Address</h3>
-<br>
 <tr>
 <td>Street Address</td>
 <td><input type="text" placeholder="DoorNumber,street,area"
@@ -108,7 +108,6 @@ name="currentPostalCode" pattern="[0-9]+" required></td>
 <table style="background-color: #edffec; margin-left: 20px; margin-right: 20px;">
 
 <h3>Current Address</h3>
-<br>
 <tr>
 <td>Street Address</td>
 <td><input type="text" placeholder="DoorNumber,street,area"
@@ -129,6 +128,7 @@ name="postalCode" pattern="[0-9]+" required></td>
 </tr>
 </table>
 <center>
+<br>
 <td><input type="submit" name="submit" value="Submit"></td>
 </center>
 </form>

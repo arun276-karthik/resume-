@@ -51,8 +51,9 @@ tr:hover {background-color:#f5f5f5;}
 				<button type = "submit" onclick="alert('Project detail would be deleted')">DELETE</button>
 				</form>
 				</td>
+
 			</tr>
-			</c:forEach>
+</c:forEach>
 		</table>
 	</div>
 	</center>

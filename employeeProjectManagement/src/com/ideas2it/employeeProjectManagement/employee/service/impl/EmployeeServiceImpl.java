@@ -250,15 +250,17 @@ public class EmployeeServiceImpl implements EmployeeService {
      * To unassign the project for an employee
      *
      * @param employeeId
-     * @param projectId
+     * @param projectIdList
      * @return
      */
-    public boolean unAssignProject(int employeeId, int projectId) {
+    public boolean unAssignProject(int employeeId, List<Integer> projectIdList) {
         Employee employee = employeeDAO.viewEmployeeDetails(employeeId);
         for (int index = 0; index < employee.getProjects().size(); index++) {
             Project project = employee.getProjects().get(index);
-            if (project.getProjectId() == projectId) {
-                employee.getProjects().remove(project);
+            for (Integer projectId : projectIdList) {
+                if (project.getProjectId() == projectId) {
+                    employee.getProjects().remove(project);
+                }
             }
         }
         return (true == employeeDAO.isUpdateEmployeeDetails(employee)) ? true : false;

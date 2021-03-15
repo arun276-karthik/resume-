@@ -27,6 +27,7 @@ public class Employee {
     private String phoneNumber;
     private List<Address> addresses;
     private List<Project> projects;
+    private String projectStatus;
 
     // Empty constructor
     public Employee() {
@@ -35,7 +36,6 @@ public class Employee {
     /**
      * Employee Parametrised constructor
      *
-     * @param 	employeeId	            employee id
      * @param 	firstName 	    employee first name
      * @param 	secondName	    employee second name
      * @param 	designation 	designation of employee
@@ -135,6 +135,10 @@ public class Employee {
     public void setProjects(List<Project> projects) {
         this.projects = projects;
     }
+
+    public String getProjectStatus() { return projectStatus; }
+
+    public void setProjectStatus(String projectStatus) { this.projectStatus = projectStatus; }
 
     public String toString() {
         return(firstName + " " + secondName + " " + designation + " " + salary +

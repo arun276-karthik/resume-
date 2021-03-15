@@ -21,45 +21,59 @@ background-color:#f5f5f5;
 }
 </style>
 <head>
-<meta charset="ISO-8859-1">
-<title>Project List</title>
+    <meta charset="ISO-8859-1">
+    <title>Project List</title>
 </head>
 <body>
     <div class="right">
-    <a href="index.jsp"><button type="button">Home</button></a>
+        <a href="index.jsp"><button type="button">Home</button></a>
     </div>
     <form action="EmployeeController?action=projectAssign" method="post">
-    <input type="hidden" name="employeeId" value="${employeeId}"/>
-	<center>
-		<h1>Project Management</h1>
-		<h2>
-		<a href="addEmployee.jsp">Add Employee</a>
-		</h2>
-	<div align="center">
-		<table border="1" cellpadding="5">
-			<caption>
-				<h2>List Of Projects</h2>
-			</caption>
-			<tr>
-				<th>Project Id</th>
-				<th>Project Name</th>
-				<th>Project Due Date</th>
-				<th>Project Manager</th>
-				<th>Assigning Project</th>
-			</tr>
-			<tr>
-			<c:forEach var="project" items="${projectList}">
-			<td>${project.projectId}</td>
-				<td>${project.projectName}</td>
-				<td>${project.projectDueDate}</td>
-				<td>${project.projectManager}</td>
-				<td><input type="checkbox" name="projects" value="${project.projectId}"/></td>
-
-			</tr>
-			</c:forEach>
-		</table>
-			<td><input type="submit" name="submit" value="Submit"></td>
-	</div>
+        <input type="hidden" name="employeeId" value="${employee.employeeId}"/>
+	    <center>
+		    <h1>Project Management</h1>
+		    <h2>
+		        <a href="addEmployee.jsp">Add Employee</a>
+		    </h2>
+	        <div align="center">
+		       <table border="1" cellpadding="5">
+			       <caption>
+				       <h2>List Of Projects</h2>
+			       </caption>
+			       <tr>
+				       <th>Project Id</th>
+				       <th>Project Name</th>
+	        		   <th>Project Due Date</th>
+	    	     	   <th>Project Manager</th>
+	    	    	   <th>Assigning Project</th>
+	               </tr>
+	           	   <tr>
+			           <c:forEach var="projectDetail" items="${projectList}">
+			           <td>${projectDetail.projectId}</td>
+    	          	   <td>${projectDetail.projectName}</td>
+	               	   <td>${projectDetail.projectDueDate}</td>
+			           <td>${projectDetail.projectManager}</td>
+			           <c:forEach var="projects" items="${employee.projects">
+                       <c:if test="${projectDetail.projectId == projects.projectId}">
+                       <td><input type="checkbox" name="project" value="${projectDetail.projectId}" checked/></td>
+                       </c:if>
+                       </c:forEach>
+                       <%
+                       int i = 0;
+                       if(project.get(i) == null) {
+                       %>
+                       <td><input type="checkbox" name="project" value="${projectDetail.projectId}" /></td>
+                       <%
+                       i++;
+                       }
+                       %>
+            	   </tr>
+            	   </c:forEach>
+		       </table>
+		       <br>
+		       <td><input type="submit" name="submit" value="Submit"></td>
+		      </div>
+	    </center>
 	</form>
 </body>
 </html>

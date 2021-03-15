@@ -26,7 +26,7 @@ body {
 			    </h4>
 			</caption>
 				<td>Project ID</td>
-				<td><input name="projectId" readonly="readonly" value="${project.projectId}"></td>
+				<td><input name="projectId" readonly="readonly" value="${project.projectId}" disabled></td>
 			</tr>
 			<tr>
 				<td>Project Name</td>
@@ -44,6 +44,7 @@ body {
 			</table>
      	<tr>
                     <td align="center">
+                    <br>
                         <input type="submit" value="save" />
                     </td>
     </tr>

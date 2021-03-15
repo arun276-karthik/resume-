@@ -57,6 +57,7 @@ background-color:#f5f5f5;
 			</tr>
 			</c:forEach>
 		</table>
+		<br>
 			<td><input type="submit" name="submit" value="Submit"></td>
 	</div>
 	</form>

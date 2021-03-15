@@ -114,5 +114,5 @@ public interface EmployeeService {
      * @param projectId  to remove the project
      * @return               boolean
      */
-    public boolean unAssignProject(int employeeId, int projectId);
+    public boolean unAssignProject(int employeeId, List<Integer> projectId);
 }

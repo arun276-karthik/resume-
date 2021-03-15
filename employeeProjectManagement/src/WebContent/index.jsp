@@ -31,12 +31,12 @@ div {
 	<div>
 		<h1>Employee Project Management</h1>
 		<h2><button type="button" class="button">
-<a href="addEmployee.jsp">Employee</a></button>
-&nbsp;&nbsp;&nbsp;
-<button type="button" class="button">
-<a href="addProject.jsp">Project</a></button>
-</h2>
-</div>
+            <a href="addEmployee.jsp">Employee</a></button>
+            &nbsp;&nbsp;&nbsp;
+            <button type="button" class="button">
+            <a href="addProject.jsp">Project</a></button>
+        </h2>
+    </div>
 	</center>
 </body>
 </html>

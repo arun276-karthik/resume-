@@ -26,7 +26,7 @@ body {
         <a href="index.jsp"><button type="button">Home</button></a>
         </div>
 	<form method="post" action="EmployeeController?action=update">
-			<table style="background-color: yellow; margin-left: 20px; margin-right: 20px;">
+			<table style="background-color: #edffec; margin-left: 20px; margin-right: 20px;">
 			<tr>
 			<caption>
 			    <h4>
@@ -34,7 +34,7 @@ body {
 			    </h4>
 			</caption>
 				<td>Employee ID</td>
-				<td><input name="employeeId" readonly="readonly" value="${employee.employeeId}"></td>
+				<td><input type="hidden" name="employeeId" readonly="readonly" value="${employee.employeeId}" ></td>
 			</tr>
 			<tr>
 				<td>First Name</td>
@@ -70,9 +70,8 @@ body {
 			</tr>
 		</table>
         <table
-			style="background-color: yellow; margin-left: 20px; margin-right: 20px;">
+			style="background-color: #edffec; margin-left: 20px; margin-right: 20px;">
 			<h3>Permanent Address</h3>
-			<br>
 			<tr>
 				<td>Street Address</td>
 				<td><input type="text" name="streetAddress" value=${employee.addresses.get(0).streetAddress}></td>
@@ -89,8 +88,10 @@ body {
 				<td>Postal Code</td>
 				<td><input type="text" name="postalCode" value=${employee.addresses.get(0).postalCode}></td>
 			</tr>
+			</table>
+            <table style="background-color: #edffec; margin-left: 20px; margin-right: 20px;">
+
 			            			<h3>Current Address</h3>
-            			<br>
             			<tr>
             				<td>Street Address</td>
             				<td><input type="text" name="currentStreetAddress" value=${employee.addresses.get(1).streetAddress}></td>
@@ -111,7 +112,8 @@ body {
 
 		<tr>
                     <td align="center">
-                        <input type="submit" value="save" />
+                    <br>
+                        <input type="submit" value="save"/>
                     </td>
     </tr>
     </form>
