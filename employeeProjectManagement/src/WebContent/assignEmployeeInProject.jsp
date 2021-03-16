@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.ideas2it.employeeProjectManagement.employee.model.Employee" %>
 <%@ page import="com.ideas2it.employeeProjectManagement.project.model.Project" %>
@@ -53,23 +54,17 @@ background-color:#f5f5f5;
     	          	   <td>${projectDetail.projectName}</td>
 	               	   <td>${projectDetail.projectDueDate}</td>
 			           <td>${projectDetail.projectManager}</td>
-			           <c:forEach var="projects" items="${employee.projects">
-                       <c:if test="${projectDetail.projectId == projects.projectId}">
-                       <td><input type="checkbox" name="project" value="${projectDetail.projectId}" checked/></td>
-                       </c:if>
-                       </c:forEach>
-                       <%
-                       int i = 0;
-                       if(project.get(i) == null) {
-                       %>
-                       <td><input type="checkbox" name="project" value="${projectDetail.projectId}" /></td>
-                       <%
-                       i++;
-                       }
-                       %>
+			           <c:choose>
+			           <c:when test = "${fn:contains(employee.getProjects(), projectDetail)}">
+			           <td><input type="checkbox" name="project" value="${projectDetail.projectId}" checked="checked"/></td>
+                       </c:when>
+                       <c:otherwise>
+                       <td><input type="checkbox" name="project" value="${projectDetail.projectId}"/></td>
+                       </c:otherwise>
+                       </c:choose>
             	   </tr>
             	   </c:forEach>
-		       </table>
+            	   </table>
 		       <br>
 		       <td><input type="submit" name="submit" value="Submit"></td>
 		      </div>
@@ -78,4 +73,4 @@ background-color:#f5f5f5;
 </body>
 </html>
 </body>
-</html>
+</html>}

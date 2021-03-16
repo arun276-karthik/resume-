@@ -27,7 +27,6 @@ public class Employee {
     private String phoneNumber;
     private List<Address> addresses;
     private List<Project> projects;
-    private String projectStatus;
 
     // Empty constructor
     public Employee() {
@@ -135,10 +134,6 @@ public class Employee {
     public void setProjects(List<Project> projects) {
         this.projects = projects;
     }
-
-    public String getProjectStatus() { return projectStatus; }
-
-    public void setProjectStatus(String projectStatus) { this.projectStatus = projectStatus; }
 
     public String toString() {
         return(firstName + " " + secondName + " " + designation + " " + salary +

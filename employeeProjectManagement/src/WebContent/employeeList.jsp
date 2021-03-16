@@ -80,7 +80,7 @@ background-color:#f5f5f5;
 				            </form>
 				            <form action = "EmployeeController?action=delete" method = "post">
 				                <input type = "hidden" name = "employeeId" value = "${employee.employeeId}" />
-				                <button type = "submit"  onclick="alert('Employee detail would be deleted')">DELETE</button>
+				                <button type = "submit"  onclick="confirm('Employee detail would be deleted')">DELETE</button>
 				            </form>
 				            </td>
 				        <td>

@@ -4,6 +4,7 @@
 package com.ideas2it.employeeProjectManagement.employee.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -127,6 +128,7 @@ public class EmployeeController extends HttpServlet {
     private void employeeDelete(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         int employeeId = Integer.parseInt(request.getParameter("employeeId"));
+
         employeeService.employeeDelete(employeeId);
         response.sendRedirect("EmployeeController?action=list");
     }
@@ -211,6 +213,8 @@ public class EmployeeController extends HttpServlet {
             throws ServletException, IOException {
         String[] projects = request.getParameterValues("project");
         List employeeProjects = Arrays.asList(projects);
+        System.out.println(employeeProjects);
+        System.out.println("aaaaaaaaaaaaahhhhhhhhhhhhhhhhhhhhhhhhhhh");
         int employeeId = Integer.parseInt(request.getParameter("employeeId"));
         employeeService.projectAssign(employeeId, employeeProjects);
         response.sendRedirect("EmployeeController?action=list");
@@ -225,7 +229,7 @@ public class EmployeeController extends HttpServlet {
      * @throws ServletException
      */
     private void projectAssignments(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException{
+            throws IOException, ServletException {
         int employeeId = Integer.parseInt(request.getParameter("employeeId"));
         List<Project> projectList = employeeService.availableProjects();
         Employee employee = employeeService.viewEmployeeDetails(employeeId);

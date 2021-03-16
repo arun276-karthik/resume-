@@ -67,8 +67,7 @@ pattern="[0-9]+" required></td>
 <tr>
 <td>Email-Id</td>
 <td><input type="email" placeholder="xyz@example.com"
-name="emailId" pattern="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-           	+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$" required></td>
+name="emailId"  required></td>
 </tr>
 <tr>
 <td>Date Of Birth</td>

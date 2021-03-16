@@ -22,7 +22,7 @@
 			<one-to-many
 				class="com.ideas2it.employeeProjectManagement.address.model.Address"/>
 		</bag>
-		<bag name="projects" cascade="all" lazy="false" table="employee_project_assignments">
+		<bag name="projects"  lazy="false" table="employee_project_assignments">
 			<key column="employee_id" />
 			<many-to-many
 				class="com.ideas2it.employeeProjectManagement.project.model.Project" column="project_id"/>
