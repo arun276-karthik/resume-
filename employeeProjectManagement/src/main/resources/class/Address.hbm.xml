@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class
+		name="com.ideas2it.employeeProjectManagement.address.model.Address"
+		table="addresses">
+		<id name="addressId" column="address_id">
+			<generator class="increment"></generator>
+		</id>
+		<property name="streetAddress" type="string"
+			column="street_address"></property>
+		<property name="state" type="string" column="state"></property>
+		<property name="city" type="string" column="city"></property>
+		<property name="postalCode" type="string"
+			column="postal_code"></property>
+	</class>
+</hibernate-mapping>
