@@ -11,8 +11,8 @@
 		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/employee_project_management</property>
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
-		<mapping resource="resources/class/Employee.hbm.xml" />
-		<mapping resource="resources/class/Address.hbm.xml" />
-		<mapping resource="resources/class/Project.hbm.xml" />
+		<mapping resource="class/Employee.hbm.xml" />
+		<mapping resource="class/Address.hbm.xml" />
+		<mapping resource="class/Project.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

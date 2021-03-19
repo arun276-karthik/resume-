@@ -31,7 +31,7 @@ public class DBConnection{
         try {
             if (sessionFactory == null) {
                 Configuration configuration = new Configuration();
-                configuration.configure("resources/properties/hibernate.cfg.xml");
+                configuration.configure("properties/hibernate.cfg.xml");
                 sessionFactory = configuration.buildSessionFactory();
             }
         } catch (Exception e) {

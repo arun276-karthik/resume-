@@ -78,7 +78,7 @@ public class EmployeeController extends HttpServlet {
                 employeeProject(request, response);
                 break;
             default:
-                employeeList(request, response);
+                insertEmployee(request, response);
                 break;
         }
     }

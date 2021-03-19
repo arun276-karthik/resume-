@@ -27,9 +27,4 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
 		<servlet-name>EmployeeController</servlet-name>
 		<url-pattern>/EmployeeController</url-pattern>
 	</servlet-mapping>
-
-	<error-page>
-		<exception-type>java.lang.Exception</exception-type>
-		<location>/errorPage.jsp</location>
-	</error-page>
 </web-app>
