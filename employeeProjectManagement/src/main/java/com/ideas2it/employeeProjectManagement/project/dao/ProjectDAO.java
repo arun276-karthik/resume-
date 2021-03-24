@@ -23,7 +23,7 @@ public interface ProjectDAO {
      * @param project        the details to create projectDetails
      * @return               project Id
      */
-    public int createProjectDetails(Project project);
+    int createProjectDetails(Project project);
 
     /**
      * Interface to Delete project Details for projectId
@@ -31,7 +31,7 @@ public interface ProjectDAO {
      * @param projectId      ProjectId to delete the details
      * @return               boolean
      */
-    public boolean deleteProject(int projectId);
+    boolean deleteProject(int projectId);
 
     /**
      * Interface to view Project details by projectId
@@ -39,14 +39,14 @@ public interface ProjectDAO {
      * @param projectId      projectId to get the details
      * @return				 project details
      */
-    public Project getProjectDetails(int projectId);
+    Project getProjectDetails(int projectId);
 
     /**
      * Interface to view List of all projects
      *
      * @return               Projects List
      */
-    public List<Project> getProjectList();
+    List<Project> getProjectList();
 
     /**
      * To check the project is updated or not
@@ -54,12 +54,12 @@ public interface ProjectDAO {
      * @param project        contains the project details to update
      * @return			     boolean
      */
-    public boolean isUpdateProjectDetails(Project project);
+    boolean isUpdateProjectDetails(Project project);
 
     /**
      * To assign project to user
      *
      * @return			     List of projects available
      */
-    public Project employeeProjectDetails(int employeeProjects);
+    Project employeeProjectDetails(int employeeProjects);
 }

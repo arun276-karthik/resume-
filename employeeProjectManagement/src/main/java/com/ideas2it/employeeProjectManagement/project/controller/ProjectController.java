@@ -11,6 +11,10 @@ import java.util.Map;
 import com.ideas2it.employeeProjectManagement.project.model.Project;
 import com.ideas2it.employeeProjectManagement.project.service.ProjectService;
 import com.ideas2it.employeeProjectManagement.project.service.impl.ProjectServiceImpl;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,56 +29,10 @@ import javax.servlet.http.HttpServletResponse;
  * @version 1.0
  * @since 22-01-2021
  */
+@Controller
 public class ProjectController extends HttpServlet {
 
     ProjectService projectService = new ProjectServiceImpl();
-
-    /**
-     * This method called by the server to allow a servlet to handle a POST request
-     *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doGet(request, response);
-    }
-
-    /**
-     * This method called by the server to allow a servlet to handle a GET request
-     *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
-     */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String action = request.getParameter("action");
-
-        switch (action) {
-            case "insert":
-                insertProject(request, response);
-                break;
-            case "delete":
-                projectDelete(request, response);
-                break;
-            case "update":
-                projectUpdate(request, response);
-                break;
-            case "list":
-                projectList(request, response);
-                break;
-            case "edit":
-                projectEdit(request, response);
-                break;
-            default:
-                projectList(request, response);
-                break;
-        }
-    }
 
     /**
      * To insert the project details to the database by the project service
@@ -84,14 +42,18 @@ public class ProjectController extends HttpServlet {
      * @throws IOException
      * @throws ServletException
      */
-    private void insertProject(HttpServletRequest request, HttpServletResponse response)
+    @RequestMapping(value = "/insertProject", method = RequestMethod.POST)
+    private ModelAndView insertProject(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
+        ModelAndView modelAndView = new ModelAndView();
         String projectName = request.getParameter("projectName");
         String projectDueDate = request.getParameter("projectDueDate");
         String projectManager = request.getParameter("projectManager");
         int projectId = projectService.createProjectDetails(projectName,
                 projectDueDate, projectManager);
-        response.sendRedirect("ProjectController?action=list");
+        modelAndView.setViewName("success.jsp");
+        modelAndView.addObject("projectId", projectId);
+        return modelAndView;
     }
 
     /**
@@ -101,11 +63,12 @@ public class ProjectController extends HttpServlet {
      * @param response
      * @throws IOException
      */
-    private void projectDelete(HttpServletRequest request, HttpServletResponse response)
+    @RequestMapping(value = "/projectDelete", method = RequestMethod.GET)
+    private String projectDelete(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         int projectId = Integer.parseInt(request.getParameter("projectId"));
         projectService.deleteProject(projectId);
-        response.sendRedirect("ProjectController?action=list");
+        return "redirect:projectList";
     }
 
     /**
@@ -116,15 +79,16 @@ public class ProjectController extends HttpServlet {
      * @param response
      * @throws IOException
      */
-    private void projectUpdate(HttpServletRequest request, HttpServletResponse response)
+    @RequestMapping(value = "/projectUpdate", method = RequestMethod.POST)
+    private String projectUpdate(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         int projectId = Integer.parseInt(request.getParameter("projectId"));
         String projectName = request.getParameter("projectName");
         String projectDueDate = request.getParameter("projectDueDate");
         String projectManager = request.getParameter("projectManager");
-        projectService.isUpdateProjectDetails(projectId,
+        projectService.updateProjectDetails(projectId,
                 projectName, projectDueDate, projectManager);
-        response.sendRedirect("ProjectController?action=list");
+        return "redirect:projectList";
     }
 
     /**
@@ -135,12 +99,14 @@ public class ProjectController extends HttpServlet {
      * @throws IOException
      * @throws ServletException
      */
-    private void projectList(HttpServletRequest request, HttpServletResponse response)
+    @RequestMapping(value = "/projectList", method = RequestMethod.GET)
+    private ModelAndView projectList(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
+        ModelAndView modelAndView = new ModelAndView();
         List<Project> projectList = projectService.getProjectList();
-        request.setAttribute("projectList", projectList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("projectList.jsp");
-        dispatcher.forward(request, response);
+        modelAndView.setViewName("projectList.jsp");
+        modelAndView.addObject("projectList", projectList);
+        return modelAndView;
     }
 
     /**
@@ -152,12 +118,14 @@ public class ProjectController extends HttpServlet {
      * @throws ServletException
      * @throws IOException
      */
-    private void projectEdit(HttpServletRequest request, HttpServletResponse response)
+    @RequestMapping("/projectEdit")
+    private ModelAndView projectEdit(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ModelAndView modelAndView =  new ModelAndView();
         int projectId = Integer.parseInt(request.getParameter("projectId"));
         Project project = projectService.getProjectDetails(projectId);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("updateProject.jsp");
-        request.setAttribute("project", project);
-        dispatcher.forward(request, response);
+        modelAndView.setViewName("updateProject.jsp");
+        modelAndView.addObject("project", project);
+        return modelAndView;
     }
 }

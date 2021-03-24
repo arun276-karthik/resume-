@@ -17,12 +17,12 @@ body {
         <a href="index.jsp"><button type="button">Home</button></a>
 	    &nbsp;&nbsp;&nbsp;&nbsp;
 	    &nbsp;&nbsp;&nbsp;&nbsp;
-	    <a href="ProjectController?action=list"><button type="button">Project List</button></a>
+	    <form method = "get" action = "/projectList"><button>Project List</button></form>
 	<hr>
 	    <center>
 	    <h1>Project Management</h1>
-	    <form action="ProjectController?action=insert" method="post">
-		    <table style="background-color: yellow; margin-left: 20px; margin-right: 20px;">
+	    <form action="/insertProject" method="post">
+		    <table style="background-color: #edffec; margin-left: 20px; margin-right: 20px;">
 		        <h3>Project Detail</h3>
 			    <tr>
 			        <td>Project Name</td>
@@ -39,6 +39,7 @@ body {
 			        <td><input type="text" placeholder="Manager Name"
 				      name="projectManager"  pattern="[a-zA-Z. ]+" required></td>
 	    		</tr>
+
 		    </table>
 		    <center>
 		    <br>

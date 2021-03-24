@@ -39,11 +39,11 @@ color: white;
 
 <a href="index.jsp"><button type="button">Home</button></a>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="EmployeeController?action=list"><button type="button" class="button">Employee List</button></a>
+<form method = "get" action = "/employeeList"><button class="button" >Employee List</button></form>
 <hr>
 <center>
 <h1>Employee Management</h1>
-<form action="EmployeeController?action=insert" method="post">
+<form action= "/insertEmployee" method="post">
 <table style="background-color: #edffec; margin-left: 20px; margin-right: 20px;">
 <h3>Employee Detail</h3>
 <tr>
@@ -128,7 +128,7 @@ name="postalCode" pattern="[0-9]+" required></td>
 </table>
 <center>
 <br>
-<td><input type="submit" name="submit" value="Submit"></td>
+<td><input type="submit" value="Submit"></td>
 </center>
 </form>
 </center>

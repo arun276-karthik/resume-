@@ -10,12 +10,20 @@ body {
     color: #393232;
 }
 tr:hover {background-color:#f5f5f5;}
+.right {
+  position: absolute;
+  right: 0px;
+  width: 150px;
+}
 </style>
 <head>
 <meta charset="ISO-8859-1">
 <title>Project List</title>
 </head>
 <body>
+<div class="right">
+        <a href="index.jsp"><button type="button">Home</button></a>
+        </div>
 	<input type="hidden" name="action" value="list" />
 	<center>
 		<h1>Project Management</h1>
@@ -42,15 +50,25 @@ tr:hover {background-color:#f5f5f5;}
 				<td>${project.projectDueDate}</td>
 				<td>${project.projectManager}</td>
 				<td>
-				<form action = "ProjectController?action=edit" method = "post">
+				<form action = "/projectEdit" method = "get">
                 <input type = "hidden" name = "projectId"  value = "${project.projectId}"/>
 				<button type = "submit">EDIT</button>
 				</form>
-				<form action = "ProjectController?action=delete" method = "post">
+				<form action = "/projectDelete" method = "get">
 				<input type = "hidden" name = "projectId" value = "${project.projectId}" />
-				<button type = "submit" onclick="alert('Project detail would be deleted')">DELETE</button>
-				</form>
-				</td>
+				<button type = "submit"  onclick="return deleteFunction()">DELETE</button>
+                				            </form>
+                				            <script>
+                				            function deleteFunction() {
+                                                  if (confirm("Project detail would be deleted")) {
+                                                      return true;
+                                                  } else {
+                                                      return false;
+                                                  }
+                                            }
+                                            </script>
+                				            </td>
+
 
 			</tr>
 </c:forEach>

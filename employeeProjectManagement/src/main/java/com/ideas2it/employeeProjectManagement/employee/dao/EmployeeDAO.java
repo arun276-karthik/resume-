@@ -24,7 +24,7 @@ public interface EmployeeDAO {
      * @param employee       to create employee details
      * @return               employeeId
      */
-    public int createEmployeeDetails(Employee employee);
+    int createEmployeeDetails(Employee employee);
 
     /**
      *  Interface to check Employee Deleted
@@ -32,7 +32,7 @@ public interface EmployeeDAO {
      * @param employeeId     to delete employee id details
      * @return               boolean
      */
-    public boolean deleteEmployee(int employeeId);
+    boolean deleteEmployee(int employeeId);
 
     /**
      * Interface to View Employee Details
@@ -40,14 +40,14 @@ public interface EmployeeDAO {
      * @param employeeId     employeeId to view details
      * @return				 boolean
      */
-    public Employee getEmployeeDetails(int employeeId);
+    Employee getEmployeeDetails(int employeeId);
 
     /**
      * Interface to View all employee Details
      *
      * @return               employee List
      */
-    public List<Employee> getEmployeeList();
+    List<Employee> getEmployeeList();
 
     /**
      * Interface to check is employee Details updated
@@ -55,7 +55,7 @@ public interface EmployeeDAO {
      * @param employee	     employee details to update
      * @return				 boolean
      */
-    public boolean isUpdateEmployeeDetails(Employee employee);
+    boolean isUpdateEmployeeDetails(Employee employee);
 
     /**
      * Interface to assign projects to employee
@@ -63,5 +63,5 @@ public interface EmployeeDAO {
      * @param employee        to assign project for employee Id
      * @return					boolean
      */
-    public boolean projectAssign(Employee employee);
+    boolean projectAssign(Employee employee);
 }

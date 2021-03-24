@@ -25,7 +25,7 @@ body {
     <div class="right">
         <a href="index.jsp"><button type="button">Home</button></a>
         </div>
-	<form method="post" action="EmployeeController?action=update">
+	<form method="post" action="/employeeUpdate">
 			<table style="background-color: #edffec; margin-left: 20px; margin-right: 20px;">
 			<tr>
 			<caption>
@@ -47,26 +47,26 @@ body {
 			<tr>
 				<td>Designation</td>
 				<td><input type="text"
-					name="designation" pattern="[a-zA-Z. ]+" value=${employee.designation}></td>
+					name="designation" pattern="[a-zA-Z. ]+" value=${employee.designation} required></td>
 			</tr>
 			<tr>
 				<td>Salary</td>
-				<td><input type="text"  name="salary" pattern="[0-9]+" value=${employee.salary}></td>
+				<td><input type="text"  name="salary" pattern="[0-9]+" value=${employee.salary} required></td>
 			</tr>
 			<tr>
 				<td>Email-Id</td>
 				<td><input type="email" value=${employee.emailId}
-					name="emailId"></td>
+					name="emailId" required></td>
 			</tr>
 			<tr>
 				<td>Date Of Birth</td>
 				<td ><input type="date" value=${employee.dateOfBirth}
-					name="dateOfBirth"></td>
+					name="dateOfBirth" required></td>
 			</tr>
 			<tr>
 				<td>Phone Number</td>
 				<td><input type="text"  pattern="[0-9]{10}" value=${employee.phoneNumber}
-					name="phoneNumber"></td>
+					name="phoneNumber" required></td>
 			</tr>
 		</table>
         <table
@@ -74,19 +74,19 @@ body {
 			<h3>Permanent Address</h3>
 			<tr>
 				<td>Street Address</td>
-				<td><input type="text" name="streetAddress" value=${employee.addresses.get(0).streetAddress}></td>
+				<td><input type="text" name="streetAddress" value=${employee.addresses.get(0).streetAddress} required></td>
 			</tr>
 			<tr>
 				<td>City</td>
-				<td><input type="text" name="city" value=${employee.addresses.get(0).city} ></td>
+				<td><input type="text" name="city" value=${employee.addresses.get(0).city} required></td>
 			</tr>
 			<tr>
 				<td>State</td>
-				<td><input type="text" name="state" value=${employee.addresses.get(0).state} ></td>
+				<td><input type="text" name="state" value=${employee.addresses.get(0).state} required></td>
 			</tr>
 			<tr>
 				<td>Postal Code</td>
-				<td><input type="text" name="postalCode" pattern="[0-9]+" value=${employee.addresses.get(0).postalCode}></td>
+				<td><input type="text" name="postalCode" pattern="[0-9]+" value=${employee.addresses.get(0).postalCode} required></td>
 			</tr>
 			</table>
             <table style="background-color: #edffec; margin-left: 20px; margin-right: 20px;">
@@ -94,19 +94,19 @@ body {
 			            			<h3>Current Address</h3>
             			<tr>
             				<td>Street Address</td>
-            				<td><input type="text" name="currentStreetAddress" value=${employee.addresses.get(1).streetAddress}></td>
+            				<td><input type="text" name="currentStreetAddress" value=${employee.addresses.get(1).streetAddress} required></td>
             			</tr>
             			<tr>
             				<td>City</td>
-            				<td><input type="text" name="currentCity" value=${employee.addresses.get(1).city} ></td>
+            				<td><input type="text" name="currentCity" value=${employee.addresses.get(1).city} required></td>
             			</tr>
             			<tr>
             				<td>State</td>
-            				<td><input type="text" name="currentState" value=${employee.addresses.get(1).state} ></td>
+            				<td><input type="text" name="currentState" value=${employee.addresses.get(1).state} required></td>
             			</tr>
             			<tr>
             				<td>Postal Code</td>
-            				<td><input type="text" name="currentPostalCode" pattern="[0-9]+" value=${employee.addresses.get(1).postalCode}></td>
+            				<td><input type="text" name="currentPostalCode" pattern="[0-9]+" value=${employee.addresses.get(1).postalCode} required></td>
             			</tr>
 		</table>
 

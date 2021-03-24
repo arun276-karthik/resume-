@@ -61,7 +61,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
         try {
             transaction = session.beginTransaction();
-            Employee employee = (Employee) session.get(Employee.class, employeeId);
+            Employee employee = session.get(Employee.class, employeeId);
             session.delete(employee);
             transaction.commit();
             return true;
@@ -121,7 +121,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
         try {
             transaction = session.beginTransaction();
-            employee = (Employee) session.get(Employee.class, employeeId);
+            employee = session.get(Employee.class, employeeId);
             transaction.commit();
         } catch (HibernateException e) {
             if (null != transaction)

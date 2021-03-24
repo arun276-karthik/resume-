@@ -141,7 +141,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         employee.setAddresses(addressList);
         boolean isEmployeeUpdate = employeeDAO.isUpdateEmployeeDetails(employee);
-        return (true == isEmployeeUpdate) ? true : false;
+        return true == isEmployeeUpdate;
     }
 
     /**

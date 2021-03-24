@@ -61,7 +61,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 
         try {
             transaction = session.beginTransaction();
-            Project project = (Project)session.get(Project.class, projectId);
+            Project project = session.get(Project.class, projectId);
             session.delete(project);
             transaction.commit();
             return true;
@@ -118,7 +118,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 
         try {
             transaction = session.beginTransaction();
-            project = (Project)session.get(Project.class, projectId);
+            project = session.get(Project.class, projectId);
             transaction.commit();
 
         } catch (HibernateException e) {
@@ -164,7 +164,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 
         try {
             transaction = session.beginTransaction();
-            project= (Project)session.get(Project.class, projectId);
+            project= session.get(Project.class, projectId);
             transaction.commit();
         } catch (HibernateException e) {
             if (transaction != null) transaction.rollback();

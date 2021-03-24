@@ -21,7 +21,7 @@ public interface EmployeeService {
      *
      * @return employeeList  the Employee details list
      */
-    public List<Employee> getEmployeeList();
+    List<Employee> getEmployeeList();
 
     /**
      * Add the employee details and address details
@@ -43,11 +43,11 @@ public interface EmployeeService {
      * @param  currentCity           current city
      * @param  currentPostalCode     current postal code
      */
-    public int createEmployeeDetails(String firstName, String secondName,
-                                     String designation, String salary, String emailId,
-                                     String dateOfBirth, String phoneNumber, String streetAddress,
-                                     String state, String city, String postalCode, String currentStreetAddress,
-                                     String currentState, String currentCity, String currentPostalCode);
+    int createEmployeeDetails(String firstName, String secondName,
+                              String designation, String salary, String emailId,
+                              String dateOfBirth, String phoneNumber, String streetAddress,
+                              String state, String city, String postalCode, String currentStreetAddress,
+                              String currentState, String currentCity, String currentPostalCode);
 
     /**
      * To delete employee details by id.
@@ -55,7 +55,7 @@ public interface EmployeeService {
      * @param  employeeId    to delete the details by employeeId
      * @return               boolean
      */
-    public boolean employeeDelete(int employeeId);
+    boolean employeeDelete(int employeeId);
 
     /**
      * To update employee Details and the boolean is returned
@@ -77,12 +77,12 @@ public interface EmployeeService {
      * @param  currentCity           current city
      * @param  currentPostalCode     current postal code
      */
-    public boolean updateEmployeeDetails(int employeeId, String firstName,
-                                         String secondName, String designation, String salary,
-                                         String emailId, String dateOfBirth, String phoneNumber, String streetAddress,
-                                         String state, String city, String postalCode,
-                                         String currentStreetAddress, String currentState, String currentCity,
-                                         String currentPostalCode);
+    boolean updateEmployeeDetails(int employeeId, String firstName,
+                                  String secondName, String designation, String salary,
+                                  String emailId, String dateOfBirth, String phoneNumber, String streetAddress,
+                                  String state, String city, String postalCode,
+                                  String currentStreetAddress, String currentState, String currentCity,
+                                  String currentPostalCode);
 
     /**
      * To view the employee details by providing id
@@ -90,7 +90,7 @@ public interface EmployeeService {
      * @param employeeId              view a employee details list by providing id
      * @return EmployeeDetails        returns the employee details for an id
      */
-    public Employee getEmployeeDetails(int employeeId);
+    Employee getEmployeeDetails(int employeeId);
 
     /**
      * To assign project to employee
@@ -99,11 +99,11 @@ public interface EmployeeService {
      * @param employeeProjects  projects for employeeId
      * @return                  boolean
      */
-    public boolean assignProject(int employeeId, List<String> employeeProjects);
+    boolean assignProject(int employeeId, List<String> employeeProjects);
 
     /**
      * To get the projectIds List
      * @return              projectId lists
      */
-    public List<Project> availableProjects();
+    List<Project> availableProjects();
 }

@@ -10,30 +10,37 @@ body {
   background-color: #e48257;
     color: #393232;
 }
+.right {
+  position: absolute;
+  right: 0px;
+  width: 150px;
+}
 </style>
 <meta charset="ISO-8859-1">
-<title>Update Employee</title>
+<title>Update Project</title>
 </head>
 <body>
 <center>
-
-	<form method="post" action="ProjectController?action=update">
-			<table style="background-color: yellow; margin-left: 20px; margin-right: 20px;">
+<div class="right">
+        <a href="index.jsp"><button type="button">Home</button></a>
+        </div>
+	<form method="post" action="/projectUpdate">
+			<table style="background-color: #edffec; margin-left: 20px; margin-right: 20px;">
 			<tr>
 			<caption>
-			    <h4>
+			    <h2>
 			    Update Project
-			    </h4>
+			    </h2>
 			</caption>
 				<td>Project ID</td>
-				<td><input name="projectId" readonly="readonly" value="${project.projectId}" disabled></td>
+				<td><input name="projectId" readonly="readonly" value="${project.projectId}" ></td>
 			</tr>
 			<tr>
 				<td>Project Name</td>
 				<td><input type="text"
 					name="projectName" value=${project.projectName} required></td>
 				<td>Project Due Date</td>
-				<td><input type="text" name="projectDueDate"
+				<td><input type="date" name="projectDueDate"
 				 value=${project.projectDueDate}></td>
 			</tr>
 			<tr>

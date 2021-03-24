@@ -74,11 +74,11 @@ background-color:#f5f5f5;
 				                <td>${address.postalCode}</td>
 				            </c:forEach>
 				            <td>
-				            <form action = "EmployeeController?action=edit" method = "post">
+				            <form action = "/employeeEdit" method = "get">
                                 <input type = "hidden" name = "employeeId"  value = "${employee.employeeId}"/>
 				                <button type = "submit">EDIT</button>
 				            </form>
-				            <form action = "EmployeeController?action=delete" method = "get">
+				            <form action = "/employeeDelete" method = "get">
 				                <input type = "hidden" name = "employeeId" value = "${employee.employeeId}" />
 				                <button type = "submit"  onclick="return deleteFunction()">DELETE</button>
 				            </form>
@@ -93,7 +93,7 @@ background-color:#f5f5f5;
                             </script>
 				            </td>
 				        <td>
-				        <form action = "EmployeeController?action=projectAssignments" method="post">
+				        <form action = "/employeeProject" method="get">
                         <input type = "hidden" name = "employeeId" value = "${employee.employeeId}" />
                         <button type = "submit" >Assign</button>
                         </form>

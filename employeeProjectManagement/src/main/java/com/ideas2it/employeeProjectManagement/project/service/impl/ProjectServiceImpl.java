@@ -90,7 +90,7 @@ public class ProjectServiceImpl implements ProjectService{
      * @return                boolean
      *
      */
-    public boolean isUpdateProjectDetails(int projectId, String projectName,
+    public boolean updateProjectDetails(int projectId, String projectName,
                                           String projectDueDate, String projectManager) {
         Project project = new Project();
         project.setProjectId(projectId);

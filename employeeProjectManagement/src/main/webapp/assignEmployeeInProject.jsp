@@ -29,7 +29,7 @@ background-color:#f5f5f5;
     <div class="right">
         <a href="index.jsp"><button type="button">Home</button></a>
     </div>
-    <form action="EmployeeController?action=projectAssign" method="post">
+    <form action="/assignProject" method="post">
         <input type="hidden" name="employeeId" value="${employee.employeeId}"/>
 	    <center>
 		    <h1>Project Management</h1>

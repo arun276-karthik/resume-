@@ -24,7 +24,7 @@ public interface ProjectService {
      *
      * @return projectDetailsList  the list of projects
      */
-    public List<Project> getProjectList();
+    List<Project> getProjectList();
 
     /**
      * Add the Project details checking the Project id is already present or not
@@ -33,7 +33,7 @@ public interface ProjectService {
      * @param dueDate  How long to complete project
      * @param manager  manager of a project
      */
-    public int createProjectDetails(String projectName, String dueDate, String manager);
+    int createProjectDetails(String projectName, String dueDate, String manager);
 
     /**
      * To delete project details by id.
@@ -42,7 +42,7 @@ public interface ProjectService {
      * @return true         project id deleted.
      * @return false        project id not exists.
      */
-    public boolean deleteProject(int projectId);
+    boolean deleteProject(int projectId);
 
     /**
      * Project Details Update metod to change the project details
@@ -54,8 +54,8 @@ public interface ProjectService {
      * @return                boolean
      *
      */
-    public boolean isUpdateProjectDetails(int projectId, String projectName,
-                                          String projectDueDate, String projectManager);
+    boolean updateProjectDetails(int projectId, String projectName,
+                                   String projectDueDate, String projectManager);
 
     /**
      * To get the project details providing id
@@ -63,14 +63,14 @@ public interface ProjectService {
      * @param projectId      enter id to view project details
      * @return               projectDetailsList
      */
-    public Project getProjectDetails(int projectId);
+    Project getProjectDetails(int projectId);
 
     /**
      * To get the projectIds List
      *
      * @return              projectId lists
      */
-    public List<Set<Integer>> availableProjects();
+    List<Set<Integer>> availableProjects();
 
     /**
      * Interface to get projects assign for employee
@@ -78,5 +78,5 @@ public interface ProjectService {
      * @param employeeProjects  list of project ids
      * @return                  employees
      */
-    public List<Project> employeeProjectDetails(List<Integer> employeeProjects);
+    List<Project> employeeProjectDetails(List<Integer> employeeProjects);
 }
