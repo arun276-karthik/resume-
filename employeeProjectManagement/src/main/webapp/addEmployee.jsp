@@ -39,47 +39,47 @@ color: white;
 
 <a href="index.jsp"><button type="button">Home</button></a>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<form method = "get" action = "/employeeList"><button class="button" >Employee List</button></form>
+<form:form method = "get" action = "/employeeList"><button class="button" >Employee List</button></form:form>
 <hr>
 <center>
 <h1>Employee Management</h1>
-<form action= "/insertEmployee" method="post">
+<form:form action= "/insertEmployee" method="post" modelAttribute="employee">
 <table style="background-color: #edffec; margin-left: 20px; margin-right: 20px;">
 <h3>Employee Detail</h3>
 <tr>
 <td>First Name</td>
-<td><input type="text" placeholder="Enter First Name"
-name="firstName" pattern="[a-zA-Z. ]+" required></td>
+<td><form:input placeholder="Enter First Name"
+path="firstName" pattern="[a-zA-Z. ]+" required></td>
 <td>Last Name</td>
-<td><input type="text" placeholder="Enter Second Name"
-name="lastName" pattern="[a-zA-Z. ]+" required></td>
+<td><form:input placeholder="Enter Second Name"
+path="lastName" pattern="[a-zA-Z. ]+" required></td>
 </tr>
 <tr>
 <td>Designation</td>
-<td><input type="text" placeholder="Enter Designation"
-name="designation"  pattern="[a-zA-Z. ]+" required></td>
+<td><form:input placeholder="Enter Designation"
+path="designation"  pattern="[a-zA-Z. ]+" required></td>
 </tr>
 <tr>
 <td>Salary</td>
-<td><input type="text" placeholder="Enter Salary" name="salary"
+<td><form:input  placeholder="Enter Salary" path="salary"
 pattern="[0-9]+" required></td>
 </tr>
 <tr>
 <td>Email-Id</td>
-<td><input type="email" placeholder="xyz@example.com"
-name="emailId"  required></td>
+<td><form:input placeholder="xyz@example.com"
+path="emailId"  required></td>
 </tr>
 <tr>
 <td>Date Of Birth</td>
-<td><input type="date" placeholder="Enter BirthDate"
-name="dateOfBirth"
+<td><form:input placeholder="Enter BirthDate"
+path="dateOfBirth"
 pattern="^((19|2[0-9])[0-9]{2})-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$" required>
 </td>
 </tr>
 <tr>
 <td>Phone Number</td>
-<td><input type="text" placeholder="Enter Phone Number"
-name="phoneNumber" pattern="[0-9]{10}" required></td>
+<td><form:input placeholder="Enter Phone Number"
+path="phoneNumber" pattern="[0-9]{10}" required></td>
 </tr>
 </table>
 <table style="background-color: #edffec; margin-left: 20px; margin-right: 20px;">
@@ -87,21 +87,21 @@ name="phoneNumber" pattern="[0-9]{10}" required></td>
 <h3>Permanent Address</h3>
 <tr>
 <td>Street Address</td>
-<td><input type="text" placeholder="DoorNumber,street,area"
-name="currentStreetAddress" required></td>
+<td><form:input placeholder="DoorNumber,street,area"
+path="employee.addresses[0].streetAddress" required></td>
 </tr>
 <tr>
 <td>City</td>
-<td><input type="text" placeholder="Chennai" name="currentCity" required></td>
+<td><form:input placeholder="Chennai" path="employee.addresses[0].city" required></td>
 </tr>
 <tr>
 <td>State</td>
-<td><input type="text" placeholder="TamilNadu" name="currentState" required></td>
+<td><form:input placeholder="TamilNadu" path="employee.addresses[0].state" required></td>
 </tr>
 <tr>
 <td>Postal Code</td>
-<td><input type="text" placeholder="Enter PostalCode"
-name="currentPostalCode" pattern="[0-9]+" required></td>
+<td><form:input  placeholder="Enter PostalCode"
+path="employee.addresses[0].postalCode" pattern="[0-9]+" required></td>
 </tr>
 </table>
 <table style="background-color: #edffec; margin-left: 20px; margin-right: 20px;">
@@ -109,28 +109,28 @@ name="currentPostalCode" pattern="[0-9]+" required></td>
 <h3>Current Address</h3>
 <tr>
 <td>Street Address</td>
-<td><input type="text" placeholder="DoorNumber,street,area"
-name="streetAddress"  required></td>
+<td><form:input placeholder="DoorNumber,street,area"
+path="employee.addresses[1].streetAddress"  required></td>
 </tr>
 <tr>
 <td>City</td>
-<td><input type="text" placeholder="Chennai" name="city" required></td>
+<td><form:input placeholder="Chennai" path="employee.addresses[1].city" required></td>
 </tr>
 <tr>
 <td>State</td>
-<td><input type="text" placeholder="TamilNadu" name="state" required></td>
+<td><form:input placeholder="TamilNadu" path="employee.addresses[1].state" required></td>
 </tr>
 <tr>
 <td>Postal Code</td>
-<td><input type="text" placeholder="Enter PostalCode"
-name="postalCode" pattern="[0-9]+" required></td>
+<td><form:input placeholder="Enter PostalCode"
+path="employee.addresses[1].postalCode" pattern="[0-9]+" required></td>
 </tr>
 </table>
 <center>
 <br>
 <td><input type="submit" value="Submit"></td>
 </center>
-</form>
+</form:form>
 </center>
 </body>
 </html>

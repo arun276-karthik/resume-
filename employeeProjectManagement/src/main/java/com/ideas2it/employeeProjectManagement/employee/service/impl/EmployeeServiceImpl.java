@@ -43,37 +43,9 @@ public class EmployeeServiceImpl implements EmployeeService {
      * Add the employee details and address details
      * and getting the employee Id for the employee
      *
-     * @param firstName 	         employee first name
-     * @param secondName	         employee second name
-     * @param designation 	         designation of employee
-     * @param salary	             of employee
-     * @param emailId	             email of an employee
-     * @param dateOfBirth	                 age of an employee
-     * @param phoneNumber 	         phone number of an employee
-     * @param  streetAddress         permanent street address of an employee
-     * @param  state                 Permanent state
-     * @param  city                  permanent city
-     * @param  postalCode            permanent postalCode
-     * @param  currentStreetAddress	 current street address
-     * @param  currentState          current state
-     * @param  currentCity           current city
-     * @param  currentPostalCode     current postal code
+     * @param employee
      */
-    public int createEmployeeDetails(String firstName, String secondName,
-                                     String designation, String 	salary, String emailId,
-                                     String dateOfBirth, String phoneNumber, String streetAddress,
-                                     String state, String city, String postalCode, String currentStreetAddress,
-                                     String currentState, String currentCity, String currentPostalCode) {
-        Employee employee= new Employee(firstName, secondName,
-                designation, salary, emailId, dateOfBirth, phoneNumber);
-        Address permanentAddress = new Address(streetAddress, state,
-                city, postalCode);
-        Address currentAddress = new Address(currentStreetAddress, currentState,
-                currentCity, currentPostalCode);
-        List<Address> addressList = new ArrayList<Address>();
-        addressList.add(permanentAddress);
-        addressList.add(currentAddress);
-        employee.setAddresses(addressList);
+    public int createEmployeeDetails(Employee employee) {
         int employeeId = employeeDAO.createEmployeeDetails(employee);
 		return employeeId;
     }

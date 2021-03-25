@@ -16,6 +16,7 @@ import com.ideas2it.employeeProjectManagement.employee.service.EmployeeService;
 import com.ideas2it.employeeProjectManagement.employee.service.impl.EmployeeServiceImpl;
 import com.ideas2it.employeeProjectManagement.project.model.Project;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,36 +41,16 @@ public class EmployeeController extends HttpServlet {
     }
 
     /**
-     * To send employee details to service this method is used to insert in database
+     * To send employee details to service this method is used to insert in datab
      *
-     * @param request
-     * @param response
      * @throws IOException
      * @throws ServletException
      */
     @RequestMapping(value = "/insertEmployee", method = RequestMethod.POST)
-    private ModelAndView insertEmployee(HttpServletRequest request, HttpServletResponse response)
+    private ModelAndView insertEmployee(@ModelAttribute Employee employee)
             throws IOException, ServletException {
         ModelAndView modelAndView = new ModelAndView();
-        String firstName = request.getParameter("firstName");
-        String secondName = request.getParameter("lastName");
-        String designation = request.getParameter("designation");
-        String salary = request.getParameter("salary");
-        String emailId = request.getParameter("emailId");
-        String dateOfBirth = request.getParameter("dateOfBirth");
-        String phoneNumber = request.getParameter("phoneNumber");
-
-        String currentStreetAddress = request.getParameter("currentStreetAddress");
-        String currentCity = request.getParameter("currentCity");
-        String currentState = request.getParameter("currentState");
-        String currentPostalCode = request.getParameter("currentPostalCode");
-        String streetAddress = request.getParameter("streetAddress");
-        String city = request.getParameter("city");
-        String state = request.getParameter("state");
-        String postalCode = request.getParameter("postalCode");
-        int employeeId = employeeService.createEmployeeDetails(firstName, secondName, designation, salary,
-                emailId, dateOfBirth, phoneNumber, streetAddress, state, city,
-                postalCode, currentStreetAddress, currentState, currentCity, currentPostalCode);
+        int employeeId = employeeService.createEmployeeDetails(employee);
         modelAndView.setViewName("success.jsp");
         modelAndView.addObject("employeeId", employeeId);
         return modelAndView;

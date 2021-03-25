@@ -25,7 +25,7 @@ body {
     <div class="right">
         <a href="index.jsp"><button type="button">Home</button></a>
         </div>
-	<form method="post" action="/employeeUpdate">
+	<form:form method="post" action="/employeeUpdate">
 			<table style="background-color: #edffec; margin-left: 20px; margin-right: 20px;">
 			<tr>
 			<caption>
@@ -34,12 +34,12 @@ body {
 			    </h4>
 			</caption>
 				<td>Employee ID</td>
-				<td><input type="hidden" name="employeeId" readonly="readonly" value="${employee.employeeId}" ></td>
+				<td><form:input path="employeeId" readonly="readonly" value="${employee.employeeId}" ></td>
 			</tr>
 			<tr>
 				<td>First Name</td>
-				<td><input type="text"
-					name="firstName" pattern="[a-zA-Z. ]+" value=${employee.firstName} required></td>
+				<td><form:input
+					path="firstName" pattern="[a-zA-Z. ]+" value=${employee.firstName} required></td>
 				<td>Last Name</td>
 				<td><input type="text" name="secondName" pattern="[a-zA-Z. ]+"
 				 value=${employee.secondName}></td>

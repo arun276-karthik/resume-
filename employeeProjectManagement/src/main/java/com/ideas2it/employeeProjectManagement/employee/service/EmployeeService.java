@@ -26,28 +26,8 @@ public interface EmployeeService {
     /**
      * Add the employee details and address details
      * checking the employee id is already present or not
-     *
-     * @param firstName 	         employee first name
-     * @param secondName	         employee second name
-     * @param designation 	         designation of employee
-     * @param salary	             of employee
-     * @param emailId	             email of an employee
-     * @param dateOfBirth	                 age of an employee
-     * @param phoneNumber 	         phone number of an employee
-     * @param  streetAddress         permanent street address of an employee
-     * @param  state                 Permanent state
-     * @param  city                  permanent city
-     * @param  postalCode            permanent postalCode
-     * @param  currentStreetAddress	 current street address
-     * @param  currentState          current state
-     * @param  currentCity           current city
-     * @param  currentPostalCode     current postal code
      */
-    int createEmployeeDetails(String firstName, String secondName,
-                              String designation, String salary, String emailId,
-                              String dateOfBirth, String phoneNumber, String streetAddress,
-                              String state, String city, String postalCode, String currentStreetAddress,
-                              String currentState, String currentCity, String currentPostalCode);
+    int createEmployeeDetails(Employee employee);
 
     /**
      * To delete employee details by id.
