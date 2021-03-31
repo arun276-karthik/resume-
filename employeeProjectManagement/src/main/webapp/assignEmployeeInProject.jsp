@@ -3,8 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.ideas2it.employeeProjectManagement.employee.model.Employee" %>
-<%@ page import="com.ideas2it.employeeProjectManagement.project.model.Project" %>
 <!DOCTYPE html>
 <html>
 <style>
@@ -34,7 +32,7 @@ background-color:#f5f5f5;
 	    <center>
 		    <h1>Project Management</h1>
 		    <h2>
-		        <a href="addEmployee.jsp">Add Employee</a>
+		        <a href="/getEmployee"><button type="button">Add Employee</button></a>
 		    </h2>
 	        <div align="center">
 		       <table border="1" cellpadding="5">
@@ -72,5 +70,3 @@ background-color:#f5f5f5;
 	</form>
 </body>
 </html>
-</body>
-</html>}

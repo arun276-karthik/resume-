@@ -64,54 +64,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     /**
      * To update employee Details and the boolean is returned
      *
-     * @param employeeId             employeeId to update details
-     * @param firstName 	         employee first name
-     * @param secondName	         employee second name
-     * @param designation 	         designation of employee
-     * @param salary	             of employee
-     * @param emailId	             email of an employee
-     * @param dateOfBirth	                 age of an employee
-     * @param phoneNumber 	         phone number of an employee
-     * @param  streetAddress         permanent street address of an employee
-     * @param  state                 Permanent state
-     * @param  city                  permanent city
-     * @param  postalCode            permanent postalCode
-     * @param  currentStreetAddress	 current street address
-     * @param  currentState          current state
-     * @param  currentCity           current city
-     * @param  currentPostalCode     current postal code
+     * @param employee
      */
 
-    public boolean updateEmployeeDetails(int employeeId, String firstName, String secondName,
-                                           String designation, String salary,	String emailId, String dateOfBirth, String phoneNumber,
-                                           String streetAddress, String state, String city,
-                                           String postalCode,	String currentStreetAddress, String currentState,
-                                           String currentCity, String currentPostalCode) {
-        Employee employee = new Employee();
-        employee.setEmployeeId(employeeId);
-        employee.setFirstName(firstName);
-        employee.setSecondName(secondName);
-        employee.setDesignation(designation);
-        employee.setSalary(salary);
-        employee.setEmailId(emailId);
-        employee.setDateOfBirth(dateOfBirth);
-        employee.setPhoneNumber(phoneNumber);
-
-        Address permanentAddress = new Address();
-        Address currentAddress = new Address();
-        permanentAddress.setStreetAddress(streetAddress);
-        permanentAddress.setState(state);
-        permanentAddress.setCity(city);
-        permanentAddress.setPostalCode(postalCode);
-        currentAddress.setStreetAddress(currentStreetAddress);
-        currentAddress.setState(currentState);
-        currentAddress.setCity(currentCity);
-        currentAddress.setPostalCode(currentPostalCode);
-        List<Address> addressList = new ArrayList<Address>();
-        addressList.add(permanentAddress);
-        addressList.add(currentAddress);
-
-        employee.setAddresses(addressList);
+    public boolean updateEmployeeDetails(Employee employee) {
         boolean isEmployeeUpdate = employeeDAO.isUpdateEmployeeDetails(employee);
         return true == isEmployeeUpdate;
     }

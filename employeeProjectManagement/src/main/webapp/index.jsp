@@ -30,11 +30,11 @@ div {
 	<center>
 	<div>
 		<h1>Employee Project Management</h1>
-		<h2><button type="button" class="button">
-            <a href="addEmployee.jsp">Employee</a></button>
+		<h2><button class="button">
+            <a href="/getEmployee">Employee</a></button>
             &nbsp;&nbsp;&nbsp;
             <button type="button" class="button">
-            <a href="addProject.jsp">Project</a></button>
+            <a href="/getProject">Project</a></button>
         </h2>
     </div>
 	</center>

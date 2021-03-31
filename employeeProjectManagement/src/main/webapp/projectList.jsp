@@ -28,7 +28,7 @@ tr:hover {background-color:#f5f5f5;}
 	<center>
 		<h1>Project Management</h1>
 		<h2>
-			<a href="addProject.jsp">Add Project</a>
+			<a href="/getProject">Add Project</a>
 		</h2>
 	</center>
 	<div align="center">

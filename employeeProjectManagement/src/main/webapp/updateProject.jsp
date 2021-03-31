@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 	<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
@@ -24,7 +25,7 @@ body {
 <div class="right">
         <a href="index.jsp"><button type="button">Home</button></a>
         </div>
-	<form method="post" action="/projectUpdate">
+	<form:form method="post" action="/projectUpdate" modelAttribute="project">
 			<table style="background-color: #edffec; margin-left: 20px; margin-right: 20px;">
 			<tr>
 			<caption>
@@ -32,21 +33,20 @@ body {
 			    Update Project
 			    </h2>
 			</caption>
-				<td>Project ID</td>
-				<td><input name="projectId" readonly="readonly" value="${project.projectId}" ></td>
+			<td>ProjectId</td>
+				<td><form:input readonly="true" path="projectId"  value="${project.projectId}" /></td>
 			</tr>
 			<tr>
 				<td>Project Name</td>
-				<td><input type="text"
-					name="projectName" value=${project.projectName} required></td>
+				<td><form:input path="projectName" value="${project.projectName}" required="required"/></td>
 				<td>Project Due Date</td>
-				<td><input type="date" name="projectDueDate"
-				 value=${project.projectDueDate}></td>
+				<td><form:input type="date" path="projectDueDate"
+				 value="${project.projectDueDate}" required="required"/></td>
 			</tr>
 			<tr>
 				<td>Project Manager</td>
-				<td><input type="text"
-					name="projectManager" value=${project.projectManager}></td>
+				<td><form:input
+					path="projectManager" value="${project.projectManager}" required="required"/></td>
 			</tr>
 			</table>
      	<tr>
@@ -55,7 +55,7 @@ body {
                         <input type="submit" value="save" />
                     </td>
     </tr>
-    </form>
+    </form:form>
     </center>
 </body>
 </html>

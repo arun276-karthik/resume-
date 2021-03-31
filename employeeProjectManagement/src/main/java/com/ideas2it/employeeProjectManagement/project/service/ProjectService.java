@@ -29,11 +29,9 @@ public interface ProjectService {
     /**
      * Add the Project details checking the Project id is already present or not
      *
-     * @param projectName     Project name
-     * @param dueDate  How long to complete project
-     * @param manager  manager of a project
+     *
      */
-    int createProjectDetails(String projectName, String dueDate, String manager);
+    int createProjectDetails(Project project);
 
     /**
      * To delete project details by id.
@@ -47,15 +45,9 @@ public interface ProjectService {
     /**
      * Project Details Update metod to change the project details
      *
-     * @param projectId       project Id
-     * @param projectName     Project name
-     * @param projectDueDate  How long to complete project
-     * @param projectManager  manager of a project
      * @return                boolean
-     *
      */
-    boolean updateProjectDetails(int projectId, String projectName,
-                                   String projectDueDate, String projectManager);
+    boolean updateProjectDetails(Project project);
 
     /**
      * To get the project details providing id

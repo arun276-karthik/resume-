@@ -29,7 +29,7 @@ background-color:#f5f5f5;
 	    <center>
 		    <h1>Employee Management</h1>
 		    <h2>
-			    <a href="addEmployee.jsp">Add Employee</a>
+			    <a href="/getEmployee"><button type="button">Add Employee</button></a>
 		    </h2>
 	    </center>
 	    <div align="center">
@@ -74,11 +74,11 @@ background-color:#f5f5f5;
 				                <td>${address.postalCode}</td>
 				            </c:forEach>
 				            <td>
-				            <form action = "/employeeEdit" method = "get">
+				            <form action = "employeeEdit" method = "get">
                                 <input type = "hidden" name = "employeeId"  value = "${employee.employeeId}"/>
 				                <button type = "submit">EDIT</button>
 				            </form>
-				            <form action = "/employeeDelete" method = "get">
+				            <form action = "employeeDelete" method = "get">
 				                <input type = "hidden" name = "employeeId" value = "${employee.employeeId}" />
 				                <button type = "submit"  onclick="return deleteFunction()">DELETE</button>
 				            </form>

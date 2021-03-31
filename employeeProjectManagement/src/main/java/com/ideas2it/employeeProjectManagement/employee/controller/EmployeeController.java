@@ -4,6 +4,7 @@
 package com.ideas2it.employeeProjectManagement.employee.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ideas2it.employeeProjectManagement.address.model.Address;
 import com.ideas2it.employeeProjectManagement.employee.model.Employee;
 import com.ideas2it.employeeProjectManagement.employee.service.EmployeeService;
 import com.ideas2it.employeeProjectManagement.employee.service.impl.EmployeeServiceImpl;
@@ -19,7 +21,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -34,20 +35,14 @@ public class EmployeeController extends HttpServlet {
 
     EmployeeService employeeService = new EmployeeServiceImpl();
 
-    @RequestMapping("/")
-    public String home(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        return "redirect:index.jsp";
-    }
-
     /**
      * To send employee details to service this method is used to insert in datab
      *
      * @throws IOException
      * @throws ServletException
      */
-    @RequestMapping(value = "/insertEmployee", method = RequestMethod.POST)
-    private ModelAndView insertEmployee(@ModelAttribute Employee employee)
+    @RequestMapping(value = "insertEmployee", method = RequestMethod.POST)
+    private ModelAndView insertEmployee(@ModelAttribute("employee") Employee employee)
             throws IOException, ServletException {
         ModelAndView modelAndView = new ModelAndView();
         int employeeId = employeeService.createEmployeeDetails(employee);
@@ -56,7 +51,6 @@ public class EmployeeController extends HttpServlet {
         return modelAndView;
     }
 
-
     /**
      * To delete the employee details from the database this is used
      *
@@ -64,7 +58,7 @@ public class EmployeeController extends HttpServlet {
      * @param response
      * @throws IOException
      */
-    @RequestMapping(value = "/employeeDelete", method = RequestMethod.GET)
+    @RequestMapping("/employeeDelete")
     private String employeeDelete(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         int employeeId = Integer.parseInt(request.getParameter("employeeId"));
@@ -76,35 +70,32 @@ public class EmployeeController extends HttpServlet {
      * The employee details obtained are updated in the database table
      * by thhis method
      *
-     * @param request
-     * @param response
-     * @throws IOException
+     * * @throws IOException
      */
     @RequestMapping(value = "/employeeUpdate", method = RequestMethod.POST)
-    private String employeeUpdate(HttpServletRequest request, HttpServletResponse response)
+    private String employeeUpdate(@ModelAttribute Employee employee)
             throws IOException, ServletException {
-        int employeeId = Integer.parseInt(request.getParameter("employeeId"));
-        String firstName = request.getParameter("firstName");
-        String secondName = request.getParameter("secondName");
-        String designation = request.getParameter("designation");
-        String salary = request.getParameter("salary");
-        String emailId = request.getParameter("emailId");
-        String dateOfBirth = request.getParameter("dateOfBirth");
-        String phoneNumber = request.getParameter("phoneNumber");
-
-        String currentStreetAddress = request.getParameter("currentStreetAddress");
-        String currentCity = request.getParameter("currentCity");
-        String currentState = request.getParameter("currentState");
-        String currentPostalCode = request.getParameter("currentPostalCode");
-        String streetAddress = request.getParameter("streetAddress");
-        String city = request.getParameter("city");
-        String state = request.getParameter("state");
-        String postalCode = request.getParameter("postalCode");
-
-        employeeService.updateEmployeeDetails(employeeId, firstName, secondName, designation, salary,
-                emailId, dateOfBirth, phoneNumber, streetAddress, state, city,
-                postalCode, currentStreetAddress, currentState, currentCity, currentPostalCode);
+        employeeService.updateEmployeeDetails(employee);
         return "redirect:employeeList";
+    }
+
+    /**
+     * To get the employee model and send it to create employee
+     * details
+     *
+     *  @throws IOException
+     */
+    @RequestMapping(value = "/getEmployee", method = RequestMethod.GET)
+    private ModelAndView getEmployee(ModelAndView model)
+            throws IOException, ServletException {
+        Employee employee = new Employee();
+        List<Address> addresses = new ArrayList<Address>();
+        addresses.add(new Address());
+        addresses.add(new Address());
+        employee.setAddresses(addresses);
+        model.addObject("employee", employee);
+        model.setViewName("addEmployee.jsp");
+        return model;
     }
 
     /**
@@ -148,8 +139,6 @@ public class EmployeeController extends HttpServlet {
     /**
      * To assign the projects for an employee
      *
-     * @param request
-     * @param response
      * @throws ServletException
      * @throws IOException
      */
@@ -160,7 +149,7 @@ public class EmployeeController extends HttpServlet {
             List employeeProjects = Arrays.asList(projects);
             int employeeId = Integer.parseInt(request.getParameter("employeeId"));
             employeeService.assignProject(employeeId, employeeProjects);
-            return ("redirect:employeeList");
+        return ("redirect:employeeList");
     }
 
     /**
@@ -170,11 +159,10 @@ public class EmployeeController extends HttpServlet {
      * @param request
      * @param response
      * @throws IOException
-     * @throws ServletException
      */
     @RequestMapping(value = "/employeeProject", method = RequestMethod.GET)
     private ModelAndView employeeProject(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
+            throws IOException {
         ModelAndView modelAndView = new ModelAndView();
         int employeeId = Integer.parseInt(request.getParameter("employeeId"));
         List<Project> projectList = employeeService.availableProjects();

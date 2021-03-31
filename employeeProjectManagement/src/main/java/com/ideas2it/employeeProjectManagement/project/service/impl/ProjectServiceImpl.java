@@ -58,14 +58,9 @@ public class ProjectServiceImpl implements ProjectService{
     /**
      * Add the Project details checking the Project id is already present or not
      *
-     * @param projectName     Project name
-     * @param dueDate  How long to complete project
-     * @param manager  manager of a project
      * @return projectId      preoject id for this project
      */
-    public int createProjectDetails(String projectName,
-                                    String dueDate, String manager) {
-        Project project = new Project(projectName, dueDate, manager);
+    public int createProjectDetails(Project project) {
         int projectId = projectDAO.createProjectDetails(project);
         return projectId;
     }
@@ -83,20 +78,9 @@ public class ProjectServiceImpl implements ProjectService{
     /**
      * Project Details Update metod to change the project details
      *
-     * @param projectId       project Id
-     * @param projectName     Project name
-     * @param projectDueDate  How long to complete project
-     * @param projectManager  manager of a project
      * @return                boolean
-     *
      */
-    public boolean updateProjectDetails(int projectId, String projectName,
-                                          String projectDueDate, String projectManager) {
-        Project project = new Project();
-        project.setProjectId(projectId);
-        project.setProjectDueDate(projectDueDate);
-        project.setProjectName(projectName);
-        project.setProjectManager(projectManager);
+    public boolean updateProjectDetails(Project project) {
         return projectDAO.isUpdateProjectDetails(project);
     }
 

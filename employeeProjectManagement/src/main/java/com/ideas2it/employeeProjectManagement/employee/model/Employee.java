@@ -52,7 +52,6 @@ public class Employee {
         this.emailId = emailId;
         this.dateOfBirth = dateOfBirth;
         this.phoneNumber = phoneNumber;
-
     }
 
     public String getDateOfBirth() {

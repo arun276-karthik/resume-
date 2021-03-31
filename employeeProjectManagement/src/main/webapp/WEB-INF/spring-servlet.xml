@@ -9,6 +9,13 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-2.5.xsd ">
 
-    <ctx:component-scan base-package="com.ideas2it">
-    </ctx:component-scan>
+    <ctx:component-scan base-package="com.ideas2it" />
+
+    <!--bean
+            class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/" />
+        <property name="suffix" value=".jsp" />
+    </bean-->
+    <mvc:annotation-driven />
+
 </beans>
