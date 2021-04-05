@@ -49,52 +49,52 @@ color: white;
 <h3>Employee Detail</h3>
 <tr>
 <td>First Name</td>
-<td><form:input path="firstName" /></td>
+<td><form:input path="firstName" required="required"/></td>
 <td>Last Name</td>
-<td><form:input path="secondName" /></td>
+<td><form:input path="secondName" required="required" /></td>
 </tr>
 <tr>
 <td>Designation</td>
-<td><form:input path="designation" /></td>
+<td><form:input path="designation" required="required"/></td>
 </tr>
 <tr>
 <td>Salary</td>
-<td><form:input  path="salary" /></td>
+<td><form:input  path="salary" required="required" /></td>
 </tr>
 <tr>
 <td>Email-Id</td>
-<td><form:input type="email" path="emailId"  /></td>
+<td><form:input type="email" path="emailId" required="required" /></td>
 </tr>
 <tr>
 <td>Date Of Birth</td>
-<td><form:input type="date" path="dateOfBirth" />
+<td><form:input type="date" path="dateOfBirth" required="required"/>
 </td>
 </tr>
 <tr>
 <td>Phone Number</td>
-<td><form:input path="phoneNumber"  /></td>
+<td><form:input path="phoneNumber" required="required" /></td>
 </tr>
 </table>
 <table style="background-color: #edffec; margin-left: 20px; margin-right: 20px;">
 <tr>
-<form:hidden path="addresses[0].addressId"/>
+<form:hidden path="addresses[0].addressId" />
 </tr>
 <h3>Permanent Address</h3>
 <tr>
 <td>Street Address</td>
-<td><form:input path="addresses[0].streetAddress" /></td>
+<td><form:input path="addresses[0].streetAddress" required="required"/></td>
 </tr>
 <tr>
 <td>City</td>
-<td><form:input path="addresses[0].city" /></td>
+<td><form:input path="addresses[0].city" required="required"/></td>
 </tr>
 <tr>
 <td>State</td>
-<td><form:input path="addresses[0].state" /></td>
+<td><form:input path="addresses[0].state" required="required"/></td>
 </tr>
 <tr>
 <td>Postal Code</td>
-<td><form:input path="addresses[0].postalCode" /></td>
+<td><form:input path="addresses[0].postalCode" required="required"/></td>
 </tr>
 </table>
 <table style="background-color: #edffec; margin-left: 20px; margin-right: 20px;">
@@ -104,19 +104,19 @@ color: white;
 <h3>Current Address</h3>
 <tr>
 <td>Street Address</td>
-<td><form:input path="addresses[1].streetAddress"  /></td>
+<td><form:input path="addresses[1].streetAddress" required="required" /></td>
 </tr>
 <tr>
 <td>City</td>
-<td><form:input path="addresses[1].city" /></td>
+<td><form:input path="addresses[1].city" required="required"/></td>
 </tr>
 <tr>
 <td>State</td>
-<td><form:input path="addresses[1].state" /></td>
+<td><form:input path="addresses[1].state" required="required"/></td>
 </tr>
 <tr>
 <td>Postal Code</td>
-<td><form:input path="addresses[1].postalCode"/></td>
+<td><form:input path="addresses[1].postalCode" required="required"/></td>
 </tr>
 </table>
 <center>

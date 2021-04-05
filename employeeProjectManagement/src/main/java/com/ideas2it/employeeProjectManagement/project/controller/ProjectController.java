@@ -14,6 +14,7 @@ import com.ideas2it.employeeProjectManagement.employee.model.Employee;
 import com.ideas2it.employeeProjectManagement.project.model.Project;
 import com.ideas2it.employeeProjectManagement.project.service.ProjectService;
 import com.ideas2it.employeeProjectManagement.project.service.impl.ProjectServiceImpl;
+import com.ideas2it.employeeProjectManagement.util.exception.EmployeeProjectManagementException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,12 +42,13 @@ public class ProjectController extends HttpServlet {
     /**
      * To insert the project details to the database by the project service
      *
+     * @param project
      * @throws IOException
      * @throws ServletException
      */
     @RequestMapping(value = "insertProject", method = RequestMethod.POST)
     private ModelAndView insertProject(@ModelAttribute("project") Project project)
-            throws IOException, ServletException {
+            throws IOException, ServletException, EmployeeProjectManagementException {
         ModelAndView modelAndView = new ModelAndView();
         int projectId = projectService.createProjectDetails(project);
         modelAndView.setViewName("success.jsp");
@@ -63,13 +65,14 @@ public class ProjectController extends HttpServlet {
      */
     @RequestMapping(value = "/projectDelete", method = RequestMethod.GET)
     private String projectDelete(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+            throws IOException, EmployeeProjectManagementException {
         int projectId = Integer.parseInt(request.getParameter("projectId"));
         projectService.deleteProject(projectId);
         return "redirect:projectList";
     }
 
     /**
+     * To get the project object send it for modelAttribute
      *
      * @param model
      * @return
@@ -90,11 +93,13 @@ public class ProjectController extends HttpServlet {
      * The project details obtained are updated in the database table
      * by this method
      *
+     * @param project
+     * @return
      * @throws IOException
      */
     @RequestMapping(value = "/projectUpdate", method = RequestMethod.POST)
     private String projectUpdate(@ModelAttribute("project") Project project)
-            throws IOException {
+            throws IOException, EmployeeProjectManagementException {
         projectService.updateProjectDetails(project);
         return "redirect:projectList";
     }
@@ -109,7 +114,7 @@ public class ProjectController extends HttpServlet {
      */
     @RequestMapping(value = "/projectList", method = RequestMethod.GET)
     private ModelAndView projectList(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
+            throws IOException, ServletException, EmployeeProjectManagementException {
         ModelAndView modelAndView = new ModelAndView();
         List<Project> projectList = projectService.getProjectList();
         modelAndView.setViewName("projectList.jsp");
@@ -128,7 +133,7 @@ public class ProjectController extends HttpServlet {
      */
     @RequestMapping("/projectEdit")
     private ModelAndView projectEdit(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, EmployeeProjectManagementException {
         ModelAndView modelAndView =  new ModelAndView();
         int projectId = Integer.parseInt(request.getParameter("projectId"));
         Project project = projectService.getProjectDetails(projectId);

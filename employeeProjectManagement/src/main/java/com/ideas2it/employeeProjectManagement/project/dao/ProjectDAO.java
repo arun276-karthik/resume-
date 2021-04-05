@@ -6,6 +6,7 @@ package com.ideas2it.employeeProjectManagement.project.dao;
 import java.util.List;
 
 import com.ideas2it.employeeProjectManagement.project.model.Project;
+import com.ideas2it.employeeProjectManagement.util.exception.EmployeeProjectManagementException;
 
 /**
  * ProjectDAO is an interface used to implement class ProjectDAOimpl which
@@ -23,7 +24,7 @@ public interface ProjectDAO {
      * @param project        the details to create projectDetails
      * @return               project Id
      */
-    int createProjectDetails(Project project);
+    int createProjectDetails(Project project) throws EmployeeProjectManagementException;
 
     /**
      * Interface to Delete project Details for projectId
@@ -31,7 +32,7 @@ public interface ProjectDAO {
      * @param projectId      ProjectId to delete the details
      * @return               boolean
      */
-    boolean deleteProject(int projectId);
+    boolean deleteProject(int projectId) throws EmployeeProjectManagementException;
 
     /**
      * Interface to view Project details by projectId
@@ -39,14 +40,14 @@ public interface ProjectDAO {
      * @param projectId      projectId to get the details
      * @return				 project details
      */
-    Project getProjectDetails(int projectId);
+    Project getProjectDetails(int projectId) throws EmployeeProjectManagementException;
 
     /**
      * Interface to view List of all projects
      *
      * @return               Projects List
      */
-    List<Project> getProjectList();
+    List<Project> getProjectList() throws EmployeeProjectManagementException;
 
     /**
      * To check the project is updated or not
@@ -54,12 +55,12 @@ public interface ProjectDAO {
      * @param project        contains the project details to update
      * @return			     boolean
      */
-    boolean isUpdateProjectDetails(Project project);
+    boolean isUpdateProjectDetails(Project project) throws EmployeeProjectManagementException;
 
     /**
      * To assign project to user
      *
      * @return			     List of projects available
      */
-    Project employeeProjectDetails(int employeeProjects);
+    Project employeeProjectDetails(int employeeProjects) throws EmployeeProjectManagementException;
 }

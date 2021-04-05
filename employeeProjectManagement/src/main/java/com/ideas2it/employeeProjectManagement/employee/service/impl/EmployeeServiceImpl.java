@@ -13,6 +13,7 @@ import com.ideas2it.employeeProjectManagement.employee.service.EmployeeService;
 import com.ideas2it.employeeProjectManagement.project.model.Project;
 import com.ideas2it.employeeProjectManagement.project.service.ProjectService;
 import com.ideas2it.employeeProjectManagement.project.service.impl.ProjectServiceImpl;
+import com.ideas2it.employeeProjectManagement.util.exception.EmployeeProjectManagementException;
 
 /**
  * EmployeeService is an Service class which performs logics and store values 
@@ -34,7 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      *
      * @return employeeList  the Employee details list
      */
-    public List<Employee> getEmployeeList() {
+    public List<Employee> getEmployeeList() throws EmployeeProjectManagementException {
         List<Employee> employeeList = employeeDAO.getEmployeeList();
         return employeeList;
     }
@@ -45,7 +46,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      *
      * @param employee
      */
-    public int createEmployeeDetails(Employee employee) {
+    public int createEmployeeDetails(Employee employee) throws EmployeeProjectManagementException {
         int employeeId = employeeDAO.createEmployeeDetails(employee);
 		return employeeId;
     }
@@ -56,7 +57,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param  employeeId    to delete the details by employeeId
      * @return               boolean
      */
-    public boolean employeeDelete(int employeeId) {
+    public boolean employeeDelete(int employeeId)throws EmployeeProjectManagementException {
         return employeeDAO.deleteEmployee(employeeId);
     }
 
@@ -67,7 +68,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param employee
      */
 
-    public boolean updateEmployeeDetails(Employee employee) {
+    public boolean updateEmployeeDetails(Employee employee) throws EmployeeProjectManagementException {
         boolean isEmployeeUpdate = employeeDAO.isUpdateEmployeeDetails(employee);
         return true == isEmployeeUpdate;
     }
@@ -77,7 +78,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      *
      * @param employeeId  to get the employee details of this id
      */
-    public Employee getEmployeeDetails(int employeeId) {
+    public Employee getEmployeeDetails(int employeeId) throws EmployeeProjectManagementException {
         Employee employee = employeeDAO.getEmployeeDetails(employeeId);
         return employee;
     }
@@ -89,7 +90,8 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param employeeProjects  projects for employeeId
      * @return                  boolean
      */
-    public boolean assignProject(int employeeId, List<String> employeeProjects) {
+    public boolean assignProject(int employeeId, List<String> employeeProjects) throws
+            EmployeeProjectManagementException {
         Employee employee = employeeDAO.getEmployeeDetails(employeeId);
         List<Integer> projectsOfEmployee = new ArrayList<Integer>(employeeProjects.size());
         for(String projects : employeeProjects) {
@@ -104,7 +106,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * To get the projectIds List
      * @return              projectId lists
      */
-    public List<Project> availableProjects() {
+    public List<Project> availableProjects() throws EmployeeProjectManagementException {
         return projectService.getProjectList();
     }
 }

@@ -79,7 +79,7 @@ body {
 				<td>City</td>
 				<td><form:input path="addresses[0].city" value="${employee.addresses.get(0).city}" required="required"/></td>
 			</tr>
-			<tr>
+ 			<tr>
 				<td>State</td>
 				<td><form:input path="addresses[0].state" value="${employee.addresses.get(0).state}" required="required"/></td>
 			</tr>
@@ -107,6 +107,8 @@ body {
             				<td>Postal Code</td>
             				<td><form:input path="addresses[1].postalCode" pattern="[0-9]+" value="${employee.addresses.get(1).postalCode}" required="required"/></td>
             			</tr>
+
+
 		</table>
 
 		<tr>

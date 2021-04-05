@@ -17,6 +17,7 @@ import com.ideas2it.employeeProjectManagement.employee.model.Employee;
 import com.ideas2it.employeeProjectManagement.employee.service.EmployeeService;
 import com.ideas2it.employeeProjectManagement.employee.service.impl.EmployeeServiceImpl;
 import com.ideas2it.employeeProjectManagement.project.model.Project;
+import com.ideas2it.employeeProjectManagement.util.exception.EmployeeProjectManagementException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,12 +39,13 @@ public class EmployeeController extends HttpServlet {
     /**
      * To send employee details to service this method is used to insert in datab
      *
+     * @param  employee
      * @throws IOException
      * @throws ServletException
      */
     @RequestMapping(value = "insertEmployee", method = RequestMethod.POST)
     private ModelAndView insertEmployee(@ModelAttribute("employee") Employee employee)
-            throws IOException, ServletException {
+            throws IOException, ServletException, EmployeeProjectManagementException {
         ModelAndView modelAndView = new ModelAndView();
         int employeeId = employeeService.createEmployeeDetails(employee);
         modelAndView.setViewName("success.jsp");
@@ -60,7 +62,7 @@ public class EmployeeController extends HttpServlet {
      */
     @RequestMapping("/employeeDelete")
     private String employeeDelete(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+            throws IOException, EmployeeProjectManagementException {
         int employeeId = Integer.parseInt(request.getParameter("employeeId"));
         employeeService.employeeDelete(employeeId);
         return "redirect:employeeList";
@@ -73,8 +75,8 @@ public class EmployeeController extends HttpServlet {
      * * @throws IOException
      */
     @RequestMapping(value = "/employeeUpdate", method = RequestMethod.POST)
-    private String employeeUpdate(@ModelAttribute Employee employee)
-            throws IOException, ServletException {
+    private String employeeUpdate(@ModelAttribute("employee") Employee employee)
+            throws IOException, ServletException, EmployeeProjectManagementException {
         employeeService.updateEmployeeDetails(employee);
         return "redirect:employeeList";
     }
@@ -93,6 +95,9 @@ public class EmployeeController extends HttpServlet {
         addresses.add(new Address());
         addresses.add(new Address());
         employee.setAddresses(addresses);
+        List<Project> projects = new ArrayList<>();
+        projects.add(new Project());
+        employee.setProjects(projects);
         model.addObject("employee", employee);
         model.setViewName("addEmployee.jsp");
         return model;
@@ -108,7 +113,7 @@ public class EmployeeController extends HttpServlet {
      */
     @RequestMapping(value = "/employeeList", method = RequestMethod.GET)
     private ModelAndView employeeList(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
+            throws IOException, ServletException, EmployeeProjectManagementException {
         ModelAndView modelAndView = new ModelAndView();
         List<Employee> employeeList = employeeService.getEmployeeList();
         modelAndView.setViewName("employeeList.jsp");
@@ -127,7 +132,7 @@ public class EmployeeController extends HttpServlet {
      */
     @RequestMapping("/employeeEdit")
     private ModelAndView employeeEdit(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, EmployeeProjectManagementException {
         ModelAndView modelAndView = new ModelAndView();
         int employeeId = Integer.parseInt(request.getParameter("employeeId"));
         Employee employee = employeeService.getEmployeeDetails(employeeId);
@@ -139,14 +144,19 @@ public class EmployeeController extends HttpServlet {
     /**
      * To assign the projects for an employee
      *
+     * @param request
+     * @param response
      * @throws ServletException
      * @throws IOException
      */
     @RequestMapping(value = "/assignProject", method = RequestMethod.POST)
     private String assignProject(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, EmployeeProjectManagementException {
             String[] projects = request.getParameterValues("project");
-            List employeeProjects = Arrays.asList(projects);
+            if (projects == null) {
+                projects = new String[0];
+            }
+            List<String> employeeProjects = Arrays.asList(projects);
             int employeeId = Integer.parseInt(request.getParameter("employeeId"));
             employeeService.assignProject(employeeId, employeeProjects);
         return ("redirect:employeeList");
@@ -162,7 +172,7 @@ public class EmployeeController extends HttpServlet {
      */
     @RequestMapping(value = "/employeeProject", method = RequestMethod.GET)
     private ModelAndView employeeProject(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+            throws IOException, EmployeeProjectManagementException {
         ModelAndView modelAndView = new ModelAndView();
         int employeeId = Integer.parseInt(request.getParameter("employeeId"));
         List<Project> projectList = employeeService.availableProjects();

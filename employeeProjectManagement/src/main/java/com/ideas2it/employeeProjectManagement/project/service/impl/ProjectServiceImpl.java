@@ -14,6 +14,7 @@ import com.ideas2it.employeeProjectManagement.project.dao.ProjectDAO;
 import com.ideas2it.employeeProjectManagement.project.dao.impl.ProjectDAOImpl;
 import com.ideas2it.employeeProjectManagement.project.model.Project;
 import com.ideas2it.employeeProjectManagement.project.service.ProjectService;
+import com.ideas2it.employeeProjectManagement.util.exception.EmployeeProjectManagementException;
 
 /**
  * ProjectService is an Service class which performs logics and store values in
@@ -33,7 +34,7 @@ public class ProjectServiceImpl implements ProjectService{
      *
      * @return projectDetailsList  the list of projects
      */
-    public List<Project> getProjectList() {
+    public List<Project> getProjectList() throws EmployeeProjectManagementException {
         List<Project> projectList = projectDAO.getProjectList();
         return projectList;
     }
@@ -43,7 +44,7 @@ public class ProjectServiceImpl implements ProjectService{
      *
      * @return projectDetailsList  the list of projectIds
      */
-    public List<Set<Integer>> availableProjects() {
+    public List<Set<Integer>> availableProjects() throws EmployeeProjectManagementException {
         List<Set<Integer>> projectsList = new ArrayList<Set<Integer>>();
         List<Project> projectList = projectDAO.getProjectList();
         for (Project project : projectList) {
@@ -60,7 +61,7 @@ public class ProjectServiceImpl implements ProjectService{
      *
      * @return projectId      preoject id for this project
      */
-    public int createProjectDetails(Project project) {
+    public int createProjectDetails(Project project) throws EmployeeProjectManagementException {
         int projectId = projectDAO.createProjectDetails(project);
         return projectId;
     }
@@ -71,7 +72,7 @@ public class ProjectServiceImpl implements ProjectService{
      * @param  projectId    to remove the details by id
      * @return true         project id
      */
-    public boolean deleteProject(int projectId) {
+    public boolean deleteProject(int projectId) throws EmployeeProjectManagementException {
         return projectDAO.deleteProject(projectId);
     }
 
@@ -80,7 +81,7 @@ public class ProjectServiceImpl implements ProjectService{
      *
      * @return                boolean
      */
-    public boolean updateProjectDetails(Project project) {
+    public boolean updateProjectDetails(Project project) throws EmployeeProjectManagementException {
         return projectDAO.isUpdateProjectDetails(project);
     }
 
@@ -90,7 +91,7 @@ public class ProjectServiceImpl implements ProjectService{
      * @param projectId      enter id to view project details
      * @return               projectDetailsList
      */
-    public Project getProjectDetails(int projectId) {
+    public Project getProjectDetails(int projectId) throws EmployeeProjectManagementException {
         Project project= projectDAO.getProjectDetails(projectId);
 //        Map<String, Object> projectDetails = new LinkedHashMap<String, Object>();
 //        projectDetails.put("ProjectId", project.getProjectId());
@@ -107,7 +108,7 @@ public class ProjectServiceImpl implements ProjectService{
      * @param employeeProjects  list of project ids
      * @return                  employees
      */
-    public List<Project> employeeProjectDetails(List<Integer> employeeProjects) {
+    public List<Project> employeeProjectDetails(List<Integer> employeeProjects) throws EmployeeProjectManagementException {
         List<Project> employeeProjectList = new ArrayList<Project>();
         for (int projectId : employeeProjects) {
             employeeProjectList.add(projectDAO.employeeProjectDetails(projectId));

@@ -5,6 +5,9 @@ package com.ideas2it.employeeProjectManagement.project.dao.impl;
 
 import java.util.List;
 
+import com.ideas2it.employeeProjectManagement.util.constants.Constants;
+import com.ideas2it.employeeProjectManagement.util.exception.EmployeeProjectManagementException;
+import com.ideas2it.employeeProjectManagement.util.logger.EmployeeProjectManagementLogger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -25,13 +28,15 @@ import com.ideas2it.employeeProjectManagement.project.model.Project;
  */
 public class ProjectDAOImpl implements ProjectDAO {
 
+    EmployeeProjectManagementLogger employeeProjectManagementLogger = new  EmployeeProjectManagementLogger(ProjectDAOImpl.class.getName());
+
     /**
      * Insert Project Details method which inserts the values in the projects
      * table with the auto increment of project Id.
      *
      * @param  project       to get the values from the
      */
-    public int createProjectDetails(Project project) {
+    public int createProjectDetails(Project project) throws EmployeeProjectManagementException {
         Session session = DBConnection.getSessionFactory().openSession();
         Transaction transaction = null;
         int projectId = 0;
@@ -40,9 +45,10 @@ public class ProjectDAOImpl implements ProjectDAO {
             transaction = session.beginTransaction();
             projectId = (Integer) session.save(project);
             transaction.commit();
-        } catch (HibernateException e) {
+        } catch (HibernateException exception) {
             if (transaction != null) transaction.rollback();
-            e.printStackTrace();
+            employeeProjectManagementLogger.error(Constants.EXCEPTION_ADD_EMPLOYEE, exception);
+            throw new EmployeeProjectManagementException(Constants.EXCEPTION_ADD_PROJECT);
         } finally {
             session.close();
             return projectId;
@@ -55,23 +61,22 @@ public class ProjectDAOImpl implements ProjectDAO {
      * @param projectId      it is the projectid to delete details of project
      * @return               boolean
      */
-    public boolean deleteProject(int projectId) {
+    public boolean deleteProject(int projectId) throws EmployeeProjectManagementException {
         Session session = DBConnection.getSessionFactory().openSession();
         Transaction transaction = null;
-
         try {
             transaction = session.beginTransaction();
             Project project = session.get(Project.class, projectId);
             session.delete(project);
             transaction.commit();
             return true;
-        } catch (HibernateException e) {
+        } catch (HibernateException exception) {
             if (null != transaction) transaction.rollback();
-            e.printStackTrace();
+            employeeProjectManagementLogger.error(Constants.EXCEPTION_DELETE_PROJECT, exception);
+            throw new EmployeeProjectManagementException(Constants.EXCEPTION_DELETE_PROJECT);
         } finally {
             session.close();
         }
-        return false;
     }
 
     /**
@@ -80,28 +85,24 @@ public class ProjectDAOImpl implements ProjectDAO {
      * @param project        the project details to update
      * @return               boolean
      */
-    public boolean isUpdateProjectDetails(Project project) {
+    public boolean isUpdateProjectDetails(Project project) throws EmployeeProjectManagementException {
         //Project  updateProjectDetail = null;
         Session session = DBConnection.getSessionFactory().openSession();
         Transaction transaction = null;
 
         try {
             transaction = session.beginTransaction();
-			/*updateProjectDetail = (Project)session.get(Project.class, project.getProjectId());
-			updateProjectDetail.setProjectName(project.getProjectName());
-			updateProjectDetail.setProjectDueDate(project.getProjectDueDate());
-			updateProjectDetail.setProjectManager(project.getProjectManager());
-			*/
             session.update(project);
             transaction.commit();
             return true;
-        } catch (Exception e) {
+        } catch (Exception exception) {
             if (transaction!=null) transaction.rollback();
             //e.printStackTrace();
+            employeeProjectManagementLogger.error(Constants.EXCEPTION_UPDATE_PROJECT, exception);
+            throw new EmployeeProjectManagementException(Constants.EXCEPTION_UPDATE_PROJECT);
         } finally {
             session.close();
         }
-        return false;
     }
 
     /**
@@ -111,7 +112,7 @@ public class ProjectDAOImpl implements ProjectDAO {
      * @param projectId     the details of this project id is displayed
      * @return               project details for an id
      */
-    public Project getProjectDetails(int projectId) {
+    public Project getProjectDetails(int projectId) throws EmployeeProjectManagementException {
         Project project = null;
         Session session = DBConnection.getSessionFactory().openSession();
         Transaction transaction = null;
@@ -121,9 +122,11 @@ public class ProjectDAOImpl implements ProjectDAO {
             project = session.get(Project.class, projectId);
             transaction.commit();
 
-        } catch (HibernateException e) {
+        } catch (HibernateException exception) {
             if (null != transaction) transaction.rollback();
-            e.printStackTrace();
+            //e.printStackTrace();
+            employeeProjectManagementLogger.error(Constants.EXCEPTION_VIEWDETAIL_PROJECT, exception);
+            throw new EmployeeProjectManagementException(Constants.EXCEPTION_VIEWDETAIL_PROJECT);
         } finally {
             session.close();
             return project;
@@ -135,7 +138,7 @@ public class ProjectDAOImpl implements ProjectDAO {
      *
      * @return               project details List for an id
      */
-    public List<Project> getProjectList() {
+    public List<Project> getProjectList() throws EmployeeProjectManagementException{
         List<Project> project = null;
         Session session = DBConnection.getSessionFactory().openSession();
         Transaction transaction = null;
@@ -144,10 +147,12 @@ public class ProjectDAOImpl implements ProjectDAO {
             transaction = session.beginTransaction();
             project = session.createQuery("FROM Project").list();
             transaction.commit();
-        } catch (HibernateException e) {
+        } catch (HibernateException exception) {
             if (null != transaction)
                 transaction.rollback();
-            e.printStackTrace();
+            //e.printStackTrace();
+            employeeProjectManagementLogger.error(Constants.EXCEPTION_VIEWLIST_PROJECT, exception);
+            throw new EmployeeProjectManagementException(Constants.EXCEPTION_VIEWLIST_PROJECT);
         } finally {
             session.close();
             return project;
@@ -157,18 +162,19 @@ public class ProjectDAOImpl implements ProjectDAO {
     /**
      * @param projectId  projectId
      */
-    public Project employeeProjectDetails(int projectId) {
+    public Project employeeProjectDetails(int projectId) throws EmployeeProjectManagementException {
         Project  project= null;
         Session session = DBConnection.getSessionFactory().openSession();
         Transaction transaction = null;
-
         try {
             transaction = session.beginTransaction();
             project= session.get(Project.class, projectId);
             transaction.commit();
-        } catch (HibernateException e) {
+        } catch (HibernateException exception) {
             if (transaction != null) transaction.rollback();
-            e.printStackTrace();
+            //e.printStackTrace();
+            employeeProjectManagementLogger.error(Constants.EXCEPTION_VIEWDETAIL_PROJECT, exception);
+            throw new EmployeeProjectManagementException(Constants.EXCEPTION_VIEWDETAIL_PROJECT);
         } finally {
             session.close();
             return project;

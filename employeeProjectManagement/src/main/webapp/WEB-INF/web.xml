@@ -4,14 +4,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee                       
 http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
-	<!--
 	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>/index.jsp</welcome-file>
 	</welcome-file-list>
--->
-
-
-
 
 	<display-name>Employee Project Management</display-name>
 	<servlet>
@@ -23,8 +18,5 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	<error-page>
-		<exception-type>java.lang.Exception</exception-type>
-		<location>/errorPage.jsp</location>
-	</error-page>
+
 </web-app>
