@@ -6,6 +6,7 @@ package com.ideas2it.employeeProjectManagement.employee.dao.impl;
 
 import java.util.List;
 
+
 import com.ideas2it.employeeProjectManagement.util.constants.Constants;
 
 import com.ideas2it.employeeProjectManagement.util.logger.EmployeeProjectManagementLogger;
@@ -30,6 +31,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     EmployeeProjectManagementLogger employeeProjectManagementLogger = new  EmployeeProjectManagementLogger(EmployeeDAOImpl.class.getName());
 
+    //Logger logger = Logger.getLogger(EmployeeDAOImpl.class.getName());
     /**
      * Insert Employee Details method which inserts the values in the employee
      * table with the auto increment of employee Id.
@@ -44,13 +46,16 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             transaction = session.beginTransaction();
             employeeId = (Integer) session.save(employee);
             transaction.commit();
-        } catch (Exception exception) {
-            if (transaction != null) transaction.rollback();
+            return employeeId;
+        } catch (HibernateException exception) {
+            if (null != transaction) {
+                transaction.rollback();
+            }
+            //exception.printStackTrace();
             employeeProjectManagementLogger.error(Constants.EXCEPTION_ADD_EMPLOYEE, exception);
             throw new EmployeeProjectManagementException(Constants.EXCEPTION_ADD_EMPLOYEE);
         } finally {
             session.close();
-            return employeeId;
         }
     }
 
@@ -63,7 +68,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public boolean deleteEmployee(int employeeId) throws EmployeeProjectManagementException {
         Session session = DBConnection.getSessionFactory().openSession();
         Transaction transaction = null;
-
         try {
             transaction = session.beginTransaction();
             Employee employee = session.get(Employee.class, employeeId);
@@ -71,11 +75,11 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             transaction.commit();
             return true;
         } catch (HibernateException exception) {
-            if (null != transaction)
+            if (null != transaction) {
                 transaction.rollback();
+            }
             employeeProjectManagementLogger.error(Constants.EXCEPTION_DELETE_EMPLOYEE, exception);
             throw new EmployeeProjectManagementException(Constants.EXCEPTION_DELETE_EMPLOYEE);
-
         } finally {
             session.close();
         }
@@ -94,8 +98,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             session.update(employee);
             transaction.commit();
             return true;
-        } catch (Exception exception) {
-            if (transaction != null) transaction.rollback();
+        } catch (HibernateException exception) {
+            if (null != transaction) {
+                transaction.rollback();
+            }
             //e.printStackTrace();
             employeeProjectManagementLogger.error(Constants.EXCEPTION_UPDATE_EMPLOYEE, exception);
             throw new EmployeeProjectManagementException(Constants.EXCEPTION_UPDATE_EMPLOYEE);
@@ -115,20 +121,19 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         Employee employee = null;
         Session session = DBConnection.getSessionFactory().openSession();
         Transaction transaction = null;
-
         try {
             transaction = session.beginTransaction();
             employee = session.get(Employee.class, employeeId);
             transaction.commit();
+            return employee;
         } catch (HibernateException exception) {
-            if (null != transaction)
+            if (null != transaction) {
                 transaction.rollback();
-            //e.printStackTrace();
+            }
             employeeProjectManagementLogger.error(Constants.EXCEPTION_VIEWDETAIL_EMPLOYEE, exception);
             throw new EmployeeProjectManagementException(Constants.EXCEPTION_VIEWDETAIL_EMPLOYEE);
         } finally {
             session.close();
-            return employee;
         }
     }
 
@@ -145,15 +150,15 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             transaction = session.beginTransaction();
             employees = session.createQuery("FROM Employee").list();
             transaction.commit();
+            return employees;
         } catch (HibernateException exception) {
-            if (null != transaction)
+            if (null != transaction) {
                 transaction.rollback();
-            //e.printStackTrace();
+            }
             employeeProjectManagementLogger.error(Constants.EXCEPTION_VIEWLIST_EMPLOYEE, exception);
             throw new EmployeeProjectManagementException(Constants.EXCEPTION_VIEWLIST_EMPLOYEE);
         } finally {
             session.close();
-            return employees;
         }
     }
 
@@ -172,8 +177,9 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             transaction.commit();
             return true;
         } catch (HibernateException exception) {
-            if (transaction != null) transaction.rollback();
-            //e.printStackTrace();
+            if (null != transaction) {
+                transaction.rollback();
+            }
             employeeProjectManagementLogger.error(Constants.EXCEPTION_ASSSIGN_EMPLOYEE, exception);
             throw new EmployeeProjectManagementException(Constants.EXCEPTION_ASSSIGN_EMPLOYEE);
         } finally {

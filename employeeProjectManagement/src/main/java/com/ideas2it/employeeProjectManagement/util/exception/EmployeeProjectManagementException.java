@@ -9,6 +9,10 @@ package com.ideas2it.employeeProjectManagement.util.exception;
  */
 public class EmployeeProjectManagementException extends Exception {
 
+    /**
+     *
+     * @param message
+     */
     public EmployeeProjectManagementException(String message) {
         super(message);
     }

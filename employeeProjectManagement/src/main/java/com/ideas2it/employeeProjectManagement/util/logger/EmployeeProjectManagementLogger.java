@@ -42,6 +42,15 @@ public class EmployeeProjectManagementLogger {
     }
 
     /**
+     * To log the info of an application
+     *
+     * @param
+     */
+    public void info(Exception exception) {
+        logger.info(exception);
+    }
+
+    /**
      * To log the warning messages of an application
      *
      * @param message
@@ -58,6 +67,15 @@ public class EmployeeProjectManagementLogger {
      */
     public void error(String message, Exception exception) {
         logger.error(message, exception);
+    }
+
+    /**
+     * To log the error messages of an application
+     *
+     * @param message
+     */
+    public void error(String message) {
+        logger.error(message);
     }
 
     /**

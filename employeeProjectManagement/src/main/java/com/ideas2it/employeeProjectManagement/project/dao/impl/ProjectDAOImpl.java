@@ -45,13 +45,13 @@ public class ProjectDAOImpl implements ProjectDAO {
             transaction = session.beginTransaction();
             projectId = (Integer) session.save(project);
             transaction.commit();
+            return projectId;
         } catch (HibernateException exception) {
             if (transaction != null) transaction.rollback();
             employeeProjectManagementLogger.error(Constants.EXCEPTION_ADD_EMPLOYEE, exception);
             throw new EmployeeProjectManagementException(Constants.EXCEPTION_ADD_PROJECT);
         } finally {
             session.close();
-            return projectId;
         }
     }
 
@@ -121,7 +121,7 @@ public class ProjectDAOImpl implements ProjectDAO {
             transaction = session.beginTransaction();
             project = session.get(Project.class, projectId);
             transaction.commit();
-
+            return project;
         } catch (HibernateException exception) {
             if (null != transaction) transaction.rollback();
             //e.printStackTrace();
@@ -129,7 +129,6 @@ public class ProjectDAOImpl implements ProjectDAO {
             throw new EmployeeProjectManagementException(Constants.EXCEPTION_VIEWDETAIL_PROJECT);
         } finally {
             session.close();
-            return project;
         }
     }
 
@@ -147,6 +146,7 @@ public class ProjectDAOImpl implements ProjectDAO {
             transaction = session.beginTransaction();
             project = session.createQuery("FROM Project").list();
             transaction.commit();
+            return project;
         } catch (HibernateException exception) {
             if (null != transaction)
                 transaction.rollback();
@@ -155,7 +155,6 @@ public class ProjectDAOImpl implements ProjectDAO {
             throw new EmployeeProjectManagementException(Constants.EXCEPTION_VIEWLIST_PROJECT);
         } finally {
             session.close();
-            return project;
         }
     }
 
@@ -170,6 +169,7 @@ public class ProjectDAOImpl implements ProjectDAO {
             transaction = session.beginTransaction();
             project= session.get(Project.class, projectId);
             transaction.commit();
+            return project;
         } catch (HibernateException exception) {
             if (transaction != null) transaction.rollback();
             //e.printStackTrace();
@@ -177,7 +177,6 @@ public class ProjectDAOImpl implements ProjectDAO {
             throw new EmployeeProjectManagementException(Constants.EXCEPTION_VIEWDETAIL_PROJECT);
         } finally {
             session.close();
-            return project;
         }
     }
 }

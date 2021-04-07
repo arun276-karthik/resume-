@@ -13,11 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ideas2it.employeeProjectManagement.address.model.Address;
+import com.ideas2it.employeeProjectManagement.employee.dao.impl.EmployeeDAOImpl;
 import com.ideas2it.employeeProjectManagement.employee.model.Employee;
 import com.ideas2it.employeeProjectManagement.employee.service.EmployeeService;
 import com.ideas2it.employeeProjectManagement.employee.service.impl.EmployeeServiceImpl;
 import com.ideas2it.employeeProjectManagement.project.model.Project;
+import com.ideas2it.employeeProjectManagement.util.constants.Constants;
 import com.ideas2it.employeeProjectManagement.util.exception.EmployeeProjectManagementException;
+import com.ideas2it.employeeProjectManagement.util.logger.EmployeeProjectManagementLogger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,20 +39,27 @@ public class EmployeeController extends HttpServlet {
 
     EmployeeService employeeService = new EmployeeServiceImpl();
 
+    EmployeeProjectManagementLogger employeeProjectManagementLogger = new EmployeeProjectManagementLogger(EmployeeDAOImpl.class.getName());
+
     /**
      * To send employee details to service this method is used to insert in datab
      *
-     * @param  employee
+     * @param employee
      * @throws IOException
      * @throws ServletException
      */
     @RequestMapping(value = "insertEmployee", method = RequestMethod.POST)
-    private ModelAndView insertEmployee(@ModelAttribute("employee") Employee employee)
-            throws IOException, ServletException, EmployeeProjectManagementException {
+    private ModelAndView insertEmployee(@ModelAttribute("employee") Employee employee) {
         ModelAndView modelAndView = new ModelAndView();
-        int employeeId = employeeService.createEmployeeDetails(employee);
-        modelAndView.setViewName("success.jsp");
-        modelAndView.addObject("employeeId", employeeId);
+        try {
+            int employeeId = employeeService.createEmployeeDetails(employee);
+            modelAndView.setViewName("success.jsp");
+            modelAndView.addObject("employeeId", employeeId);
+            employeeProjectManagementLogger.info("New Employee Added" + String.valueOf(employeeId) );
+            return modelAndView;
+        } catch (EmployeeProjectManagementException exception) {
+            employeeProjectManagementLogger.error(Constants.EXCEPTION_ADD_EMPLOYEE);
+        }
         return modelAndView;
     }
 
@@ -61,23 +71,33 @@ public class EmployeeController extends HttpServlet {
      * @throws IOException
      */
     @RequestMapping("/employeeDelete")
-    private String employeeDelete(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, EmployeeProjectManagementException {
-        int employeeId = Integer.parseInt(request.getParameter("employeeId"));
-        employeeService.employeeDelete(employeeId);
+    private String employeeDelete(HttpServletRequest request, HttpServletResponse response) {
+       try {
+           int employeeId = Integer.parseInt(request.getParameter("employeeId"));
+           employeeService.employeeDelete(employeeId);
+           employeeProjectManagementLogger.info("Employee Deleted" + String.valueOf(employeeId));
+           return "redirect:employeeList";
+       } catch (EmployeeProjectManagementException exception) {
+           employeeProjectManagementLogger.error(Constants.EXCEPTION_DELETE_EMPLOYEE);
+       }
         return "redirect:employeeList";
     }
 
     /**
      * The employee details obtained are updated in the database table
      * by thhis method
-     *
+     * <p>
      * * @throws IOException
      */
     @RequestMapping(value = "/employeeUpdate", method = RequestMethod.POST)
-    private String employeeUpdate(@ModelAttribute("employee") Employee employee)
-            throws IOException, ServletException, EmployeeProjectManagementException {
-        employeeService.updateEmployeeDetails(employee);
+    private String employeeUpdate(@ModelAttribute("employee") Employee employee) {
+        try {
+            employeeService.updateEmployeeDetails(employee);
+            employeeProjectManagementLogger.info("employee updated" + String.valueOf(employee.getEmployeeId()));
+            return "redirect:employeeList";
+        } catch (EmployeeProjectManagementException exception) {
+            employeeProjectManagementLogger.error(Constants.EXCEPTION_UPDATE_EMPLOYEE);
+        }
         return "redirect:employeeList";
     }
 
@@ -85,21 +105,25 @@ public class EmployeeController extends HttpServlet {
      * To get the employee model and send it to create employee
      * details
      *
-     *  @throws IOException
+     * @throws IOException
      */
     @RequestMapping(value = "/getEmployee", method = RequestMethod.GET)
-    private ModelAndView getEmployee(ModelAndView model)
-            throws IOException, ServletException {
-        Employee employee = new Employee();
-        List<Address> addresses = new ArrayList<Address>();
-        addresses.add(new Address());
-        addresses.add(new Address());
-        employee.setAddresses(addresses);
-        List<Project> projects = new ArrayList<>();
-        projects.add(new Project());
-        employee.setProjects(projects);
-        model.addObject("employee", employee);
-        model.setViewName("addEmployee.jsp");
+    private ModelAndView getEmployee(ModelAndView model) {
+        try {
+            Employee employee = new Employee();
+            List<Address> addresses = new ArrayList<Address>();
+            addresses.add(new Address());
+            addresses.add(new Address());
+            employee.setAddresses(addresses);
+            List<Project> projects = new ArrayList<>();
+            projects.add(new Project());
+            employee.setProjects(projects);
+            model.addObject("employee", employee);
+            model.setViewName("addEmployee.jsp");
+            return model;
+        } catch (Exception exception){
+            employeeProjectManagementLogger.error(Constants.EXCEPTION_VIEWDETAIL_EMPLOYEE);
+        }
         return model;
     }
 
@@ -112,12 +136,16 @@ public class EmployeeController extends HttpServlet {
      * @throws ServletException
      */
     @RequestMapping(value = "/employeeList", method = RequestMethod.GET)
-    private ModelAndView employeeList(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException, EmployeeProjectManagementException {
+    private ModelAndView employeeList(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView();
-        List<Employee> employeeList = employeeService.getEmployeeList();
-        modelAndView.setViewName("employeeList.jsp");
-        modelAndView.addObject("employeeList", employeeList);
+        try {
+            List<Employee> employeeList = employeeService.getEmployeeList();
+            modelAndView.setViewName("employeeList.jsp");
+            modelAndView.addObject("employeeList", employeeList);
+            return modelAndView;
+        } catch(EmployeeProjectManagementException exception) {
+            employeeProjectManagementLogger.error(Constants.EXCEPTION_VIEWLIST_EMPLOYEE);
+        }
         return modelAndView;
     }
 
@@ -131,13 +159,17 @@ public class EmployeeController extends HttpServlet {
      * @throws IOException
      */
     @RequestMapping("/employeeEdit")
-    private ModelAndView employeeEdit(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, EmployeeProjectManagementException {
+    private ModelAndView employeeEdit(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView();
-        int employeeId = Integer.parseInt(request.getParameter("employeeId"));
-        Employee employee = employeeService.getEmployeeDetails(employeeId);
-        modelAndView.setViewName("updateEmployee.jsp");
-        modelAndView.addObject("employee", employee);
+        try {
+            int employeeId = Integer.parseInt(request.getParameter("employeeId"));
+            Employee employee = employeeService.getEmployeeDetails(employeeId);
+            modelAndView.setViewName("updateEmployee.jsp");
+            modelAndView.addObject("employee", employee);
+            return modelAndView;
+        } catch(EmployeeProjectManagementException  exception) {
+            employeeProjectManagementLogger.error(Constants.EXCEPTION_UPDATE_EMPLOYEE);
+        }
         return modelAndView;
     }
 
@@ -150,8 +182,8 @@ public class EmployeeController extends HttpServlet {
      * @throws IOException
      */
     @RequestMapping(value = "/assignProject", method = RequestMethod.POST)
-    private String assignProject(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, EmployeeProjectManagementException {
+    private String assignProject(HttpServletRequest request, HttpServletResponse response) {
+        try {
             String[] projects = request.getParameterValues("project");
             if (projects == null) {
                 projects = new String[0];
@@ -159,6 +191,11 @@ public class EmployeeController extends HttpServlet {
             List<String> employeeProjects = Arrays.asList(projects);
             int employeeId = Integer.parseInt(request.getParameter("employeeId"));
             employeeService.assignProject(employeeId, employeeProjects);
+            employeeProjectManagementLogger.info("Project assigned");
+            return ("redirect:employeeList");
+        } catch(EmployeeProjectManagementException exception) {
+            employeeProjectManagementLogger.error(Constants.EXCEPTION_ADD_PROJECT);
+        }
         return ("redirect:employeeList");
     }
 
@@ -171,15 +208,19 @@ public class EmployeeController extends HttpServlet {
      * @throws IOException
      */
     @RequestMapping(value = "/employeeProject", method = RequestMethod.GET)
-    private ModelAndView employeeProject(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, EmployeeProjectManagementException {
+    private ModelAndView employeeProject(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView();
-        int employeeId = Integer.parseInt(request.getParameter("employeeId"));
-        List<Project> projectList = employeeService.availableProjects();
-        Employee employee = employeeService.getEmployeeDetails(employeeId);
-        modelAndView.setViewName("assignEmployeeInProject.jsp");
-        modelAndView.addObject("employee", employee);
-        modelAndView.addObject("projectList", projectList);
+        try {
+            int employeeId = Integer.parseInt(request.getParameter("employeeId"));
+            List<Project> projectList = employeeService.availableProjects();
+            Employee employee = employeeService.getEmployeeDetails(employeeId);
+            modelAndView.setViewName("assignEmployeeInProject.jsp");
+            modelAndView.addObject("employee", employee);
+            modelAndView.addObject("projectList", projectList);
+            return modelAndView;
+        } catch(EmployeeProjectManagementException  exception) {
+            employeeProjectManagementLogger.error(Constants.EXCEPTION_ADD_PROJECT);
+        }
         return modelAndView;
     }
 }
