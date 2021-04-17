@@ -1,176 +1,247 @@
-/* @font-face {
-  font-family: geometric-706;
-  src: url(fonts/geometric-706-black-bt.ttf) format("truetype");
+@font-face {
+    font-family: geometric-706;
+    src: url(fonts/geometric-706-black-bt.ttf) format("truetype");
 }
 
 @font-face {
-  font-family: Mayberry;
-  src: url(fonts/Mayberry-W01-Regular.ttf) format("truetype");
+    font-family: Mayberry;
+    src: url(fonts/Mayberry-W01-Regular.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: Alwyn;
+    src: url(fonts/Alwyn-Regular.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: sans;
+    src: url(fonts/sans.ttf) format("truetype");
 }
 
 h1 {
-  font-family: geometric-706;
-  font-size: 2rem;
-  font-weight: 100;
-  font-size-adjust: auto;
+    font-family: geometric-706;
+    font-size: 28px;
+    font-weight: 100;
+    color: #1f3575;
+    margin-bottom: 0px;
 }
 
-h4, h3, h5 {
-  font-family: Mayberry;
+h4,
+h3,
+h5 {
+    font-family: sans;
+    color: #314786;
+    font-size: 23px;
+    font-weight: bold;
+    font-stretch: extra-expanded;
 }
 
-.button {
-  background-color: #367cff;
-  border-radius: 12px;
-  color: white;
-  text-align: center;
-  font-size: 1rem;
-  padding-top: 15px;
-  padding-right: 30px;
-  padding-bottom: 15px;
-  padding-left: 15px; 
-  border: none;
-}
-
-.button-block {
-  padding-left: 10%;
-  margin-top: 50px;
-}
-
-.column1-top img {
-  border-radius: 100px;
-  width: 130px;
-  height: 130px;
-  margin-top: 50px;
-  margin-left: 50px;
-}
-
-page {
-  background: yellow;
-  display: block;
-  margin: 0 auto;
-  margin-bottom: 0.5cm;
-}
-
-page[size="A4"] {  
-  width: 21cm;
-  height: 29.7cm; 
-}
-
-.name {
-  text-align: center;
-}
-
-.column1-bottom {
-  margin-top: 50px;
-}
-
-.detail div {
-  display: inline-block;
-  margin-left: 35px;
-  margin-bottom: 20px;
-  font-family: Mayberry;
-}
-
-.detail span {
-  display: inline-block;
-   /* background-color:grey;  */
-
-
-/* font-family: Mayberry;
-  margin-left: 20px;
-  font-weight: bold;
-}
-
-.next-line {
-  border-top: 1px solid red;
-  font-weight: bold;
-} */
-
-.resume {
-    margin: 50px;
-    width: 100%;
-    height: 100%;
+p {
+    margin-top: 20px;
+    width: 90%;
 }
 
 .column1 {
     display: inline-block;
-    width: 25%;
+    width: 22%;
     height: 100%;
-    background-color: lawngreen;
-    margin: 10px;
+    vertical-align: top;
 }
 
 .column2 {
     display: inline-block;
     width: 70%;
     height: 100%;
-    background-color: lemonchiffon;
-    margin: 10px;
+    vertical-align: top;
+    margin-left: 30px;
+}
+
+.column1-top {
+    padding-bottom: 20px;
 }
 
 .profile-pic {
     border-radius: 100px;
     height: 150px;
     width: 150px;
-    margin-top: 50px;
-    margin-left: 70px;
+    margin-left: 85px;
+    margin-top: 40px;
 }
 
 .name-section {
-    padding: 20px;
-    margin: 20px;
-    margin-top: 10px;
-    padding-top: 10px;
     text-align: center;
 }
 
+.name-section .sub-heading {
+    font-style: Mayberry;
+    color: #314786;
+    font-stretch: extra-expanded;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.column1-bottom {
+    padding-top: 20px;
+    font-style: Mayberry;
+}
+
 .profile-details {
-    padding: 10px;
+    padding: 10px 50px;
     border: 10px;
-    padding-left: 40px;
+    color: rgb(185, 181, 181);
 }
 
 .profile-details span {
-    padding-left: 20px;
+    padding-left: 15px;
+    color: #1f3575;
+    font-weight: bold;
+    font-family: Mayberry;
+    font-size: small;
 }
 
 .margin-line {
-    border-bottom: 1px solid grey;
+    border-bottom: 2px solid rgb(185, 181, 181, 0.2);
     margin-left: 25px;
     margin-right: 20px;
 }
 
-.location {
-    margin-left: 8px;
-}
-
-.hour {
-    margin-left: 4px;
-}
-
-.job {
-    margin-left: 4px;
+.profile-details .icon {
+    height: 16px;
+    width: 20px;
+    display: inline-block;
 }
 
 .button-section {
-    padding-left: 20px;
+    margin-left: 20px;
     margin-top: 50px;
 }
 
 .button {
     background-color: #367cff;
-    padding-top: 15px;
-    padding-right: 30px;
-    padding-bottom: 15px;
-    padding-left: 30px;
+    padding: 15px 30px;
     border-radius: 12px;
     color: white;
     text-align: center;
     border: none;
 }
 
+.column2-top {
+    margin-right: 80px;
+    font-family: Mayberry;
+    color: #66759c;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 40px;
+}
+
+.column2-middle {
+    margin-right: 80px;
+    margin-top: 70px;
+}
+
+.experience {
+    display: inline-block;
+    margin-bottom: 30px;
+}
+
+.experience-in {
+    display: inline-block;
+    height: 100px;
+    width: 260px;
+}
+
+.experience-in .institute {
+    display: inline-block;
+    height: 40px;
+    width: 85px;
+    font-size: 16px;
+    color: rgb(185, 181, 181);
+}
+
+.experience-in .icon-value {
+    display: inline-block;
+    color: rgb(185, 181, 181);
+}
+
+.experience-in .location {
+    height: 40px;
+    width: 90px;
+    font-size: 16px;
+    display: inline-block;
+    color: rgb(185, 181, 181);
+}
+
 .experience-period {
+    margin-left: 200px;
+    padding-left: 145px;
+    display: inline-block;
+    color: rgb(185, 181, 181);
+}
+
+.experience-period .period {
+    background-color: #c0edca;
+    padding: 6px 23px;
+    border-radius: 15px;
+    font-size: 16px;
+    color: #000000;
+    margin-bottom: 13px;
+    height: 20px;
+    width: 65px;
+    margin-left: 60px;
+}
+
+.experience-period .icon-value {
+    display: inline-block;
+    color: rgb(185, 181, 181);
+    text-align: right;
+}
+
+.education-in {
+    display: inline-block;
+    height: 100px;
+    width: 300px;
+}
+
+.batch .icon-value {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    color: rgb(185, 181, 181);
+}
+
+.batch .icon {
+    display: inline-block;
+    color: rgb(185, 181, 181);
+}
+
+.education .batch {
+    display: inline-block;
+    margin-left: 200px;
+    padding-left: 90px;
+}
+
+.education {
+    display: inline-block;
+    margin-bottom: 30px;
+}
+
+.icon-value {
+    font-size: 12px;
+    font-weight: bold;
+    color: rgb(185, 181, 181);
+}
+
+.education-in .university .icon {
+    display: inline-block;
+    color: rgb(185, 181, 181);
+}
+
+.education-in .university .icon-value {
+    display: inline-block;
+}
+
+
+/* .experience-period {
     display: block;
     background-color: #c0edca;
     padding: 6px 23px;
@@ -181,20 +252,26 @@ page[size="A4"] {
     margin-bottom: 13px;
     clear: both;
     float: right;
-}
+} */
 
-.experience-in {
+
+/* .experience-in {
     margin-bottom: 15px;
-}
+    font-size: 20px;
+    color: #314786;
+    font-family: Mayberry;
+    font-weight: bold;
+} */
 
-.experience-value .institute {
-    color: #367cff;
+
+/* .experience-value .institute {
+    color: rgb(185, 181, 181);
     display: inline-block;
     margin-right: 20px;
 }
 
 .experience-value .location {
-    color: #367cff;
+    color: rgb(185, 181, 181);
     display: inline-block;
     margin-left: 20px;
     justify-content: space-between;
@@ -204,14 +281,15 @@ page[size="A4"] {
     display: block;
     margin-right: 80px;
     font-size: 12px;
-    color: #000000;
+    color: rgb(185, 181, 181);
     clear: both;
     float: right;
     margin-top: -15px;
 }
 
-.column2-top {
-    margin-right: 80px;
+.column2-bottom {
+    height: 30%;
+    width: 100%;
 }
 
 .experience {
@@ -234,6 +312,10 @@ page[size="A4"] {
 
 .education-top {
     margin-bottom: 20px;
+    color: #314786;
+    font-size: 20px;
+    font-family: Mayberry;
+    font-weight: bold;
 }
 
 .education .batch {
@@ -245,3 +327,47 @@ page[size="A4"] {
     float: right;
     margin-top: 2px;
 }
+
+@font-face {
+    font-family: geometric-706;
+    src: url(fonts/geometric-706-black-bt.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: Mayberry;
+    src: url(fonts/Mayberry-W01-Regular.ttf) format("truetype");
+}
+
+h1 {
+    font-family: geometric-706;
+    font-size: 2rem;
+    font-weight: 100;
+    color: #1f3575;
+}
+
+h4,
+h3,
+h5 {
+    font-family: Mayberry;
+    color: #314786;
+}
+
+.icon-value {
+    font-size: 12px;
+    font-weight: bold;
+    color: rgb(185, 181, 181);
+}
+
+
+/* body {
+    width: 100vw;
+    height: 100vh;
+} */
+
+
+/* .education-bottom .university,
+.education-bottom .batch {
+    font-size: 12px;
+    font-weight: bold;
+    color: rgb(185, 181, 181);
+} */
